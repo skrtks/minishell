@@ -115,17 +115,17 @@ int main() {
 }
 ```
 
-## pipe():
+### pipe():
 Usage: _int pipe(int pipefd[2])_
 
 Creates a pipe, a unidirectional data channel that can be used for interprocess communication. The array pipefd is used to return two file descriptors referring to the ends of the pipe. pipefd[0] refers to the read end of the pipe. pipefd[1] refers to the write end of the pipe. Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.
 
 Return 0 on success and -1 on error.
 
-## strerror():
+### strerror():
 Usage: _char *strerror(int errnum)_
 
 Returns a string describing error number _errnum_.
 
-## errno:
+### errno:
 Errno is a variable that contains the error number of the last error.
