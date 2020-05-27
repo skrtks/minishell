@@ -3,26 +3,30 @@
 
 # Directory handling:
 ### getcwd():
-Get current working directory.
 Usage: _char *getcwd(char *buf, size_t size);_
+
+Get current working directory.
 
 getcwd mallocs for _buf_ for length _size_. If _size_ is 0, _buf_ is allocated as big as necessary. Returned buffer has to be freed!
 
 ### chdir():
-Change working directory.
 Usage: _int chdir(const char *path);_
+
+Change working directory.
 
 Returns 0 on success and -1 on error.
 
 ### opendir():
-Opens the directory stream of the provided _path_.
 Usage: _DIR *opendir(const char *name);_
+
+Opens the directory stream of the provided _path_.
 
 Return pointer to the directory stream or NULL on error.
 
 ### readdir():
-Reads a directory stream.
 Usage: _struct dirent *readdir(DIR *dirp);_
+
+Reads a directory stream.
 
 Returns a pointer to _dirent struct_ containing the next item in DIR or NULL on error.	 
 The struct has the following format:
@@ -64,30 +68,33 @@ int main(void) {
 }
 ```
 
-## closedir():
-Closes the directory stream associated with \*dirp.
+### closedir():
 Usage: _int closedir(DIR *dirp);_
+
+Closes the directory stream associated with \*dirp.
 
 Return 0 on success and -1 on error.
 
-## execve():
+### execve():
+Usage: _int execve(const char *pathname, char *const argv[], char *const envp[]);_
+
 Executes the program referred to by _pathname_.  This causes
 the program that is currently being run by the calling process to be
 *replaced with a new program*, with newly initialized stack, heap, and
 (initialized and uninitialized) data segments.
-Usage: _int execve(const char *pathname, char *const argv[], char *const envp[]);_
 
-## dup() & dup2():
-Both system calls duplicate an open filediscriptor. 
+### dup() & dup2():
 Usage:
 - _int dup(int oldfd)_
 - _int dup2(int oldfd, int newfd)_
+
+Both system calls duplicate an open filediscriptor. 
 Dup chooses the lowest available fd for the duplicate whereas dup2 let's. you specify the new fd. 
 Afterwards, both fd's can be used interchangebaly. 
 
 On success, these system calls return the new descriptor. On error, -1 is returned, and errno is set appropriately. 
 
-### Example for dup() & dup2():
+#### Example for dup() & dup2():
 ```
 fd 0 is stdin.
 If we want stdin to read from a file instead of from stdin, we can replace the file fd 0 refers to like so:
@@ -109,14 +116,16 @@ int main() {
 ```
 
 ## pipe():
-Creates a pipe, a unidirectional data channel that can be used for interprocess communication. The array pipefd is used to return two file descriptors referring to the ends of the pipe. pipefd[0] refers to the read end of the pipe. pipefd[1] refers to the write end of the pipe. Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.
 Usage: _int pipe(int pipefd[2])_
+
+Creates a pipe, a unidirectional data channel that can be used for interprocess communication. The array pipefd is used to return two file descriptors referring to the ends of the pipe. pipefd[0] refers to the read end of the pipe. pipefd[1] refers to the write end of the pipe. Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.
 
 Return 0 on success and -1 on error.
 
 ## strerror():
-Returns a string describing error number _errnum_.
 Usage: _char *strerror(int errnum)_
+
+Returns a string describing error number _errnum_.
 
 ## errno:
 Errno is a variable that contains the error number of the last error.
