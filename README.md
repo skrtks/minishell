@@ -1,6 +1,3 @@
-# File handling:
-- open, read, close
-
 # Directory handling:
 ### getcwd():
 Usage: _char *getcwd(char *buf, size_t size);_
@@ -75,13 +72,8 @@ Closes the directory stream associated with \*dirp.
 
 Return 0 on success and -1 on error.
 
-### execve():
-Usage: _int execve(const char *pathname, char *const argv[], char *const envp[]);_
-
-Executes the program referred to by _pathname_.  This causes
-the program that is currently being run by the calling process to be
-*replaced with a new program*, with newly initialized stack, heap, and
-(initialized and uninitialized) data segments.
+# File handling:
+- open, read, close
 
 ### dup() & dup2():
 Usage:
@@ -114,6 +106,16 @@ int main() {
 	return (0);
 }
 ```
+
+# Other:
+
+### execve():
+Usage: _int execve(const char *pathname, char *const argv[], char *const envp[]);_
+
+Executes the program referred to by _pathname_.  This causes
+the program that is currently being run by the calling process to be
+*replaced with a new program*, with newly initialized stack, heap, and
+(initialized and uninitialized) data segments.
 
 ### pipe():
 Usage: _int pipe(int pipefd[2])_
