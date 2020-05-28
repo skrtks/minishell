@@ -106,6 +106,16 @@ int main() {
 	return (0);
 }
 ```
+### stat() & lstat() & fstat():
+Usage:
+- _int stat(const char *restrict path, struct stat *restrict buf);_
+- _int lstat(const char *restrict path, struct stat *restrict buf);_
+- _int fstat(int fildes, struct stat *buf);_
+
+The stat() function obtains information about the file pointed to by _path_. The lstat() function is like stat() except in the case where the named file is a symbolic link; lstat() returns information about the link, while stat() returns information about the file the link references.
+The fstat() obtains the same information about an open file known by thefile descriptor _fildes_.
+
+Upon successful completion a value of 0 is returned. Otherwise, a value of -1 is returned and errno is set to indicate the error.
 
 # Wait, process termination.
 Good to know:
@@ -120,9 +130,9 @@ If wait() returns due to a stopped or terminated child process, the process ID o
 
 ### wait4() & wait3() & waitpid():
 Usage: 
-- _pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage);
-- pid_t wait3(int *stat_loc, int options, struct rusage *rusage);
-- pid_t waitpid(pid_t pid, int *stat_loc, int options);_
+- _pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage);_
+- _pid_t wait3(int *stat_loc, int options, struct rusage *rusage);_
+- _pid_t waitpid(pid_t pid, int *stat_loc, int options);_
 
 The _pid_ paramater specifies the set of child processes for which to wait. 
 
@@ -130,7 +140,7 @@ _stat_loc_ is a pointer to an area where status information about how the child 
 
 If _rusage_ is non-zero, a summary of the resources used by the terminated process and all its children is returned (this information is currently not available for stopped processes).
      
-Wait (4)provides a more general interface for programs that need to wait for certain child processes, that need resource utilization statistics accumulated by child processes. The older wait3() call is the same as wait4() with a pid value of -1. The waitpid() call is identical to wait4() with an rusage value of zero.
+Wait4() provides a more general interface for programs that need to wait for certain child processes, that need resource utilization statistics accumulated by child processes. The older wait3() call is the same as wait4() with a pid value of -1. The waitpid() call is identical to wait4() with an rusage value of zero.
 
 # Other:
 
@@ -142,6 +152,11 @@ the program that is currently being run by the calling process to be
 *replaced with a new program*, with newly initialized stack, heap, and
 (initialized and uninitialized) data segments.
 
+### exit():
+Usage: _void exit(int status)_
+
+Status is the status value returned to the parent process.
+
 ### fork():
 Usage: _pid_t fork(void);_
 
@@ -149,12 +164,27 @@ Causes creation of a new process, The new process (child process) is an exact co
 
 Upon succesful completion, fork() returns a value of 0 to the child process and returns the process ID of the child process to the parent process. If it isn't successful, a value of -1 is returned to the parent process, no child process is created, and the global variable eerno is set to indicate the error.
 
+### kill():
+usage: _int kill(pid_t pid, int sig);_
+
+Sends a signal to a process or a group of processes specified by pid. The signal to be sent is specified by sig.
+
 ### pipe():
 Usage: _int pipe(int pipefd[2]);_
 
 Creates a pipe, a unidirectional data channel that can be used for interprocess communication. The array pipefd is used to return two file descriptors referring to the ends of the pipe. pipefd[0] refers to the read end of the pipe. pipefd[1] refers to the write end of the pipe. Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.
 
 Return 0 on success and -1 on error.
+
+### signal():
+Usage: _void (*signal(int sig, void (*func)(int)))(int);_
+Or, in the equivalent but easier to read:
+_typedef void (*sig_t) (int);_
+_sig_t signal(int sig, sig_t func);
+
+Signals allow the manipulation of a process from outside its domain, as well as allowing the process to manipulate itself or copies of itself (children).  There are two general types of signals: those that cause termination of a process and those that do not.
+
+The _sig_ arguments specifies which signal was received(there are 31 options). The _func_ procedure allows a user to choose the action upon receipt of a signal. 
 
 ### strerror():
 Usage: _char *strerror(int errnum);_
