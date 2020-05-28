@@ -109,7 +109,7 @@ int main() {
 
 # Wait, process termination.
 Good to know:
-- pid_t is data type with a signed integer type which is capable of representing a process ID.
+- pid_t is a data type with a signed integer type which is capable of representing a process ID.
 
 ### wait():
 Usage: _pid_t wait(int *stat_loc);_
@@ -120,21 +120,17 @@ If wait() returns due to a stopped or terminated child process, the process ID o
 
 ### wait4() & wait3() & waitpid():
 Usage: 
-_pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage);_
-_pid_t wait3(int *stat_loc, int options, struct rusage *rusage);_
-_pid_t waitpid(pid_t pid, int *stat_loc, int options);_
+- _pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage);
+- pid_t wait3(int *stat_loc, int options, struct rusage *rusage);
+- pid_t waitpid(pid_t pid, int *stat_loc, int options);_
 
-The _pid_ paramater specifies the set of child processes for which to wait. if _pid_ is -1, the call waits for any child process. if _pid_ is 0, the call waits for any child process in the process group of the caller. If _pid_ is greater than zero, the call waits for the process with process _pid_.  If _pid_ is less than -1, the call waits for any process whoseprocess group ID equals the absolute value of pid.
+The _pid_ paramater specifies the set of child processes for which to wait. 
 
 _stat_loc_ is a pointer to an area where status information about how the child process ended is to be placed.
 
 If _rusage_ is non-zero, a summary of the resources used by the terminated process and all its children is returned (this information is currently not available for stopped processes).
      
-Wait (4)provides a more general interface for programs that need to wait for certain child processes, that need resource utilization statistics accumulated by child processes, or that require options. The other wait functions are implemented using wait4().
-
-The older wait3() call is the same as wait4() with a pid value of -1.
-
-The waitpid() call is identical to wait4() with an rusage value of zero.
+Wait (4)provides a more general interface for programs that need to wait for certain child processes, that need resource utilization statistics accumulated by child processes. The older wait3() call is the same as wait4() with a pid value of -1. The waitpid() call is identical to wait4() with an rusage value of zero.
 
 # Other:
 
