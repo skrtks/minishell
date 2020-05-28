@@ -77,8 +77,8 @@ Return 0 on success and -1 on error.
 
 ### dup() & dup2():
 Usage:
-- _int dup(int oldfd)_
-- _int dup2(int oldfd, int newfd)_
+- _int dup(int oldfd);_
+- _int dup2(int oldfd, int newfd);_
 
 Both system calls duplicate an open filediscriptor. 
 Dup chooses the lowest available fd for the duplicate whereas dup2 let's. you specify the new fd. 
@@ -107,6 +107,35 @@ int main() {
 }
 ```
 
+# Wait, process termination.
+Good to know:
+- pid_t is data type with a signed integer type which is capable of representing a process ID.
+
+### wait():
+Usage: _pid_t wait(int *stat_loc);_
+
+Suspends execution of its calling process until stat_loc information is available for a terminated child process, or a signal is received. 
+
+If wait() returns due to a stopped or terminated child process, the process ID of the child is returned to the calling process (saved in stat_loc).  Otherwise, a value of -1 is returned and errno is set to indicate the error. If any process has no child process, then wait() immediately returns -1.
+
+### wait4() & wait3() & waitpid():
+Usage: 
+_pid_t wait4(pid_t pid, int *stat_loc, int options, struct rusage *rusage);_
+_pid_t wait3(int *stat_loc, int options, struct rusage *rusage);_
+_pid_t waitpid(pid_t pid, int *stat_loc, int options);_
+
+The _pid_ paramater specifies the set of child processes for which to wait. if _pid_ is -1, the call waits for any child process. if _pid_ is 0, the call waits for any child process in the process group of the caller. If _pid_ is greater than zero, the call waits for the process with process _pid_.  If _pid_ is less than -1, the call waits for any process whoseprocess group ID equals the absolute value of pid.
+
+_stat_loc_ is a pointer to an area where status information about how the child process ended is to be placed.
+
+If _rusage_ is non-zero, a summary of the resources used by the terminated process and all its children is returned (this information is currently not available for stopped processes).
+     
+Wait (4)provides a more general interface for programs that need to wait for certain child processes, that need resource utilization statistics accumulated by child processes, or that require options. The other wait functions are implemented using wait4().
+
+The older wait3() call is the same as wait4() with a pid value of -1.
+
+The waitpid() call is identical to wait4() with an rusage value of zero.
+
 # Other:
 
 ### execve():
@@ -117,15 +146,22 @@ the program that is currently being run by the calling process to be
 *replaced with a new program*, with newly initialized stack, heap, and
 (initialized and uninitialized) data segments.
 
+### fork():
+Usage: _pid_t fork(void);_
+
+Causes creation of a new process, The new process (child process) is an exact copy of the calling process (parent process).
+
+Upon succesful completion, fork() returns a value of 0 to the child process and returns the process ID of the child process to the parent process. If it isn't successful, a value of -1 is returned to the parent process, no child process is created, and the global variable eerno is set to indicate the error.
+
 ### pipe():
-Usage: _int pipe(int pipefd[2])_
+Usage: _int pipe(int pipefd[2]);_
 
 Creates a pipe, a unidirectional data channel that can be used for interprocess communication. The array pipefd is used to return two file descriptors referring to the ends of the pipe. pipefd[0] refers to the read end of the pipe. pipefd[1] refers to the write end of the pipe. Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe.
 
 Return 0 on success and -1 on error.
 
 ### strerror():
-Usage: _char *strerror(int errnum)_
+Usage: _char *strerror(int errnum);_
 
 Returns a string describing error number _errnum_.
 
