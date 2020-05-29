@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:43:11 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/05/29 12:45:55 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/05/29 14:52:34 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static int		ft_read(int fd, char **input)
 		free(buffer);
 		return (-2);
 	}
+	ret--;
 	buffer[ret] = '\0';
 	*input = ft_strjoin(*input, buffer);
 	if (input == NULL)
