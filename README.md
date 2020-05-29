@@ -81,7 +81,7 @@ Usage:
 - _int dup2(int oldfd, int newfd);_
 
 Both system calls duplicate an open filediscriptor. 
-Dup chooses the lowest available fd for the duplicate whereas dup2 let's. you specify the new fd. 
+Dup chooses the lowest available fd for the duplicate whereas dup2 let's you specify the new fd. 
 Afterwards, both fd's can be used interchangebaly. 
 
 On success, these system calls return the new descriptor. On error, -1 is returned, and errno is set appropriately. 
