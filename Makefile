@@ -6,12 +6,12 @@
 #    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/05/29 12:55:03 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/05/29 15:04:39 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-SRCS = shell.c next_line.c
+SRCS = shell.c next_line.c ft_split.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJs = $(SRCS:.c=.o)

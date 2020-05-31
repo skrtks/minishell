@@ -16,21 +16,29 @@ int		compare_input(char *input, char *command)
 	return (0);
 }
 
-int	parse_input(char *input)
+int	parse_input(char *str)
 {
 	char *command[3];
+	char **input;
 	int i;
-	
+	int j;
+
+	input = ft_split(str);
 	i = 0;
 	command[0] = "pwd";
 	command[1] = "cd";
 	command[2] = "weekend";
-	i = 0;
-	while (i < 3)
+	j = 0;
+	while(input[j])
 	{
-		if (compare_input(input, command[i]) == 0)
-			return (i) ;
-		i++;
+		i = 0;
+		while (i < 2)
+		{
+			if (compare_input(input[j], command[i]) == 0)
+				return (i) ;
+			i++;
+		}
+		j++;
 	}
 	return (-1);
 }
@@ -61,7 +69,6 @@ int main(void)
 {
 	int   	ret;
 	char	*input;
-	// TODO: Turn off ctrl-c / ctrl-z / ctrl-d to prevent user exiting shell
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
@@ -71,18 +78,16 @@ int main(void)
 			errno = 0;
 			break ;
 		}
-		write(1, "minishell> $ ", 13);
 		ret = parse_input(input);
-		printf("[%c]", *input);
-		// write(1, "HOI", 3);
 		if (ret == -1)
 			write(1, "unrecognised input.\n", 20);
 		path(ret);
-		//printf("+++ %s +++\n", input); // Remove
+	}
+	return 0;
+}
+
+	// TODO: Turn off ctrl-c / ctrl-z / ctrl-d to prevent user exiting shell
 		// TODO: lexic analysis
 		// TODO: Parse result of lexic analysis into "syntax tree/command table"
 		// TODO: Execute "syntax tree/command table"
-	}
 	// TODO: free everything
-	return 0;
-}

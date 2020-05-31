@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:43:11 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/05/29 14:52:34 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/05/30 12:50:02 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int		ft_read(int fd, char **input)
 	char	*buffer;
 	int		ret;
 
-	buffer = malloc(sizeof(char) * 1024);
+	buffer = malloc(sizeof(char) * 1024);			//kan dus maar een x aantal characters lezen
 	if (buffer == NULL)
 	{
 		free(input);
