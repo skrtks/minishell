@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:43:24 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/02 09:43:38 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/02 10:03:17 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <stdlib.h>
-
-typedef struct s_shell
-{
-	/* data */
-}				t_shell;
 
 int			next_line(int fd, char **input);
 int			word_count(char const *s);

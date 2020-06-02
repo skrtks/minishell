@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/02 09:43:00 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/02 10:06:01 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	pwd_command(void)
 	size_t size;
 	char *path;
 
-	size = pathconf(".", _PC_PATH_MAX);
+	size = pathconf(".", _PC_PATH_MAX);		//size has value of 1024
 	path = malloc(sizeof(char) * (size + 1));
+	if (!path)
+		return ;				//errormelding maken
 	write(1, getcwd(path, size), size);
 	write(1, "\n", 1);
 	return ;
@@ -42,7 +44,6 @@ void	pwd_command(void)
 
 void	path(int i)
 {
-	// printf("%d\n", i);
 	if (i == 0)
 		pwd_command();
 	if (i == 1)
@@ -52,33 +53,40 @@ void	path(int i)
 	return ;
 }
 
-int	parse_input(char *str)
+char	**command_list(char **command)
 {
-	char *command[3];
-	char **input;
-	int i;
-	int j;
-	int ret;
-	int count;
-
-	count = word_count(str);
-	input = ft_split(str);
-	i = 0;
+	command = (char **) malloc(sizeof(char*) * (3));
+	if (!command)
+		return (NULL);
 	command[0] = "pwd";
 	command[1] = "cd";
 	command[2] = "weekend";
-	j = 0;
-	while(j < count)
+	return(command);
+}
+
+int	parse_input(char *str)
+{
+	char **command;
+	char **input;
+	int i;
+
+	input = ft_split(str);
+	if (input == NULL)
+		return (-2);			//errormelding maken
+	command = command_list(command);
+	if (input == NULL)
+		return (-2);			//errormelding maken
+	i = 0;
+	while (*input)
 	{
 		i = 0;
 		while (i <= 2)
 		{
-			ret = compare_input(input[j], command[i]);
-			if (ret == 0)
+			if (compare_input(*input, command[i]) == 0)
 			{
 				path(i);
 				i = 3;
-				j++;
+				input++;
 			}
 			i++;
 			if (i == 3)
@@ -93,6 +101,7 @@ int main(void)
 {
 	int   	ret;
 	char	*input;
+	
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
@@ -106,5 +115,5 @@ int main(void)
 		if (ret == -1)
 			write(1, "unrecognised input.\n", 20);
 	}
-	return 0;
+	return (0);
 }
