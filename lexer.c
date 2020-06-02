@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/02 15:20:49 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/02 15:47:09 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,39 @@ char *extract_cmd(char *input, int *pos)
 void populate_node(char *cmd, node_t *node)
 {
 	node->data = cmd;
-	if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+	{
+		node->command = ECHO;
+		node->type = COMMAND;
+	}
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+	{
+		node->command = CD;
+		node->type = COMMAND;
+	}
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
 	{
 		node->command = PWD;
+		node->type = COMMAND;
+	}
+	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+	{
+		node->command = EXPORT;
+		node->type = COMMAND;
+	}
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+	{
+		node->command = UNSET;
+		node->type = COMMAND;
+	}
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+	{
+		node->command = ENV;
+		node->type = COMMAND;
+	}
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+	{
+		node->command = EXIT;
 		node->type = COMMAND;
 	}
 	else
