@@ -6,13 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 15:00:32 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/05/31 20:33:34 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/02 09:43:43 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	word_count(char const *s)
+int	word_count(char const *s)
 {
 	int		i;
 	int		co;

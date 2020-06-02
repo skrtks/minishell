@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:43:24 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/05/29 15:05:59 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/02 09:43:38 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ typedef struct s_shell
 }				t_shell;
 
 int			next_line(int fd, char **input);
+int			word_count(char const *s);
 char		**ft_split(char const *s);
