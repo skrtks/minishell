@@ -6,7 +6,7 @@
 #    By: samkortekaas <samkortekaas@student.codam.nl> +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/02 15:24:59 by samkortekaas  ########   odam.nl          #
+#    Updated: 2020/06/02 15:46:42 by samkortekaas  ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 SRCS = shell.c next_line.c lexer.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
-OBJs = $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
@@ -25,6 +25,8 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY: clean fclean re all
 
 clean:
 	cd libft && make clean
