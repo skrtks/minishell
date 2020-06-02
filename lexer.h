@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/02 15:18:48 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/02 15:50:51 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef enum	commands_e {
 				UNSET = 4,
 				ENV = 5,
 				EXIT = 6,
+				N = 7,
 				OTHER = 7
 }				commands_t;
 

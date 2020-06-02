@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/02 15:17:33 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/02 15:51:25 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main(void)
 		node_t *ptr = command_list;
 		while (ptr)
 		{
-			printf("command %i, type %i, data %s\n", ptr->type, ptr->command, ptr->data);
+			printf("command %i, type %i, data %s\n", ptr->command, ptr->type, ptr->data);
 			ptr = ptr->next;
 		}
 	}

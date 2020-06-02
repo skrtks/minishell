@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/02 15:47:09 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/02 15:49:50 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ void populate_node(char *cmd, node_t *node)
 	{
 		node->command = EXIT;
 		node->type = COMMAND;
+	}
+	else if (!ft_strncmp(cmd, "-n", ft_strlen(cmd)))
+	{
+		node->command = N;
+		node->type = FLAG;
 	}
 	else
 	{
