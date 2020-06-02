@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell.h                                            :+:    :+:            */
+/*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/29 11:43:24 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/02 15:18:40 by samkortekaas  ########   odam.nl         */
+/*   Created: 2020/06/02 13:10:54 by samkortekaas  #+#    #+#                 */
+/*   Updated: 2020/06/02 15:18:48 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#ifndef LEXER_H
+# define LEXER_H
 
 #include <unistd.h>
 #include <stdio.h>
@@ -20,7 +20,30 @@
 #include <sys/uio.h>
 #include <stdlib.h>
 
-int			next_line(int fd, char **input);
-int			word_count(char const *s);
+typedef struct	node_s {
+				char *data;
+				int command;
+				int type;
+				struct node_s *next;
+}				node_t;
+
+typedef enum	commands_e {
+				ECHO = 0,
+				CD = 1,
+				PWD = 2,
+				EXPORT = 3,
+				UNSET = 4,
+				ENV = 5,
+				EXIT = 6,
+				OTHER = 7
+}				commands_t;
+
+typedef enum	type_e {
+				COMMAND = 0,
+				ARGUMENT = 1,
+				FLAG = 2
+}				type_t;
+
+node_t *lexer(char *input);
 
 #endif
