@@ -6,12 +6,12 @@
 #    By: samkortekaas <samkortekaas@student.codam.nl> +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/02 15:46:42 by samkortekaas  ########   odam.nl          #
+#    Updated: 2020/06/03 16:07:31 by samkortekaas  ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-SRCS = shell.c next_line.c lexer.c
+SRCS = shell.c next_line.c lexer.c lexer_utils.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJS = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/03 10:38:20 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/03 17:15:09 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 #include "libft/libft.h"
 #include "lexer.h"
 
-char	*extract_cmd(char *input, int *pos)
+char	*extract_from_brackets(char *input, int *pos)
 {
+	char b_type;
 	char *extr;
 	int len;
 	int i;
 
+	b_type = input[*pos];
+	*pos += 1;
 	len = *pos;
-	while (input[len] != ' ' && input[len] != '\0')
+	while (input[len] && input[len] != b_type)
 		len++;
 	len -= *pos;
 
@@ -29,7 +32,36 @@ char	*extract_cmd(char *input, int *pos)
 	if (!extr)
 		exit (1);
 	i = *pos;
-	while (input[i] != ' ' && input[i] != '\0')
+	while (input[i] && input[i] != b_type)
+	{
+		extr[i - *pos] = input[i];
+		i++;
+	}
+	extr[i - *pos] = '\0';
+	*pos = i + 1;
+	return (extr);
+}
+
+char	*extract_word(char *input, int *pos)
+{
+	char *extr;
+	int len;
+	int i;
+
+	if ((input[*pos] == '\'' || input[*pos] == '\"') && input[*pos - 1] != '\\')
+		return (extract_from_brackets(input, pos));
+	len = *pos;
+	while (input[len] != ' ' && input[len] != '\0' && !((input[len] == '\'' 
+			|| input[len] == '\"') && input[len - 1] != '\\'))
+		len++;
+	len -= *pos;
+
+	extr = malloc(sizeof(char) * (len + 1));
+	if (!extr)
+		exit (1);
+	i = *pos;
+	while (input[i] != ' ' && input[i] != '\0' && !((input[i] == '\'' 
+			|| input[i] == '\"') && input[i - 1] != '\\'))
 	{
 		extr[i - *pos] = input[i];
 		i++;
@@ -88,7 +120,7 @@ node_t	*lexer(char *input)
 			i++;
 		if (!input[i])
 			return head;
-		cmd = extract_cmd(input, &i);
+		cmd = extract_word(input, &i);
 		add_node(&head, cmd);
 	}
 	return head;
