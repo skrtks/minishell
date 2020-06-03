@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/02 15:50:51 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/03 10:38:37 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,8 @@ typedef enum	type_e {
 }				type_t;
 
 node_t *lexer(char *input);
+void set_info(int command, int type, node_t *node);
+void	add_to_back(node_t **head, node_t *node);
+
 
 #endif

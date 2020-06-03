@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/02 15:49:50 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/03 10:38:20 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft/libft.h"
 #include "lexer.h"
 
-char *extract_cmd(char *input, int *pos)
+char	*extract_cmd(char *input, int *pos)
 {
 	char *extr;
 	int len;
@@ -39,72 +39,30 @@ char *extract_cmd(char *input, int *pos)
 	return (extr);
 }
 
-void populate_node(char *cmd, node_t *node)
+void	populate_node(char *cmd, node_t *node)
 {
 	node->data = cmd;
 	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
-	{
-		node->command = ECHO;
-		node->type = COMMAND;
-	}
+		set_info(ECHO, COMMAND, node);
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
-	{
-		node->command = CD;
-		node->type = COMMAND;
-	}
+		set_info(CD, COMMAND, node);
 	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
-	{
-		node->command = PWD;
-		node->type = COMMAND;
-	}
+		set_info(PWD, COMMAND, node);
 	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
-	{
-		node->command = EXPORT;
-		node->type = COMMAND;
-	}
+		set_info(EXPORT, COMMAND, node);
 	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
-	{
-		node->command = UNSET;
-		node->type = COMMAND;
-	}
+		set_info(UNSET, COMMAND, node);
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
-	{
-		node->command = ENV;
-		node->type = COMMAND;
-	}
+		set_info(ENV, COMMAND, node);
 	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
-	{
-		node->command = EXIT;
-		node->type = COMMAND;
-	}
+		set_info(EXIT, COMMAND, node);
 	else if (!ft_strncmp(cmd, "-n", ft_strlen(cmd)))
-	{
-		node->command = N;
-		node->type = FLAG;
-	}
+		set_info(N, FLAG, node);
 	else
-	{
-		node->command = OTHER;
-		node->type = ARGUMENT;
-	}
+		set_info(OTHER, ARGUMENT, node);
 }
 
-void add_to_back(node_t **head, node_t *node)
-{
-	node_t *ptr;
-
-	if (!(*head))
-		(*head) = node;
-	else
-	{
-		ptr = *head;
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = node;
-	}
-}
-
-void add_node(node_t **head, char *cmd)
+void	add_node(node_t **head, char *cmd)
 {
 	node_t *node;
 
@@ -116,7 +74,7 @@ void add_node(node_t **head, char *cmd)
 	add_to_back(head, node);
 }
 
-node_t *lexer(char *input)
+node_t	*lexer(char *input)
 {
 	int i;
 	char *cmd;
