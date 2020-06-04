@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell.h                                            :+:    :+:            */
+/*   ft_lstnew_bonus.c                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: skorteka <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/29 11:43:24 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/02 15:18:40 by samkortekaas  ########   odam.nl         */
+/*   Created: 2019/11/07 13:56:01 by skorteka      #+#    #+#                 */
+/*   Updated: 2019/11/07 13:56:02 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <stdlib.h>
+t_list	*ft_lstnew(void *content)
+{
+	t_list *node;
 
-int			next_line(int fd, char **input);
-int			word_count(char const *s);
-
-#endif
+	node = malloc(sizeof(t_list));
+	if (!node)
+		return (NULL);
+	node->content = content;
+	node->next = NULL;
+	return (node);
+}

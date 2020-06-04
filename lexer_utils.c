@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell.c                                            :+:    :+:            */
+/*   lexer_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/02 15:51:25 by samkortekaas  ########   odam.nl         */
+/*   Created: 2020/06/03 10:37:24 by samkortekaas  #+#    #+#                 */
+/*   Updated: 2020/06/03 10:38:40 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "libft/libft.h"
 #include "lexer.h"
 
-int main(void)
+void set_info(int command, int type, node_t *node)
 {
-	int   	ret;
-	char	*input;
-	node_t	*command_list;
-	
-	while (1)
-	{
-		write(1, "minishell> $ ", 13);
-		ret = next_line(0, &input);
-		if (ret == -1)
-		{
-			errno = 0;
-			break ;
-		}
-		command_list = lexer(input);
+	node->command = command;
+	node->type = type;
+}
 
-		node_t *ptr = command_list;
-		while (ptr)
-		{
-			printf("command %i, type %i, data %s\n", ptr->command, ptr->type, ptr->data);
+void	add_to_back(node_t **head, node_t *node)
+{
+	node_t *ptr;
+
+	if (!(*head))
+		(*head) = node;
+	else
+	{
+		ptr = *head;
+		while (ptr->next)
 			ptr = ptr->next;
-		}
+		ptr->next = node;
 	}
-	return (0);
 }

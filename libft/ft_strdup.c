@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell.h                                            :+:    :+:            */
+/*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/29 11:43:24 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/02 15:18:40 by samkortekaas  ########   odam.nl         */
+/*   Created: 2020/05/02 16:19:49 by samkortekaas  #+#    #+#                 */
+/*   Updated: 2020/05/02 16:20:23 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <stdlib.h>
+char	*ft_strdup(const char *s1)
+{
+	char	*new_str;
+	size_t	len;
+	size_t	i;
 
-int			next_line(int fd, char **input);
-int			word_count(char const *s);
-
-#endif
+	len = ft_strlen(s1);
+	new_str = ft_calloc(len + 1, sizeof(char));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		new_str[i] = s1[i];
+		i++;
+	}
+	return (new_str);
+}
