@@ -149,6 +149,7 @@ node_t	*lexer(char *input)
 			return head;
 		cmd = extract_word(input, &i);
 		add_node(&head, cmd);
+		free (cmd);
 	}
 	return head;
 }
