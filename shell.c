@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/02 15:51:25 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/04 13:11:24 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int main(void)
 {
-	int   	ret;
+	int		ret;
 	char	*input;
 	node_t	*command_list;
 	
@@ -29,13 +29,13 @@ int main(void)
 			break ;
 		}
 		command_list = lexer(input);
-
 		node_t *ptr = command_list;
 		while (ptr)
 		{
 			printf("command %i, type %i, data %s\n", ptr->command, ptr->type, ptr->data);
 			ptr = ptr->next;
 		}
+		free_list(&command_list);
 	}
 	return (0);
 }

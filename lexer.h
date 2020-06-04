@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/02 13:10:54 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/03 10:38:37 by samkortekaas  ########   odam.nl         */
+/*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
+/*   Updated: 2020/06/04 12:54:04 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ typedef enum	type_e {
 				FLAG = 2
 }				type_t;
 
-node_t *lexer(char *input);
-void set_info(int command, int type, node_t *node);
-void	add_to_back(node_t **head, node_t *node);
-
+node_t			*lexer(char *input);
+void			add_to_back(node_t **head, node_t *node);
+void			free_list(node_t **head);
+void			set_info(int command, int type, node_t *node);
 
 #endif
