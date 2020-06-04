@@ -3,15 +3,16 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/04 13:11:24 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/04 15:12:22 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include "lexer.h"
+#include "parser.h"
 
 int main(void)
 {
@@ -30,6 +31,7 @@ int main(void)
 		}
 		command_list = lexer(input);
 		node_t *ptr = command_list;
+		parse(command_list);
 		while (ptr)
 		{
 			printf("command %i, type %i, data %s\n", ptr->command, ptr->type, ptr->data);
