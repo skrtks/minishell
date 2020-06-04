@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/04 09:59:15 by samkortekaas  ########   odam.nl         */
+/*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
+/*   Updated: 2020/06/04 13:49:10 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ node_t	*lexer(char *input)
 			return head;
 		cmd = extract_word(input, &i);
 		add_node(&head, cmd);
+		free (cmd);
 	}
 	return head;
 }
