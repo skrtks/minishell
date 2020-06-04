@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/04 17:31:44 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/04 17:42:09 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	continue_populating(char *cmd, node_t *node)
 void	populate_node(char *cmd, node_t *node)
 {
 	node->data = cmd;
-	printf("[%s]", cmd);
 	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
 		set_info(ECHO, COMMAND, node);
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
@@ -148,18 +147,14 @@ node_t	*lexer(char *input)
 		if (!input[i])
 			return head;
 		cmd = extract_word(input, &i);
-<<<<<<< HEAD
 		if (cmd[0])
 			add_node(&head, cmd);
 		if (input[i] == ';')
 		{
 			add_node(&head, ";");
 			i++;
-		}	
-=======
-		add_node(&head, cmd);
+		}
 		free (cmd);
->>>>>>> master
 	}
 	return head;
 }
