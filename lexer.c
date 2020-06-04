@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/04 09:59:15 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/04 16:59:39 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*extract_word(char *input, int *pos)
 		return (extract_from_brackets(input, pos));
 	len = *pos;
 	while (input[len] != ' ' && input[len] != '\0' && !((input[len] == '\'' 
-			|| input[len] == '\"') && input[len - 1] != '\\'))
+			|| input[len] == '\"') && input[len - 1] != '\\') && input[len] != ';')
 		len++;
 	len -= *pos;
 
@@ -63,7 +63,7 @@ char	*extract_word(char *input, int *pos)
 		exit (1);
 	i = *pos;
 	while (input[i] != ' ' && input[i] != '\0' && !((input[i] == '\'' 
-			|| input[i] == '\"') && input[i - 1] != '\\'))
+			|| input[i] == '\"') && input[i - 1] != '\\') && input[i] != ';')
 	{
 		extr[i - *pos] = input[i];
 		i++;
@@ -92,6 +92,8 @@ void	populate_node(char *cmd, node_t *node)
 		set_info(EXIT, COMMAND, node);
 	else if (!ft_strncmp(cmd, "-n", ft_strlen(cmd)))
 		set_info(N, FLAG, node);
+	else if ((!ft_strncmp(cmd, ";", ft_strlen(cmd))))
+		set_info(OTHER, SPLIT, node);
 	else
 		set_info(OTHER, ARGUMENT, node);
 }
@@ -123,7 +125,13 @@ node_t	*lexer(char *input)
 		if (!input[i])
 			return head;
 		cmd = extract_word(input, &i);
-		add_node(&head, cmd);
+		if (cmd[0])
+			add_node(&head, cmd);
+		if (input[i] == ';')
+		{
+			add_node(&head, ";");
+			i++;
+		}	
 	}
 	return head;
 }

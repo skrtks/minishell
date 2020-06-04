@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/04 12:54:04 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/04 16:42:24 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef enum	commands_e {
 typedef enum	type_e {
 				COMMAND = 0,
 				ARGUMENT = 1,
-				FLAG = 2
+				FLAG = 2,
+				SPLIT = 3
 }				type_t;
 
 node_t			*lexer(char *input);
