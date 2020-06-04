@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/04 17:07:09 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/04 17:31:44 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,34 @@ char	*extract_word(char *input, int *pos)
 	return (extr);
 }
 
+void	continue_populating(char *cmd, node_t *node)
+{
+	if (!ft_strncmp(cmd, ";", ft_strlen(cmd)))
+		set_info(SEMICOLON, SYMBOL, node);
+	else if (!ft_strncmp(cmd, "\'", ft_strlen(cmd)))
+		set_info(APOSTROPHE, SYMBOL, node);
+	else if (!ft_strncmp(cmd, "\"", ft_strlen(cmd)))
+		set_info(QUATATION_MARK, SYMBOL, node);
+	else if (!ft_strncmp(cmd, "<", ft_strlen(cmd)))
+		set_info(ARROW_LEFT, SYMBOL, node);
+	else if (!ft_strncmp(cmd, ">", ft_strlen(cmd)))
+		set_info(ARROW_RIGHT, SYMBOL, node);
+	else if (!ft_strncmp(cmd, ">>", ft_strlen(cmd)))
+		set_info(ARROW_DOUBLE, SYMBOL, node);
+	else if (!ft_strncmp(cmd, "|", ft_strlen(cmd)))
+		set_info(PIPE, SYMBOL, node);
+	else if (!ft_strncmp(cmd, "$", ft_strlen(cmd)))
+		set_info(DOLLAR, SYMBOL, node);
+	else if (!ft_strncmp(cmd, "$?", ft_strlen(cmd)))
+		set_info(DOLLAR_QUESTION, SYMBOL, node);
+	else 
+		set_info(OTHER, ARGUMENT, node);
+}
+
 void	populate_node(char *cmd, node_t *node)
 {
 	node->data = cmd;
+	printf("[%s]", cmd);
 	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
 		set_info(ECHO, COMMAND, node);
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
@@ -92,8 +117,8 @@ void	populate_node(char *cmd, node_t *node)
 		set_info(EXIT, COMMAND, node);
 	else if (!ft_strncmp(cmd, "-n", ft_strlen(cmd)))
 		set_info(N, FLAG, node);
-	else
-		set_info(OTHER, ARGUMENT, node);
+	else 
+		continue_populating(cmd, node);
 }
 
 void	add_node(node_t **head, char *cmd)
@@ -123,6 +148,7 @@ node_t	*lexer(char *input)
 		if (!input[i])
 			return head;
 		cmd = extract_word(input, &i);
+<<<<<<< HEAD
 		if (cmd[0])
 			add_node(&head, cmd);
 		if (input[i] == ';')
@@ -130,6 +156,10 @@ node_t	*lexer(char *input)
 			add_node(&head, ";");
 			i++;
 		}	
+=======
+		add_node(&head, cmd);
+		free (cmd);
+>>>>>>> master
 	}
 	return head;
 }

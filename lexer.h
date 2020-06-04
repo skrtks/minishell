@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/04 17:09:20 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/04 17:31:57 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,24 @@ typedef enum	commands_e {
 				ENV = 5,
 				EXIT = 6,
 				N = 7,
-				OTHER = 7
+				SEMICOLON = 8,
+				APOSTROPHE = 9,
+				QUATATION_MARK = 10,
+				ARROW_LEFT = 11,
+				ARROW_RIGHT = 12,
+				ARROW_DOUBLE = 13,
+				PIPE = 14,
+				DOLLAR = 15,
+				DOLLAR_QUESTION = 16,
+				OTHER = 17,
 }				commands_t;
+
 
 typedef enum	type_e {
 				COMMAND = 0,
 				ARGUMENT = 1,
-				FLAG = 2
+				FLAG = 2,
+				SYMBOL = 3,
 }				type_t;
 
 node_t			*lexer(char *input);
