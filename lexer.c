@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/03 17:15:09 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/04 09:59:15 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ char	*extract_from_brackets(char *input, int *pos)
 	b_type = input[*pos];
 	*pos += 1;
 	len = *pos;
-	while (input[len] && input[len] != b_type)
+	while (input[len] && (input[len] != b_type || (input[len] == b_type
+			&& input[len - 1] == '\\')))
 		len++;
 	len -= *pos;
 
@@ -32,7 +33,8 @@ char	*extract_from_brackets(char *input, int *pos)
 	if (!extr)
 		exit (1);
 	i = *pos;
-	while (input[i] && input[i] != b_type)
+	while (input[i] && (input[i] != b_type || (input[i] == b_type
+			&& input[i - 1] == '\\')))
 	{
 		extr[i - *pos] = input[i];
 		i++;
