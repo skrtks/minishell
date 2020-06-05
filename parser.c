@@ -3,42 +3,46 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/04 14:33:37 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/04 15:40:56 by samkortekaas  ########   odam.nl         */
+/*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
+/*   Updated: 2020/06/05 14:45:53 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
 
-void execute_cmd(node_t *ptr)
+void	execute_cmd(t_node *ptr)
 {
 	if (ptr->command == ECHO)
-		write(1, "Executed echo\n", 14);
+		write(1, "Executed echo\n", 14);		//hoe koppelen we -n eraan
 	else if (ptr->command == CD)
 		write(1, "Executed cd\n", 12);
 	else if (ptr->command == PWD)
 		write(1, "Executed pwd\n", 13);
 	else if (ptr->command == EXPORT)
 		write(1, "Executed export\n", 16);
+	else if (ptr->command == UNSET)
+		write(1, "Executed unset\n", 15);
+	else if (ptr->command == ENV)
+		write(1, "Executed env\n", 13);
 	else if (ptr->command == EXIT)
 		write(1, "Executed exit\n", 14);
 	else
 		write(1, "Command not recognized\n", 23);
 }
 
-void parse(node_t *cmd_list)
+void	parse(t_node *cmd_list)
 {
-	node_t *ptr;
+	t_node *ptr;
 
 	ptr = cmd_list;
 	while (ptr)
 	{
 		if (ptr->type == COMMAND)
 			execute_cmd(ptr);
-		else
+		else			//is deze nodig? misschien error van maken
 			write(1, "Command not recognized\n", 23);
 		ptr = ptr->next;
 	}

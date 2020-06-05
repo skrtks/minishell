@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/02 13:03:24 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/06/04 17:42:09 by samkortekaas  ########   odam.nl         */
+/*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
+/*   Updated: 2020/06/05 14:39:59 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 char	*extract_from_brackets(char *input, int *pos)
 {
-	char b_type;
-	char *extr;
-	int len;
-	int i;
+	char	b_type;
+	char	*extr;
+	int		len;
+	int		i;
 
 	b_type = input[*pos];
 	*pos += 1;
@@ -28,10 +28,9 @@ char	*extract_from_brackets(char *input, int *pos)
 			&& input[len - 1] == '\\')))
 		len++;
 	len -= *pos;
-
 	extr = malloc(sizeof(char) * (len + 1));
 	if (!extr)
-		exit (1);
+		exit(1);
 	i = *pos;
 	while (input[i] && (input[i] != b_type || (input[i] == b_type
 			&& input[i - 1] == '\\')))
@@ -46,9 +45,9 @@ char	*extract_from_brackets(char *input, int *pos)
 
 char	*extract_word(char *input, int *pos)
 {
-	char *extr;
-	int len;
-	int i;
+	char	*extr;
+	int		len;
+	int		i;
 
 	if ((input[*pos] == '\'' || input[*pos] == '\"') && input[*pos - 1] != '\\')
 		return (extract_from_brackets(input, pos));
@@ -57,10 +56,9 @@ char	*extract_word(char *input, int *pos)
 			|| input[len] == '\"') && input[len - 1] != '\\') && input[len] != ';')
 		len++;
 	len -= *pos;
-
 	extr = malloc(sizeof(char) * (len + 1));
 	if (!extr)
-		exit (1);
+		exit(1);
 	i = *pos;
 	while (input[i] != ' ' && input[i] != '\0' && !((input[i] == '\'' 
 			|| input[i] == '\"') && input[i - 1] != '\\') && input[i] != ';')
@@ -73,7 +71,7 @@ char	*extract_word(char *input, int *pos)
 	return (extr);
 }
 
-void	continue_populating(char *cmd, node_t *node)
+void	continue_populating(char *cmd, t_node *node)
 {
 	if (!ft_strncmp(cmd, ";", ft_strlen(cmd)))
 		set_info(SEMICOLON, SYMBOL, node);
@@ -93,11 +91,11 @@ void	continue_populating(char *cmd, node_t *node)
 		set_info(DOLLAR, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "$?", ft_strlen(cmd)))
 		set_info(DOLLAR_QUESTION, SYMBOL, node);
-	else 
+	else
 		set_info(OTHER, ARGUMENT, node);
 }
 
-void	populate_node(char *cmd, node_t *node)
+void	populate_node(char *cmd, t_node *node)
 {
 	node->data = cmd;
 	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
@@ -116,27 +114,27 @@ void	populate_node(char *cmd, node_t *node)
 		set_info(EXIT, COMMAND, node);
 	else if (!ft_strncmp(cmd, "-n", ft_strlen(cmd)))
 		set_info(N, FLAG, node);
-	else 
+	else
 		continue_populating(cmd, node);
 }
 
-void	add_node(node_t **head, char *cmd)
+void	add_node(t_node **head, char *cmd)
 {
-	node_t *node;
+	t_node *node;
 
-	node = malloc(sizeof(node_t));
-	if(!node)
-		exit (1);
+	node = malloc(sizeof(t_node));
+	if (!node)
+		exit(1);
 	node->next = NULL;
 	populate_node(cmd, node);
 	add_to_back(head, node);
 }
 
-node_t	*lexer(char *input)
+t_node	*lexer(char *input)
 {
-	int i;
-	char *cmd;
-	node_t *head;
+	int		i;
+	char	*cmd;
+	t_node	*head;
 
 	i = 0;
 	head = NULL;
@@ -145,7 +143,7 @@ node_t	*lexer(char *input)
 		while (input[i] == ' ')
 			i++;
 		if (!input[i])
-			return head;
+			return (head);
 		cmd = extract_word(input, &i);
 		if (cmd[0])
 			add_node(&head, cmd);
@@ -154,7 +152,7 @@ node_t	*lexer(char *input)
 			add_node(&head, ";");
 			i++;
 		}
-		free (cmd);
+		free(cmd);
 	}
-	return head;
+	return (head);
 }

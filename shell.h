@@ -3,22 +3,22 @@
 /*                                                        ::::::::            */
 /*   shell.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: mmourik <mmourik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/29 11:43:24 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/02 15:18:40 by samkortekaas  ########   odam.nl         */
+/*   Created: 2020/06/05 14:26:27 by mmourik       #+#    #+#                 */
+/*   Updated: 2020/06/05 14:26:33 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <errno.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdlib.h>
 
 int			next_line(int fd, char **input);
 int			word_count(char const *s);

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/04 17:32:09 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/05 14:28:50 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "lexer.h"
 #include "parser.h"
 
-int main(void)
+int	main(void)
 {
 	int		ret;
 	char	*input;
-	node_t	*command_list;
-	
+	t_node	*command_list;
+
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
@@ -30,7 +30,7 @@ int main(void)
 			break ;
 		}
 		command_list = lexer(input);
-		node_t *ptr = command_list;
+		t_node *ptr = command_list;
 		parse(command_list);
 		while (ptr)
 		{
