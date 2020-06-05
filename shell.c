@@ -6,19 +6,19 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/04 13:55:07 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/05 13:56:57 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include "lexer.h"
 
-int main(void)
+int	main(void)
 {
 	int		ret;
 	char	*input;
-	node_t	*command_list;
-	
+	t_node	*command_list;
+
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
@@ -29,7 +29,8 @@ int main(void)
 			break ;
 		}
 		command_list = lexer(input);
-		node_t *ptr = command_list;
+		t_node *ptr;
+		ptr = command_list;
 		while (ptr)
 		{
 			printf("command %i, type %i, data %s\n", ptr->command, ptr->type, ptr->data);

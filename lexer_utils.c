@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/04 13:00:09 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/05 13:57:57 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "libft/libft.h"
 #include "lexer.h"
 
-void	free_list(node_t **head_origin)
+void	free_list(t_node **head_origin)
 {
-	node_t *head;
-	node_t *tmp;
+	t_node *head;
+	t_node *tmp;
 
 	head = *head_origin;
 	while (head != NULL)
@@ -29,15 +29,15 @@ void	free_list(node_t **head_origin)
 	*head_origin = NULL;
 }
 
-void set_info(int command, int type, node_t *node)
+void	set_info(int command, int type, t_node *node)
 {
 	node->command = command;
 	node->type = type;
 }
 
-void	add_to_back(node_t **head, node_t *node)
+void	add_to_back(t_node **head, t_node *node)
 {
-	node_t *ptr;
+	t_node *ptr;
 
 	if (!(*head))
 		(*head) = node;

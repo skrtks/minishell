@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:43:11 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/05/30 12:50:02 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/05 13:55:53 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,21 @@
 static int		ft_strlen(char *str)
 {
 	int i;
-	
+
 	i = 0;
 	while (str[i])
 		i++;
 	return (i);
 }
 
-static char	*ft_dup(char *str)
+static char		*ft_dup(char *str)
 {
 	int		i;
 	char	*dup;
+
 	i = ft_strlen(str);
 	if (!(dup = malloc(sizeof(char) * (i + 1))))
-		return NULL;
+		return (NULL);
 	i = 0;
 	while (str[i])
 	{
@@ -81,7 +82,7 @@ static int		ft_read(int fd, char **input)
 	ret = read(fd, buffer, 1023);
 	if (ret == -1)
 	{
-		free (*input);
+		free(*input);
 		free(buffer);
 		return (-2);
 	}
@@ -97,10 +98,10 @@ static int		ft_read(int fd, char **input)
 	return (ret);
 }
 
-int			next_line(int fd, char **input)
+int				next_line(int fd, char **input)
 {
 	int ret;
-	
+
 	*input = ft_dup("");
 	if (input == NULL)
 		return (-2);
