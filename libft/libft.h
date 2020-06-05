@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   libft.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 12:40:00 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/05/02 15:41:44 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/05 15:43:53 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+#include "./printf/printf.h"
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
 # endif

@@ -5,38 +5,45 @@
 #                                                      +:+                     #
 #    By: skorteka <skorteka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/05 15:42:12 by skorteka      ########   odam.nl          #
+#    Created: 2019/12/11 09:32:11 by skorteka      #+#    #+#                  #
+#    Updated: 2020/06/05 15:42:39 by skorteka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
-SRCS = shell.c next_line.c lexer.c lexer_utils.c parser.c
+SRCS = utils_1.c utils_2.c utils_3.c ft_itoa_base.c\
+		p_print.c x_print.c c_print.c u_print.c s_print.c i_print.c printf.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
-OBJS = $(SRCS:.c=.o)
+NAME = libftprintf.a
+OBJS := $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	cd libft && make
-	cd libft/printf && make
-	cp ./libft/printf/libftprintf.a ./libft.a
-	$(CC) -I. -g -L. -lft $(SRCS) -o $(NAME)
+	cp ../libft.a ./$(NAME)
+	ar rc $@ $^
+	cp libftprintf.a ../../libft.a
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-.PHONY: clean fclean re all
+bonus: $(NAME)
+
+test: $(OBJS) $(NAME)
+	$(CC) -I. -g -L. -lftprintf $(SRCS) main.c -o printf
+
+asan: $(OBJS) $(NAME)
+	$(CC) $(CFLAGS) -fsanitize=address -O1 -fno-omit-frame-pointer \
+	-g -L. -lftprintf $(SRCS) main.c -o printf
+
+.PHONY: clean fclean re all test
 
 clean:
-	cd libft && make clean
-	$(RM) $(OBJS)
+	-rm -f $(OBJS)
 
 fclean: clean
-	cd libft && make fclean
-	cd libft/printf && make fclean
-	rm -f libft.a
-	$(RM) $(NAME)
+	-rm -f $(NAME)
+	-rm -f printf
+	-rm -rf printf.dSYM/
 
 re: fclean all

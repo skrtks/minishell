@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: samkortekaas <samkortekaas@student.codam.nl> +#+                      #
+#    By: skorteka <skorteka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/29 10:06:20 by skorteka      #+#    #+#                  #
-#    Updated: 2020/05/27 14:34:25 by samkortekaas  ########   odam.nl          #
+#    Updated: 2020/06/05 15:30:08 by skorteka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
