@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/05 14:28:50 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/05 15:44:10 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
