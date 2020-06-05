@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/05 15:09:16 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/05 16:30:30 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 #ifndef ECHO_H
 # define ECHO_H
 
-void echo(t_node *ptr);
+t_node *echo(t_node *ptr);
 
 #endif

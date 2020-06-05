@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/05 15:53:18 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/05 17:32:40 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,18 @@
 #include "shell.h"
 #include "./libft/libft.h"
 
-void echo(t_node *ptr)
+t_node *echo(t_node *ptr)
 {
-	ft_printf("Hello from echo %s\n", ptr->data);
+	t_node *head;
+
+	head = ptr;
+
+	ptr = ptr->next;
+	while (ptr && ptr->command != SEMICOLON)
+	{
+		ft_printf("%s ", ptr->data);
+		ptr = ptr->next;
+	}
+	ft_printf("\n");
+	return (ptr);
 }
