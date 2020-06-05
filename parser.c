@@ -6,17 +6,18 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/05 15:43:18 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/05 15:51:28 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
+#include "echo.h"
 
 void	execute_cmd(t_node *ptr)
 {
 	if (ptr->command == ECHO)
-		write(1, "Executed echo\n", 14);		//hoe koppelen we -n eraan
+		echo(ptr);
 	else if (ptr->command == CD)
 		write(1, "Executed cd\n", 12);
 	else if (ptr->command == PWD)
