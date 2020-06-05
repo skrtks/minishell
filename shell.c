@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/05 15:44:10 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/05 16:17:19 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(void)
 		parse(command_list);
 		while (ptr)
 		{
-			printf("command %i, type %i, data %s\n", ptr->command, ptr->type, ptr->data);
+			//printf("command %i, type %i, data %s\n", ptr->command, ptr->type, ptr->data);
 			ptr = ptr->next;
 		}
 		free_list(&command_list);

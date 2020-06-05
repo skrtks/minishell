@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/05 14:39:59 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/05 16:14:43 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,6 @@ t_node	*lexer(char *input)
 		}
 		free(cmd);
 	}
+	free(input);
 	return (head);
 }

@@ -6,21 +6,34 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/05 15:43:18 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/05 16:22:32 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
+#include "./libft/libft.h"
+
+void	pwd_command(t_node *node)
+{
+	t_node	*next;
+	char	*path;
+
+	next = node->next;
+	path = getcwd(NULL, 0);
+	if (node->next == NULL || next->command == OTHER)
+		ft_printf("%s\n", path);
+	free(path);
+}
 
 void	execute_cmd(t_node *ptr)
 {
 	if (ptr->command == ECHO)
-		write(1, "Executed echo\n", 14);		//hoe koppelen we -n eraan
+		write(1, "Executed echo\n", 14);
 	else if (ptr->command == CD)
 		write(1, "Executed cd\n", 12);
 	else if (ptr->command == PWD)
-		write(1, "Executed pwd\n", 13);
+		pwd_command(ptr);
 	else if (ptr->command == EXPORT)
 		write(1, "Executed export\n", 16);
 	else if (ptr->command == UNSET)
