@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
+/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/05 16:14:43 by mmourik       ########   odam.nl         */
+/*   Created: 2020/06/05 22:01:43 by samkortekaas  #+#    #+#                 */
+/*   Updated: 2020/06/05 22:01:52 by samkortekaas  ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,23 @@ char	*extract_word(char *input, int *pos)
 
 void	continue_populating(char *cmd, t_node *node)
 {
-	if (!ft_strncmp(cmd, ";", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd, ";", 1))
 		set_info(SEMICOLON, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "\'", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "\'", 1))
 		set_info(APOSTROPHE, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "\"", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "\"", 1))
 		set_info(QUATATION_MARK, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "<", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "<", 1))
 		set_info(ARROW_LEFT, SYMBOL, node);
-	else if (!ft_strncmp(cmd, ">", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, ">", 1))
 		set_info(ARROW_RIGHT, SYMBOL, node);
-	else if (!ft_strncmp(cmd, ">>", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, ">>", 2))
 		set_info(ARROW_DOUBLE, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "|", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "|", 1))
 		set_info(PIPE, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "$", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "$", 1))
 		set_info(DOLLAR, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "$?", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "$?", 2))
 		set_info(DOLLAR_QUESTION, SYMBOL, node);
 	else
 		set_info(OTHER, ARGUMENT, node);
@@ -98,21 +98,21 @@ void	continue_populating(char *cmd, t_node *node)
 void	populate_node(char *cmd, t_node *node)
 {
 	node->data = cmd;
-	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd, "echo", 4))
 		set_info(ECHO, COMMAND, node);
-	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "cd", 2))
 		set_info(CD, COMMAND, node);
-	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "pwd", 3))
 		set_info(PWD, COMMAND, node);
-	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "export", 6))
 		set_info(EXPORT, COMMAND, node);
-	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "unset", 5))
 		set_info(UNSET, COMMAND, node);
-	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "env", 3))
 		set_info(ENV, COMMAND, node);
-	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "exit", 4))
 		set_info(EXIT, COMMAND, node);
-	else if (!ft_strncmp(cmd, "-n", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "-n", 2))
 		set_info(N, FLAG, node);
 	else
 		continue_populating(cmd, node);
@@ -152,8 +152,8 @@ t_node	*lexer(char *input)
 			add_node(&head, ";");
 			i++;
 		}
-		free(cmd);
 	}
 	free(input);
+	free(cmd);
 	return (head);
 }
