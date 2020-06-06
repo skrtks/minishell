@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/06 12:02:37 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 13:10:33 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ t_node	*lexer(char *input)
 
 	i = 0;
 	head = NULL;
-	if (input[i] == 0)
+	if (input[i] == '\0')
 		return (head);
 	while (input[i])
 	{

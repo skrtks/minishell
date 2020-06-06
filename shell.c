@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/05 17:34:50 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 13:11:49 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(void)
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
-		ret = next_line(0, &input);
+		ret = get_next_line(0, &input);
 		if (ret == -1)
 		{
 			errno = 0;
@@ -31,12 +31,6 @@ int	main(void)
 		}
 		command_list = lexer(input);
 		parse(command_list);
-		// t_node *ptr = command_list;
-		// while (ptr)
-		// {
-		// 	printf("command %i, type %i, data %s\n", ptr->command, ptr->type, ptr->data);
-		// 	ptr = ptr->next;
-		// }
 		free_list(&command_list);
 	}
 	return (0);
