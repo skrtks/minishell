@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/05 15:44:10 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 12:49:44 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(void)
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
-		ret = next_line(0, &input);
+		ret = get_next_line(0, &input);
 		if (ret == -1)
 		{
 			errno = 0;
