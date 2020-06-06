@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/06 15:32:38 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 15:37:12 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 t_node *execute_cmd(t_node *node, char **envp)
 {
 	if (node->command == ECHO)
-	{
-		node = node->next;
-		write(1, "Executed echo\n", 14);
-	}
+		node = echo(node);
 	else if (node->command == CD)
 	{
 		node = node->next;
