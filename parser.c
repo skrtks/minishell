@@ -6,68 +6,66 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/06 13:08:06 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 14:19:48 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
+#include "cd.h"
 #include "./libft/libft.h"	
 
-t_node *execute_cmd(t_node *ptr)
+t_node *execute_cmd(t_node *node)
 {
-	if (ptr->command == ECHO)
+	if (node->command == ECHO)
 	{
-		ptr = ptr->next;
+		node = node->next;
 		write(1, "Executed echo\n", 14);
 	}
-	else if (ptr->command == CD)
+	else if (node->command == CD)
+		node = cd(node);
+	else if (node->command == PWD)
 	{
-		ptr = ptr->next;
-		write(1, "Executed cd\n", 12);
-	}
-	else if (ptr->command == PWD)
-	{
-		ptr = ptr->next;
+		node = node->next;
 		write(1, "Executed pwd\n", 13);
 	}
-	else if (ptr->command == EXPORT)
+	else if (node->command == EXPORT)
 	{
-		ptr = ptr->next;
+		node = node->next;
 		write(1, "Executed export\n", 16);
 	}
-	else if (ptr->command == UNSET)
+	else if (node->command == UNSET)
 	{
-		ptr = ptr->next;
+		node = node->next;
 		write(1, "Executed unset\n", 15);
 	}
-	else if (ptr->command == ENV)
+	else if (node->command == ENV)
 	{
-		ptr = ptr->next;
+		node = node->next;
 		write(1, "Executed env\n", 13);
 	}
-	else if (ptr->command == EXIT)
+	else if (node->command == EXIT)
 	{
-		ptr = ptr->next;
+		node = node->next;
 		write(1, "Executed exit\n", 14);
 	}
 	else
 	{
-		ptr = ptr->next;
+		node = node->next;
 		write(1, "Command not recognized\n", 23);
 	}
-	return (ptr);
+	return (node);
 }
 
 void	parse(t_node *cmd_list)
 {
-	t_node *ptr;
+	t_node *node;
 
-	ptr = cmd_list;
-	while (ptr)
+	node = cmd_list;
+	while (node)
 	{
-		ptr = execute_cmd(ptr);
-		if (ptr && ptr->command == SEMICOLON)
-			ptr = ptr->next;
+		node = execute_cmd(node);
+		if (node && node->command == SEMICOLON)
+			node = node->next;
 	}
 }
