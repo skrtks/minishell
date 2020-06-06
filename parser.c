@@ -6,13 +6,14 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/06 15:36:12 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 15:39:47 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
 #include "shell.h"
+#include "cd.h"
 #include "./libft/libft.h"	
 
 t_node *execute_cmd(t_node *node, char **envp)
@@ -56,10 +57,10 @@ t_node *execute_cmd(t_node *node, char **envp)
 
 void	parse(t_node *cmd_list, char **envp)
 {
-	t_node *node;
+	t_node *ptr;
 
-	node = cmd_list;
-	while (node)
+	ptr = cmd_list;
+	while (ptr)
 	{
 		ptr = execute_cmd(ptr, envp);
 		if (ptr && ptr->command == SEMICOLON)
