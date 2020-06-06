@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/06 12:49:44 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/06 13:03:51 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,7 @@ int	main(void)
 			break ;
 		}
 		command_list = lexer(input);
-		t_node *ptr = command_list;
 		parse(command_list);
-		while (ptr)
-		{
-			printf("command %i, type %i, data %s\n", ptr->command, ptr->type, ptr->data);
-			ptr = ptr->next;
-		}
 		free_list(&command_list);
 	}
 	return (0);
