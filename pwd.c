@@ -6,10 +6,11 @@
 /*   By: mmourik <mmourik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:25:52 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/06 13:57:23 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/06 14:00:09 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "lexer.h"
 #include "./libft/libft.h"
 
