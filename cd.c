@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/06 14:22:00 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 14:32:10 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@
 #include <unistd.h>
 #include <string.h>
 
+void	pwd_command(void)
+{
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	ft_printf("%s\n", path);
+	free(path);
+}
 
 t_node *cd(t_node *node)
 {
@@ -31,6 +39,7 @@ t_node *cd(t_node *node)
 		ft_printf("Error: %s\n", strerror(errno));
 		errno = 0;
 	}
+	pwd_command();
 	while (node && node->command != SEMICOLON)
 		node = node->next;
 	return (node);
