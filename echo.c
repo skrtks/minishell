@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/06 13:22:34 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 13:29:18 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 #include "shell.h"
 #include "./libft/libft.h"
 
-t_node *echo(t_node *ptr)
+t_node *echo(t_node *node)
 {
 	int flag;
 
 	flag = 0;
-	ptr = ptr->next;
-	if (ptr && ptr->command == N)
+	node = node->next;
+	if (node && node->command == N)
 	{
 		flag = 1;
-		ptr = ptr->next;
+		node = node->next;
 	}
-	while (ptr && ptr->command != SEMICOLON)
+	while (node && node->command != SEMICOLON)
 	{
-		ft_printf("%s ", ptr->data);
-		ptr = ptr->next;
+		ft_printf("%s ", node->data);
+		node = node->next;
 	}
 	if (!flag)
 		ft_printf("\n");
-	return (ptr);
+	return (node);
 }
