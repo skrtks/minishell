@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/06 15:14:26 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/06 15:47:12 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ t_node *execute_cmd(t_node *node, char **envp)
 		write(1, "Executed pwd\n", 13);
 	}
 	else if (node->command == EXPORT)
-	{
-		node = node->next;
-		write(1, "Executed export\n", 16);
-	}
+		node = export(node);
 	else if (node->command == UNSET)
 	{
 		node = node->next;
