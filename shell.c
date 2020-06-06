@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/06 13:11:49 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 15:32:50 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "parser.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	int		ret;
 	char	*input;
@@ -30,8 +30,10 @@ int	main(void)
 			break ;
 		}
 		command_list = lexer(input);
-		parse(command_list);
+		parse(command_list, envp);
 		free_list(&command_list);
 	}
+	argc = 0;
+	argv = NULL;
 	return (0);
 }
