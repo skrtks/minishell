@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/06 14:32:10 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 16:01:41 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <string.h>
 
-void	pwd_command(void)
+void	pwd_command(void) // Weghalen
 {
 	char	*path;
 
@@ -30,10 +30,13 @@ t_node *cd(t_node *node)
 {
 	char *path;
 
-	node = node->next;
-	if (!node)
-		return (node);
-	path = node->data;
+	if (node->next)
+	{
+		node = node->next;
+		path = node->data;
+	}
+	else
+		path = "";
 	if (chdir(path))
 	{
 		ft_printf("Error: %s\n", strerror(errno));
