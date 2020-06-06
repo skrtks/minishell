@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
+/*   env.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
+/*   By: mmourik <mmourik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/06 15:36:58 by mmourik       ########   odam.nl         */
+/*   Created: 2020/06/06 14:08:49 by mmourik       #+#    #+#                 */
+/*   Updated: 2020/06/06 15:36:38 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "shell.h"
+#include "lexer.h"
 
-# include "lexer.h"
-
-void parse (t_node *cmd_list, char **envp);
-
-#endif
+t_node		*env(t_node *node, char **envp)
+{
+	node = node->next;
+	while (*envp)
+	{
+		printf("%s\n", *envp);
+		envp++;
+	}
+	return (node);
+}

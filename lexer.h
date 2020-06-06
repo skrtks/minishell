@@ -6,7 +6,7 @@
 /*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/06 13:27:01 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/06 15:37:41 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef enum	e_type
 }				t_type;
 
 t_node			*pwd(t_node *node);
+t_node			*env(t_node *node, char **envp);
 t_node			*lexer(char *input);
 void			add_to_back(t_node **head, t_node *node);
 void			free_list(t_node **head);
