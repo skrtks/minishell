@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/05 16:22:32 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/06 13:32:42 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,46 @@
 #include "lexer.h"
 #include "./libft/libft.h"
 
-void	pwd_command(t_node *node)
+t_node *execute_cmd(t_node *node)
 {
-	t_node	*next;
-	char	*path;
-
-	next = node->next;
-	path = getcwd(NULL, 0);
-	if (node->next == NULL || next->command == OTHER)
-		ft_printf("%s\n", path);
-	free(path);
-}
-
-void	execute_cmd(t_node *ptr)
-{
-	if (ptr->command == ECHO)
+	if (node->command == ECHO)
+	{
+		node = node->next;
 		write(1, "Executed echo\n", 14);
-	else if (ptr->command == CD)
+	}
+	else if (node->command == CD)
+	{
+		node = node->next;
 		write(1, "Executed cd\n", 12);
-	else if (ptr->command == PWD)
-		pwd_command(ptr);
-	else if (ptr->command == EXPORT)
+	}
+	else if (node->command == PWD)
+		node = pwd(node);
+	else if (node->command == EXPORT)
+	{
+		node = node->next;
 		write(1, "Executed export\n", 16);
-	else if (ptr->command == UNSET)
+	}
+	else if (node->command == UNSET)
+	{
+		node = node->next;
 		write(1, "Executed unset\n", 15);
-	else if (ptr->command == ENV)
+	}
+	else if (node->command == ENV)
+	{
+		node = node->next;
 		write(1, "Executed env\n", 13);
-	else if (ptr->command == EXIT)
+	}
+	else if (node->command == EXIT)
+	{
+		node = node->next;
 		write(1, "Executed exit\n", 14);
+	}
 	else
+	{
+		node = node->next;
 		write(1, "Command not recognized\n", 23);
+	}
+	return (node);
 }
 
 void	parse(t_node *cmd_list)
@@ -53,10 +63,8 @@ void	parse(t_node *cmd_list)
 	ptr = cmd_list;
 	while (ptr)
 	{
-		if (ptr->type == COMMAND)
-			execute_cmd(ptr);
-		else			//is deze nodig? misschien error van maken
-			write(1, "Command not recognized\n", 23);
-		ptr = ptr->next;
+		ptr = execute_cmd(ptr);
+		if (ptr && ptr->command == SEMICOLON)
+			ptr = ptr->next;
 	}
 }

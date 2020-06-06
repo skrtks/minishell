@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 12:40:00 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/05 15:43:53 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/06 12:49:33 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 #include "./printf/printf.h"
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 1024
 # endif
 
 typedef struct			s_list
