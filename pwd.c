@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   env.c                                              :+:    :+:            */
+/*   pwd.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmourik <mmourik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/06 14:08:49 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/06 15:43:03 by mmourik       ########   odam.nl         */
+/*   Created: 2020/06/06 13:25:52 by mmourik       #+#    #+#                 */
+/*   Updated: 2020/06/06 14:00:09 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "parser.h"
 #include "lexer.h"
+#include "./libft/libft.h"
 
-t_node		*env(t_node *node, char **envp)
+t_node	*pwd(t_node *node)
 {
+	char	*path;
+
 	node = node->next;
-	while (*envp)
-	{
-		printf("%s\n", *envp);
-		envp++;
-	}
+	path = getcwd(NULL, 0);
+	if (node == NULL || node->command == OTHER)
+		ft_printf("%s\n", path);
+	free(path);
 	return (node);
 }

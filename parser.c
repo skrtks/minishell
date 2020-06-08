@@ -6,7 +6,11 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2020/06/06 15:39:47 by skorteka      ########   odam.nl         */
+=======
+/*   Updated: 2020/06/06 15:43:18 by mmourik       ########   odam.nl         */
+>>>>>>> pwd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +30,7 @@ t_node *execute_cmd(t_node *node, char **envp)
 	else if (node->command == CD)
 		node = cd(node);
 	else if (node->command == PWD)
-	{
-		node = node->next;
-		write(1, "Executed pwd\n", 13);
-	}
+		node = pwd(node);
 	else if (node->command == EXPORT)
 	{
 		node = node->next;
