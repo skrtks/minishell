@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pwd.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mmourik <mmourik@student.codam.nl>           +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:25:52 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/06 14:00:09 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/08 22:35:42 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "lexer.h"
 #include "./libft/libft.h"
 
+// TODO: make sure pwd works with ';'
 t_node	*pwd(t_node *node)
 {
 	char	*path;
