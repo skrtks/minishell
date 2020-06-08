@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "shell.h"
 #include "cd.h"
-#include "./libft/libft.h"	
+#include "./libft/libft.h"
 
 t_node *execute_cmd(t_node *node, t_node *env_list)
 {
@@ -26,10 +26,7 @@ t_node *execute_cmd(t_node *node, t_node *env_list)
 	else if (node->command == CD)
 		node = cd(node);
 	else if (node->command == PWD)
-	{
-		node = node->next;
-		write(1, "Executed pwd\n", 13);
-	}
+		node = pwd(node);
 	else if (node->command == EXPORT)
 	{
 		node = node->next;

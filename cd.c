@@ -17,15 +17,6 @@
 #include <unistd.h>
 #include <string.h>
 
-void	pwd_command(void) // Weghalen
-{
-	char	*path;
-
-	path = getcwd(NULL, 0);
-	ft_printf("%s\n", path);
-	free(path);
-}
-
 t_node *cd(t_node *node)
 {
 	char *path;
@@ -42,7 +33,6 @@ t_node *cd(t_node *node)
 		ft_printf("Error: %s\n", strerror(errno));
 		errno = 0;
 	}
-	pwd_command();
 	while (node && node->command != SEMICOLON)
 		node = node->next;
 	return (node);

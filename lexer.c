@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/06 13:04:15 by skorteka      ########   odam.nl         */
+/*   Created: 2020/06/05 22:01:43 by samkortekaa   #+#    #+#                 */
+/*   Updated: 2020/06/06 14:03:08 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ t_node	*lexer(char *input)
 			i++;
 		}
 	}
+	free(input);
 	free(cmd);
 	return (head);
 }

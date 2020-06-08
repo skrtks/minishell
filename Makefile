@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = minishell
-SRCS = shell.c lexer.c lexer_utils.c parser.c cd.c env.c
+SRCS = shell.c lexer.c lexer_utils.c parser.c cd.c env.c pwd.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJS = $(SRCS:.c=.o)
