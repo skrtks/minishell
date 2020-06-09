@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/09 13:23:39 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/09 14:13:17 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ char *get_homedir(t_node *env_list)
 	while (ptr)
 	{
 		if (!ft_strncmp(ptr->data, "HOME=", 5))
+		{
 		    home_dir = ft_strdup(ptr->data + 5);
+		}
 		ptr = ptr->next;
 	}
 	return (home_dir);
@@ -47,8 +49,6 @@ t_node *cd(t_node *node, t_node *env_list)
 	}
 	else
 		path = home_dir;
-
-	printf("path = %s @ %p\n home_dir @ %p\n", path, &path, &home_dir);
 	if (chdir(path))
 	{
 		ft_printf("Error: %s\n", strerror(errno));
@@ -56,6 +56,6 @@ t_node *cd(t_node *node, t_node *env_list)
 	}
 	while (node && node->command != SEMICOLON)
 		node = node->next;
-	free(home_dir);
+	// free(home_dir);
 	return (node);
 }
