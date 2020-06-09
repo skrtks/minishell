@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/09 14:19:36 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/09 16:42:45 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 #include "lexer.h"
 #include "parser.h"
 
-void	add_env_node(t_node **head, char *env_var)
+int	add_env_node(t_node **head, char *env_var)
 {
 	t_node *node;
 
 	node = malloc(sizeof(t_node));
 	if (!node)
-		exit(1);
+		return (1);
 	node->next = NULL;
 	node->data = ft_strdup(env_var);
+	if (!node->data)
+		return (1);
 	add_to_back(head, node);
+	return (0);
 }
 
 t_node *get_env(char **envp)
@@ -33,7 +36,8 @@ t_node *get_env(char **envp)
 	head = NULL;
 	while (*envp)
 	{
-		add_env_node(&head, *envp);
+		if (add_env_node(&head, *envp))
+			return (NULL);
 		envp++;
 	}
 	return (head);
@@ -47,6 +51,11 @@ int	main(int argc, char **argv, char **envp)
 	t_node	*env_list;
 
 	env_list = get_env(envp);
+	if (!env_list)
+	{
+		printf("Error starting, env could not be loaded. \nTerminating...\n");
+		exit(1);
+	}
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);

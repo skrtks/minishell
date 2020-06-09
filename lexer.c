@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/09 14:10:53 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/09 16:39:49 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*extract_from_brackets(char *input, int *pos)
 	len -= *pos;
 	extr = malloc(sizeof(char) * (len + 1));
 	if (!extr)
-		exit(1);
+		return (NULL);
 	i = *pos;
 	while (input[i] && (input[i] != b_type || (input[i] == b_type
 			&& input[i - 1] == '\\')))
@@ -58,7 +58,7 @@ char	*extract_word(char *input, int *pos)
 	len -= *pos;
 	extr = malloc(sizeof(char) * (len + 1));
 	if (!extr)
-		exit(1);
+		return (NULL);
 	i = *pos;
 	while (input[i] != ' ' && input[i] != '\0' && !((input[i] == '\'' 
 			|| input[i] == '\"') && input[i - 1] != '\\') && input[i] != ';')
@@ -95,9 +95,14 @@ void	continue_populating(char *cmd, t_node *node)
 		set_info(OTHER, ARGUMENT, node);
 }
 
-void	populate_node(char *cmd, t_node *node)
+int	populate_node(char *cmd, t_node *node)
 {
 	node->data = ft_strdup(cmd);
+	if (!node->data)
+    {
+    	ft_printf("Error parsing command, try again.\n");
+    	return (1);
+    }
 	if (!ft_strncmp(cmd, "echo", 4))
 		set_info(ECHO, COMMAND, node);
 	else if (!ft_strncmp(cmd, "cd", 2))
@@ -116,18 +121,21 @@ void	populate_node(char *cmd, t_node *node)
 		set_info(N, FLAG, node);
 	else
 		continue_populating(cmd, node);
+	return (0);
 }
 
-void	add_node(t_node **head, char *cmd)
+int	add_node(t_node **head, char *cmd)
 {
 	t_node *node;
 
 	node = malloc(sizeof(t_node));
 	if (!node)
-		exit(1);
+		return (1);
 	node->next = NULL;
-	populate_node(cmd, node);
+	if (populate_node(cmd, node))
+		return (1);
 	add_to_back(head, node);
+	return (0);
 }
 
 t_node	*lexer(char *input)
@@ -147,11 +155,21 @@ t_node	*lexer(char *input)
 		if (!input[i])
 			return (head);
 		cmd = extract_word(input, &i);
+		if (!cmd)
+			return (NULL);
 		if (cmd[0])
-			add_node(&head, cmd);
+			if (add_node(&head, cmd))
+			{
+				free (cmd);
+				return (NULL);
+			}
 		if (input[i] == ';')
 		{
-			add_node(&head, ";");
+			if (add_node(&head, ";"))
+			{
+				free (cmd);
+				return (NULL);
+			}
 			i++;
 		}
 		free(cmd);
