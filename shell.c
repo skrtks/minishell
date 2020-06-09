@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/29 11:46:04 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/08 22:24:43 by skorteka      ########   odam.nl         */
+/*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
+/*   Updated: 2020/06/09 11:23:54 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

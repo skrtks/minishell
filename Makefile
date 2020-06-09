@@ -3,15 +3,15 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: skorteka <skorteka@student.codam.nl>         +#+                      #
+#    By: sam <sam@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/06 15:34:34 by skorteka      ########   odam.nl          #
+#    Updated: 2020/06/09 11:24:26 by sam           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-SRCS = shell.c lexer.c lexer_utils.c parser.c cd.c env.c pwd.c
+SRCS = shell.c lexer.c lexer_utils.c parser.c cd.c env.c pwd.c echo.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJS = $(SRCS:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/05 22:01:43 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/06 14:03:08 by mmourik       ########   odam.nl         */
+/*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
+/*   Updated: 2020/06/09 11:23:19 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

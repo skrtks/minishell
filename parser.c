@@ -3,15 +3,16 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/08 22:30:08 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/09 11:23:43 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
+#include "echo.h"
 #include "shell.h"
 #include "cd.h"
 #include "./libft/libft.h"
@@ -19,10 +20,7 @@
 t_node *execute_cmd(t_node *node, t_node *env_list)
 {
 	if (node->command == ECHO)
-	{
-		node = node->next;
-		write(1, "Executed echo\n", 14);
-	}
+		node = echo(node);
 	else if (node->command == CD)
 		node = cd(node);
 	else if (node->command == PWD)
