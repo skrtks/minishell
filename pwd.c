@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:25:52 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/09 11:07:28 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/09 11:58:38 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "lexer.h"
 #include "./libft/libft.h"
 
-// TODO: make sure pwd works with ';'
 t_node	*pwd(t_node *node)
 {
 	char	*path;

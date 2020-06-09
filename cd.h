@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cd.h                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/06 14:19:35 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/09 12:05:08 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 # define CD_H
 #include "lexer.h"
 
-t_node *cd(t_node *node);
+t_node *cd(t_node *node, t_node *env_list);
 
 #endif

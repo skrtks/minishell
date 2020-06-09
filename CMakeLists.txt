@@ -12,6 +12,8 @@ add_subdirectory(libft/printf)
 add_executable(minishell
         cd.c
         cd.h
+        echo.c
+        echo.h
         env.c
         lexer.c
         lexer.h

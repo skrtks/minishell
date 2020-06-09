@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/09 11:23:43 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/09 12:05:22 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_node *execute_cmd(t_node *node, t_node *env_list)
 	if (node->command == ECHO)
 		node = echo(node);
 	else if (node->command == CD)
-		node = cd(node);
+		node = cd(node, env_list);
 	else if (node->command == PWD)
 		node = pwd(node);
 	else if (node->command == EXPORT)
