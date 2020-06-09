@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/09 14:07:53 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/09 14:19:36 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	add_env_node(t_node **head, char *env_var)
 	if (!node)
 		exit(1);
 	node->next = NULL;
-	node->data = env_var;
+	node->data = ft_strdup(env_var);
 	add_to_back(head, node);
 }
 
@@ -62,5 +62,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	argc = 0;
 	argv = NULL;
+	free_list(&env_list);
 	return (0);
 }
