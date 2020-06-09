@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
+/*   cd.h                                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-
-/*   Updated: 2020/06/06 15:44:01 by mmourik       ########   odam.nl         */
+/*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
+/*   Updated: 2020/06/06 14:19:35 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef CD_H
+# define CD_H
+#include "lexer.h"
 
-# include "lexer.h"
-
-void parse (t_node *cmd_list, t_node *env_list);
+t_node *cd(t_node *node);
 
 #endif

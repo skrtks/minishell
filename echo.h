@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
+/*   echo.h                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-
-/*   Updated: 2020/06/06 15:44:01 by mmourik       ########   odam.nl         */
+/*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
+/*   Updated: 2020/06/05 16:30:30 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "lexer.h"
 
-# include "lexer.h"
+#ifndef ECHO_H
+# define ECHO_H
 
-void parse (t_node *cmd_list, t_node *env_list);
+t_node *echo(t_node *ptr);
 
 #endif

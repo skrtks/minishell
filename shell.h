@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   shell.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mmourik <mmourik@student.codam.nl>           +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 14:26:27 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/06 15:46:44 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/09 12:06:35 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include "./libft/libft.h"
 # include "lexer.h"
 
-t_node		*env(t_node *node, char **envp);
-t_node		*export(t_node *node);
+t_node		*export(t_node *node, t_node *env_list);
 
 #endif

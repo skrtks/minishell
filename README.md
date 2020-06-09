@@ -180,7 +180,7 @@ Return 0 on success and -1 on error.
 Usage: _void (*signal(int sig, void (*func)(int)))(int);_
 Or, in the equivalent but easier to read:
 _typedef void (*sig_t) (int);_
-_sig_t signal(int sig, sig_t func);
+_sig_t signal(int sig, sig_t func);_
 
 Signals allow the manipulation of a process from outside its domain, as well as allowing the process to manipulate itself or copies of itself (children).  There are two general types of signals: those that cause termination of a process and those that do not.
 

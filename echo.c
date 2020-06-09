@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
+/*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-
-/*   Updated: 2020/06/06 15:44:01 by mmourik       ########   odam.nl         */
+/*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
+/*   Updated: 2020/06/06 13:29:18 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "echo.h"
+#include "lexer.h"
+#include "shell.h"
+#include "./libft/libft.h"
 
-# include "lexer.h"
+t_node *echo(t_node *node)
+{
+	int flag;
 
-void parse (t_node *cmd_list, t_node *env_list);
-
-#endif
+	flag = 0;
+	node = node->next;
+	if (node && node->command == N)
+	{
+		flag = 1;
+		node = node->next;
+	}
+	while (node && node->command != SEMICOLON)
+	{
+		ft_printf("%s ", node->data);
+		node = node->next;
+	}
+	if (!flag)
+		ft_printf("\n");
+	return (node);
+}

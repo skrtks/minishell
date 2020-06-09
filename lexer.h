@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.coda      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/05 14:51:21 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/08 22:32:17 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef enum	e_type
 	SYMBOL = 3,
 }				t_type;
 
+t_node			*pwd(t_node *node);
+t_node			*env(t_node *node, t_node *env_list);
 t_node			*lexer(char *input);
 void			add_to_back(t_node **head, t_node *node);
 void			free_list(t_node **head);

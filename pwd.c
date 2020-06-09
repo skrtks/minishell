@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   export.c                                           :+:    :+:            */
+/*   pwd.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/09 12:14:40 by merelmourik   ########   odam.nl         */
+/*   Created: 2020/06/06 13:25:52 by mmourik       #+#    #+#                 */
+/*   Updated: 2020/06/09 11:07:28 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "parser.h"
 #include "lexer.h"
+#include "./libft/libft.h"
 
-t_node		*export(t_node *node, t_node *env_list)
+// TODO: make sure pwd works with ';'
+t_node	*pwd(t_node *node)
 {
-	ft_printf("%s\n", node->data);
-	while(env_list)
-	{
-		ft_printf("%s\n", env_list->data);
-		env_list = env_list->next;
-	}
-	node = node->next;
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	ft_printf("%s\n", path);
+	free(path);
+	while (node && node->command != SEMICOLON)
+		node = node->next;
 	return (node);
 }

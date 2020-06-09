@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   env.c                                              :+:    :+:            */
+/*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/06 14:08:49 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/06 16:34:28 by skorteka      ########   odam.nl         */
+/*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
+/*   Updated: 2020/06/06 16:01:41 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cd.h"
 #include "shell.h"
-#include "lexer.h"
+#include "./libft/libft.h"
+#include "errno.h"
+#include <unistd.h>
+#include <string.h>
 
-t_node		*env(t_node *node, t_node *env_list)
+t_node *cd(t_node *node)
 {
-	node = node->next;
-	while (env_list)
+	char *path;
+
+	if (node->next)
 	{
-		printf("%s\n", env_list->data);
-		env_list = env_list->next;
+		node = node->next;
+		path = node->data;
 	}
+	else
+		path = "";
+	if (chdir(path))
+	{
+		ft_printf("Error: %s\n", strerror(errno));
+		errno = 0;
+	}
+	while (node && node->command != SEMICOLON)
+		node = node->next;
 	return (node);
 }
