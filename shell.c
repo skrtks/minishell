@@ -3,28 +3,16 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/09 11:23:54 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 09:39:24 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include "lexer.h"
 #include "parser.h"
-
-void	add_env_node(t_node **head, char *env_var)
-{
-	t_node *node;
-
-	node = malloc(sizeof(t_node));
-	if (!node)
-		exit(1);
-	node->next = NULL;
-	node->data = env_var;
-	add_to_back(head, node);
-}
 
 t_node *get_env(char **envp)
 {
