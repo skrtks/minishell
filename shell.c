@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/10 09:39:24 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/10 14:44:35 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		command_list = lexer(input);
-		parse(command_list, env_list);
+		parse(command_list, &env_list);
 		free_list(&command_list);
 	}
 	argc = 0;

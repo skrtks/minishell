@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/10 13:01:11 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/10 14:55:00 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,28 @@ void		add_front(t_node **head, char *str)
 
 void		sort_list(t_node **env_list)
 {
-	t_node	*ptr = NULL;
-	t_node	*temp = NULL;
-	char	*data;
+	t_node *ptr;
+	t_node *next;
 	int		swap;
-	
-	if (env_list == NULL)
-		return ;
+
 	swap = 1;
-	while(swap) 
+	while (swap)
 	{
 		swap = 0;
 		ptr = *env_list;
-		while (ptr->next != NULL)
+		next = ptr->next;
+		while (ptr && ptr->next)
 		{
-			temp = ptr->next;
-			if (compare_data(ptr->data, temp->data))
+			if (compare_data(ptr->data, next->data))
 			{
-				data = ft_strdup(temp->data);
-				ptr->next = temp->next;
-				temp->next = NULL;			//dubbele check
-				add_front(env_list, data);
-				free (data);
+				ptr->next = next->next;
+				next->next = *env_list;
+				*env_list = next;
 				swap = 1;
 			}
-			ptr = temp;
+			ptr = ptr->next;
+			if (ptr)
+				next = ptr->next;
 		}
 	}
 	return ;
@@ -100,33 +97,25 @@ void	badd_env_node(t_node **head, char *env_var)
 	node->data = ft_strdup(env_var);
 	badd_to_back(head, node);
 }
-//dubbele pointer verwerken
-t_node		*export(t_node *node, t_node *env_list)
-{
-	t_node *next;
 
-	next = node->next;
-	if (next != NULL)
+t_node		*export(t_node *node, t_node **env_list)
+{
+	if (node->next != NULL)
 	{
-		// while(env_list->next != NULL)
-		// {
-		// 	ft_printf("declare -x %s\n", env_list->data);
-		// 	env_list = env_list->next;
-		// }
-		badd_env_node(&env_list, next->data);
-		node = next->next;			//verder over skippen
+		badd_env_node(env_list, node->next->data);
+		node = node->next->next;			//verder over skippen
 		return (node);
 	}
-	sort_list(&env_list);
+	sort_list(env_list);
 	t_node *head;
 	
-	head = env_list;
-	while(env_list->next != NULL)
+	head = *env_list;
+	while((*env_list))
 	{
-		ft_printf("declare -x %s\n", env_list->data);
-		env_list = env_list->next;
+		ft_printf("declare -x %s\n", (*env_list)->data);
+		(*env_list) = (*env_list)->next;
 	}
-	env_list = head;
-	node = next;
+	*env_list = head;
+	node = node->next;
 	return (node);
 }

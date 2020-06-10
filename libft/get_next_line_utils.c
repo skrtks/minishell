@@ -37,25 +37,6 @@ void	ft_bzero(void *s, size_t n)
 	}
 }
 
-char	*ft_strdup(const char *s1)
-{
-	char	*new_str;
-	size_t	len;
-	size_t	i;
-
-	len = get_index(s1, '\0');
-	new_str = ft_calloc(len + 1, sizeof(char));
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		new_str[i] = s1[i];
-		i++;
-	}
-	return (new_str);
-}
-
 char	*ft_substr_gnl(char *s, unsigned int start, size_t len)
 {
 	size_t	s_len;
