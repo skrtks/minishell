@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/10 12:18:23 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/10 13:01:11 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		sort_list(t_node **env_list)
 			{
 				data = ft_strdup(temp->data);
 				ptr->next = temp->next;
-				temp->next = NULL;
+				temp->next = NULL;			//dubbele check
 				add_front(env_list, data);
 				free (data);
 				swap = 1;
@@ -74,20 +74,59 @@ void		sort_list(t_node **env_list)
 	return ;
 }
 
+void	badd_to_back(t_node **head, t_node *node)
+{
+	t_node *ptr;
+
+	if (!(*head))
+		(*head) = node;
+	else
+	{
+		ptr = *head;
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = node;
+	}
+}
+
+void	badd_env_node(t_node **head, char *env_var)
+{
+	t_node *node;
+
+	node = malloc(sizeof(t_node));
+	if (!node)
+		exit(1);
+	node->next = NULL;
+	node->data = ft_strdup(env_var);
+	badd_to_back(head, node);
+}
+//dubbele pointer verwerken
 t_node		*export(t_node *node, t_node *env_list)
 {
-	if (node->next != NULL && node->next->command == OTHER)
+	t_node *next;
+
+	next = node->next;
+	if (next != NULL)
 	{
-		add_env_node(&env_list, node->next->data);
-		node = node->next;			//verder over skippen
+		// while(env_list->next != NULL)
+		// {
+		// 	ft_printf("declare -x %s\n", env_list->data);
+		// 	env_list = env_list->next;
+		// }
+		badd_env_node(&env_list, next->data);
+		node = next->next;			//verder over skippen
 		return (node);
 	}
 	sort_list(&env_list);
-	while(env_list)
+	t_node *head;
+	
+	head = env_list;
+	while(env_list->next != NULL)
 	{
 		ft_printf("declare -x %s\n", env_list->data);
 		env_list = env_list->next;
 	}
-	node = node->next;
+	env_list = head;
+	node = next;
 	return (node);
 }
