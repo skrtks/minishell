@@ -6,11 +6,12 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/09 16:42:45 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 12:19:29 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include <signal.h>
 #include "lexer.h"
 #include "parser.h"
 
@@ -43,6 +44,13 @@ t_node *get_env(char **envp)
 	return (head);
 }
 
+void sig_handler()
+{
+	ft_printf("\nminishell> $ ");
+	return ;
+}
+
+
 int	main(int argc, char **argv, char **envp)
 {
 	int		ret;
@@ -50,6 +58,7 @@ int	main(int argc, char **argv, char **envp)
 	t_node	*command_list;
 	t_node	*env_list;
 
+	signal(SIGINT, sig_handler);
 	env_list = get_env(envp);
 	if (!env_list)
 	{
