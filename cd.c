@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/09 16:31:21 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 19:52:32 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #include <unistd.h>
 #include <string.h>
 
-char *get_homedir(t_node *env_list)
+static char *get_homedir(t_env *env_list)
 {
 	char *home_dir;
-	t_node *ptr;
+	t_env *ptr;
 
 	ptr = env_list;
 	while (ptr)
@@ -34,7 +34,7 @@ char *get_homedir(t_node *env_list)
 	return (home_dir);
 }
 
-t_node *cd(t_node *node, t_node *env_list)
+t_node *cd(t_node *node, t_env *env_list)
 {
 	char *path;
 	char *home_dir;

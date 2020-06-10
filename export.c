@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/10 15:44:26 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 20:00:22 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int			compare_data(char *str1, char *str2)
 	return (0);
 }
 
-void		sort_list(t_node **env_list)
+void		sort_list(t_env **env_list)
 {
-	t_node	*ptr;
-	t_node	*next;
+	t_env	*ptr;
+	t_env	*next;
 	int		swap;
 
 	swap = 1;
@@ -60,9 +60,9 @@ void		sort_list(t_node **env_list)
 	return ;
 }
 
-t_node		*export(t_node *node, t_node **env_list)
+t_node		*export(t_node *node, t_env **env_list)
 {
-	t_node *head;
+	t_env *head;
 	
 	if (node->next != NULL)
 	{
