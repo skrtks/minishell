@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_strdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: samkortekaas <samkortekaas@student.codam.nl> +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/02 16:19:49 by samkortekaas  #+#    #+#                 */
-/*   Updated: 2020/05/02 16:20:23 by samkortekaas  ########   odam.nl         */
+/*   Updated: 2020/06/09 13:08:37 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *s1)
 	size_t	i;
 
 	len = ft_strlen(s1);
-	new_str = ft_calloc(len + 1, sizeof(char));
+	new_str = malloc(sizeof(char) * (len + 1));
 	if (!new_str)
 		return (NULL);
 	i = 0;
@@ -28,5 +28,6 @@ char	*ft_strdup(const char *s1)
 		new_str[i] = s1[i];
 		i++;
 	}
+	new_str[i] = '\0';
 	return (new_str);
 }

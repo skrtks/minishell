@@ -14,6 +14,8 @@ add_executable(minishell
         export.c
         cd.c
         cd.h
+        echo.c
+        echo.h
         env.c
         lexer.c
         lexer.h

@@ -22,7 +22,7 @@ t_node *execute_cmd(t_node *node, t_node **env_list)
 	if (node->command == ECHO)
 		node = echo(node);
 	else if (node->command == CD)
-		node = cd(node);
+		node = cd(node, env_list);
 	else if (node->command == PWD)
 		node = pwd(node);
 	else if (node->command == EXPORT)

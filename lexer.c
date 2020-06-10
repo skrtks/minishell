@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/09 11:23:19 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/09 14:10:53 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	continue_populating(char *cmd, t_node *node)
 
 void	populate_node(char *cmd, t_node *node)
 {
-	node->data = cmd;
+	node->data = ft_strdup(cmd);
 	if (!ft_strncmp(cmd, "echo", 4))
 		set_info(ECHO, COMMAND, node);
 	else if (!ft_strncmp(cmd, "cd", 2))
@@ -154,8 +154,8 @@ t_node	*lexer(char *input)
 			add_node(&head, ";");
 			i++;
 		}
+		free(cmd);
 	}
 	free(input);
-	free(cmd);
 	return (head);
 }
