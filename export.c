@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/10 15:12:21 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/10 15:44:26 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ t_node		*export(t_node *node, t_node **env_list)
 		node = node->next->next;
 		return (node);
 	}
-	head = *env_list;
 	sort_list(env_list);
+	head = *env_list;
 	while((*env_list))
 	{
 		ft_printf("declare -x %s\n", (*env_list)->data);
