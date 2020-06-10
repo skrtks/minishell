@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_utils.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 15:08:05 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/10 15:09:01 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/10 15:59:24 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,15 @@ void		add_front(t_node **head, char *str)
 	*head = node;
 }
 
-void	add_env_node(t_node **head, char *env_var)
+int	add_env_node(t_node **head, char *env_var)
 {
 	t_node *node;
 
 	node = malloc(sizeof(t_node));
 	if (!node)
-		exit(1);
+		return (1);
 	node->next = NULL;
 	node->data = ft_strdup(env_var);
 	add_to_back(head, node);
+	return (0);
 }

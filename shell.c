@@ -6,11 +6,12 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/10 14:44:35 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 15:58:24 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include <signal.h>
 #include "lexer.h"
 #include "parser.h"
 
@@ -21,11 +22,19 @@ t_node *get_env(char **envp)
 	head = NULL;
 	while (*envp)
 	{
-		add_env_node(&head, *envp);
+		if (add_env_node(&head, *envp))
+			return (NULL);
 		envp++;
 	}
 	return (head);
 }
+
+void sig_handler()
+{
+	ft_printf("\nminishell> $ ");
+	return ;
+}
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -34,7 +43,15 @@ int	main(int argc, char **argv, char **envp)
 	t_node	*command_list;
 	t_node	*env_list;
 
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	signal(SIGTSTP, sig_handler);
 	env_list = get_env(envp);
+	if (!env_list)
+	{
+		printf("Error starting, env could not be loaded. \nTerminating...\n");
+		exit(1);
+	}
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
@@ -45,6 +62,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		command_list = lexer(input);
+		free (input);
 		parse(command_list, &env_list);
 		free_list(&command_list);
 	}

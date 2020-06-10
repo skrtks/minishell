@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/10 15:35:39 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 16:02:06 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "lexer.h"
 #include "echo.h"
 #include "shell.h"
+#include "exit.h"
 #include "cd.h"
 #include "./libft/libft.h"
 
@@ -35,10 +36,7 @@ t_node *execute_cmd(t_node *node, t_node **env_list)
 	else if (node->command == ENV)
 		node = env(node, *env_list);
 	else if (node->command == EXIT)
-	{
-		node = node->next;
-		write(1, "Executed exit\n", 14);
-	}
+		exit_shell(node, env_list, 0);
 	else
 	{
 		node = node->next;

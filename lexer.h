@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/10 15:10:50 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/10 16:02:42 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_node			*export(t_node *node, t_node **env_list);
 t_node			*lexer(char *input);
 t_node			*pwd(t_node *node);
 
-void			add_env_node(t_node **head, char *env_var);
+int				add_env_node(t_node **head, char *env_var);
 void			add_to_back(t_node **head, t_node *node);
 void			add_front(t_node **head, char *str);
 void			free_list(t_node **head);

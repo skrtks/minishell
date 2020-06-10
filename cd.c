@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/09 15:15:52 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/09 16:31:21 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ t_node *cd(t_node *node, t_node *env_list)
 
 	home_dir = get_homedir(env_list);
 	if (!home_dir)
-	    exit (2);
+    {
+    	ft_printf("Error loading home directory, try again.\n");
+    	return (NULL);
+    }
 	if (node->next)
 	{
 		node = node->next;
