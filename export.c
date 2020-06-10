@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/10 14:55:00 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 15:12:21 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,10 @@ int			compare_data(char *str1, char *str2)
 	return (0);
 }
 
-void		add_front(t_node **head, char *str)
-{
-	t_node *node;
-
-	if (!(node = malloc(sizeof(t_node))))
-		exit(1);
-	node->next = *head;
-	node->data = ft_strdup(str);
-	*head = node;
-}
-
 void		sort_list(t_node **env_list)
 {
-	t_node *ptr;
-	t_node *next;
+	t_node	*ptr;
+	t_node	*next;
 	int		swap;
 
 	swap = 1;
@@ -71,45 +60,18 @@ void		sort_list(t_node **env_list)
 	return ;
 }
 
-void	badd_to_back(t_node **head, t_node *node)
-{
-	t_node *ptr;
-
-	if (!(*head))
-		(*head) = node;
-	else
-	{
-		ptr = *head;
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = node;
-	}
-}
-
-void	badd_env_node(t_node **head, char *env_var)
-{
-	t_node *node;
-
-	node = malloc(sizeof(t_node));
-	if (!node)
-		exit(1);
-	node->next = NULL;
-	node->data = ft_strdup(env_var);
-	badd_to_back(head, node);
-}
-
 t_node		*export(t_node *node, t_node **env_list)
 {
-	if (node->next != NULL)
-	{
-		badd_env_node(env_list, node->next->data);
-		node = node->next->next;			//verder over skippen
-		return (node);
-	}
-	sort_list(env_list);
 	t_node *head;
 	
+	if (node->next != NULL)
+	{
+		add_env_node(env_list, node->next->data);
+		node = node->next->next;
+		return (node);
+	}
 	head = *env_list;
+	sort_list(env_list);
 	while((*env_list))
 	{
 		ft_printf("declare -x %s\n", (*env_list)->data);

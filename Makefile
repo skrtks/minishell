@@ -6,12 +6,13 @@
 #    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/09 12:00:26 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/06/10 15:11:40 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-SRCS = shell.c lexer.c lexer_utils.c parser.c cd.c env.c pwd.c echo.c export.c
+SRCS = shell.c lexer.c lexer_utils.c parser.c cd.c env.c pwd.c echo.c export.c\
+	env_utils.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJS = $(SRCS:.c=.o)
