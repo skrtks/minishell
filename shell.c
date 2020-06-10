@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/10 12:19:29 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 15:49:49 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	main(int argc, char **argv, char **envp)
 	t_node	*env_list;
 
 	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	signal(SIGTSTP, sig_handler);
 	env_list = get_env(envp);
 	if (!env_list)
 	{
@@ -75,6 +77,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		command_list = lexer(input);
+		free (input);
 		parse(command_list, env_list);
 		free_list(&command_list);
 	}

@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/09 16:39:49 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 12:36:03 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,5 @@ t_node	*lexer(char *input)
 		}
 		free(cmd);
 	}
-	free(input);
 	return (head);
 }
