@@ -10,6 +10,8 @@ add_subdirectory(libft)
 add_subdirectory(libft/printf)
 
 add_executable(minishell
+        echo.c
+        export.c
         cd.c
         cd.h
         echo.c

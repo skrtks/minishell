@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/09 14:07:39 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/10 15:08:20 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,4 @@ void	set_info(int command, int type, t_node *node)
 {
 	node->command = command;
 	node->type = type;
-}
-
-void	add_to_back(t_node **head, t_node *node)
-{
-	t_node *ptr;
-
-	if (!(*head))
-		(*head) = node;
-	else
-	{
-		ptr = *head;
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = node;
-	}
 }
