@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env_utils.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 15:08:05 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/10 15:59:24 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/11 09:03:17 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,30 @@ void	add_to_back(t_node **head, t_node *node)
 	}
 }
 
-void		add_front(t_node **head, char *str)
+void	add_to_back_env(t_env **head, t_env *node)
 {
-	t_node *node;
+	t_env *ptr;
 
-	if (!(node = malloc(sizeof(t_node))))
-		exit(1);
-	node->next = *head;
-	node->data = ft_strdup(str);
-	*head = node;
+	if (!(*head))
+		(*head) = node;
+	else
+	{
+		ptr = *head;
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = node;
+	}
 }
 
-int	add_env_node(t_node **head, char *env_var)
+int		add_env_node(t_env **head, char *env_var)
 {
-	t_node *node;
+	t_env *node;
 
-	node = malloc(sizeof(t_node));
+	node = malloc(sizeof(t_env));
 	if (!node)
 		return (1);
 	node->next = NULL;
 	node->data = ft_strdup(env_var);
-	add_to_back(head, node);
+	add_to_back_env(head, node);
 	return (0);
 }

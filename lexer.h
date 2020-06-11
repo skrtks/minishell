@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/10 16:02:42 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/11 09:09:53 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ typedef struct	s_node
 	int				type;
 	struct s_node	*next;
 }				t_node;
+
+typedef struct s_env
+{
+	char			*data;
+	struct s_env	*next;
+}				t_env;
 
 typedef enum	e_commands
 {
@@ -58,16 +64,19 @@ typedef enum	e_type
 	SYMBOL = 3,
 }				t_type;
 
-t_node			*env(t_node *node, t_node *env_list);
-t_node			*export(t_node *node, t_node **env_list);
+t_node			*env(t_node *node, t_env *env_list);
+t_node			*export(t_node *node, t_env **env_list);
 t_node			*lexer(char *input);
 t_node			*pwd(t_node *node);
 
-int				add_env_node(t_node **head, char *env_var);
+int				add_env_node(t_env **head, char *env_var);
 void			add_to_back(t_node **head, t_node *node);
-void			add_front(t_node **head, char *str);
-void			free_list(t_node **head);
+void			add_to_back_env(t_env **head, t_env *node);
+void			free_envlist(t_env **head);
+void			free_cmdlist(t_node **head);
 void			set_info(int command, int type, t_node *node);
+void			continue_populating(char *cmd, t_node *node);
+int				populate_node(char *cmd, t_node *node);
 
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/10 15:58:24 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/11 09:24:37 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "lexer.h"
 #include "parser.h"
 
-t_node *get_env(char **envp)
+t_env *get_env(char **envp)
 {
-	t_node	*head;
+	t_env	*head;
 
 	head = NULL;
 	while (*envp)
@@ -35,13 +35,12 @@ void sig_handler()
 	return ;
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	int		ret;
 	char	*input;
 	t_node	*command_list;
-	t_node	*env_list;
+	t_env	*env_list;
 
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
@@ -62,12 +61,12 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		command_list = lexer(input);
-		free (input);
+		free(input);
 		parse(command_list, &env_list);
-		free_list(&command_list);
+		free_cmdlist(&command_list);
 	}
 	argc = 0;
 	argv = NULL;
-	free_list(&env_list);
+	free_envlist(&env_list);
 	return (0);
 }

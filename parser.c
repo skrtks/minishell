@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/10 16:02:06 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/11 09:16:07 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "cd.h"
 #include "./libft/libft.h"
 
-t_node *execute_cmd(t_node *node, t_node **env_list)
+t_node	*execute_cmd(t_node *node, t_env **env_list)
 {
 	if (node->command == ECHO)
 		node = echo(node);
@@ -45,7 +45,7 @@ t_node *execute_cmd(t_node *node, t_node **env_list)
 	return (node);
 }
 
-void	parse(t_node *cmd_list, t_node **env_list)
+void	parse(t_node *cmd_list, t_env **env_list)
 {
 	t_node *ptr;
 
