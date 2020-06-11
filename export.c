@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/11 11:54:02 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/11 18:35:24 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		compare_data(char *str1, char *str2)
 	return (0);
 }
 
-static void		sort_list(t_env **env_list)
+static void		sort_list(t_env **export_list)
 {
 	t_env	*ptr;
 	t_env	*next;
@@ -41,15 +41,15 @@ static void		sort_list(t_env **env_list)
 	while (swap)
 	{
 		swap = 0;
-		ptr = *env_list;
+		ptr = *export_list;
 		next = ptr->next;
 		while (ptr && ptr->next)
 		{
 			if (compare_data(ptr->data, next->data))
 			{
 				ptr->next = next->next;
-				next->next = *env_list;
-				*env_list = next;
+				next->next = *export_list;
+				*export_list = next;
 				swap = 1;
 			}
 			ptr = ptr->next;
@@ -60,24 +60,52 @@ static void		sort_list(t_env **env_list)
 	return ;
 }
 
-t_node			*export_cmd(t_node *node, t_env **env_list)
+void			extend_env_list(char *str, t_env **env_list)
+{
+	int		i;
+	char	*temp;
+
+	i = ft_strlen(str);
+	if (!(temp = malloc(sizeof(char) * (i + 1))))
+		return ;			//error
+	i = 0;
+	while (str[i] != ' ' && str[i])
+	{
+		temp[i] = str[i];
+		i++;
+	}
+	temp[i] = '\0';
+	add_env_node(env_list, temp);
+	return ;
+}
+
+t_node			*export_cmd(t_node *node, t_env **export_list, t_env **env_list)
 {
 	t_env *head;
 
 	if (node->next != NULL && node->next->command != SEMICOLON)
 	{
-		add_env_node(env_list, node->next->data);
-		node = node->next->next;
+		while (node->next != NULL && node->next->command != SEMICOLON)
+		{
+			add_export_node(export_list, node->next->data);
+			if (check_equal_sign(node->next->data))
+				extend_env_list(node->next->data, env_list);
+			node = node->next;
+		}
+		node = node->next;
 		return (node);
 	}
-	sort_list(env_list);
-	head = *env_list;
-	while ((*env_list))
+	sort_list(export_list);
+	head = *export_list;
+	while ((*export_list))
 	{
-		ft_printf("declare -x %s\n", (*env_list)->data);
-		(*env_list) = (*env_list)->next;
+		ft_printf("declare -x %s\n", (*export_list)->data);
+		(*export_list) = (*export_list)->next;
 	}
-	*env_list = head;
+	*export_list = head;
 	node = node->next;
 	return (node);
 }
+
+//dubbele overschrijven?
+//bij export doen

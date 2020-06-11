@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/11 11:18:17 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/11 17:16:44 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_lists	*get_env(char **envp)
 	{
 		if (add_env_node(&list->env_list, *envp))
 			return (NULL);
-		if (add_env_node(&list->export_list, *envp))
+		if (add_export_node(&list->export_list, *envp))
 			return (NULL);
 		envp++;
 	}
