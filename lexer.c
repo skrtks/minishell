@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 09:17:55 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 09:42:03 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ int	add_node(t_node **head, char *cmd)
 	return (0);
 }
 
+t_node *free_on_error(char *cmd)
+{
+	free (cmd);
+	return (NULL);
+}
+
 t_node	*lexer(char *input)
 {
 	int		i;
@@ -93,8 +99,6 @@ t_node	*lexer(char *input)
 
 	i = 0;
 	head = NULL;
-	if (input[i] == '\0')		//deze kan weg?
-		return (head);
 	while (input[i])
 	{
 		while (input[i] == ' ')
@@ -106,16 +110,10 @@ t_node	*lexer(char *input)
 			return (NULL);
 		if (cmd[0])
 			if (add_node(&head, cmd))
-			{
-				free(cmd);			//koppelen aan de free functie
-				return (NULL);
-			}
+				return (free_on_error(cmd));
 		if (input[i] == ';')
 			if (add_node(&head, ";"))
-			{
-				free(cmd);
-				return (NULL);
-			}
+				return (free_on_error(cmd));
 		i++;
 		free(cmd);
 	}

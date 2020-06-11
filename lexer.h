@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 09:09:53 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 09:47:57 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef enum	e_type
 }				t_type;
 
 t_node			*env(t_node *node, t_env *env_list);
-t_node			*export(t_node *node, t_env **env_list);
+t_node			*export_cmd(t_node *node, t_env **env_list);
 t_node			*lexer(char *input);
 t_node			*pwd(t_node *node);
 

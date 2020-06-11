@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 09:16:07 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 09:48:11 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_node	*execute_cmd(t_node *node, t_env **env_list)
 	else if (node->command == PWD)
 		node = pwd(node);
 	else if (node->command == EXPORT)
-		node = export(node, env_list);
+		node = export_cmd(node, env_list);
 	else if (node->command == UNSET)
 	{
 		node = node->next;

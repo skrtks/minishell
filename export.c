@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/11 09:04:04 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 09:47:48 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ static void		sort_list(t_env **env_list)
 	return ;
 }
 
-t_node			*export(t_node *node, t_env **env_list)
+t_node			*export_cmd(t_node *node, t_env **env_list)
 {
 	t_env *head;
 
-	if (node->next != NULL)
+	if (node->next != NULL && node->next->command != SEMICOLON)
 	{
 		add_env_node(env_list, node->next->data);
 		node = node->next->next;
