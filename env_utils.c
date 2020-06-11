@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 15:08:05 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/11 18:44:44 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 20:34:21 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*export_data(char *str)
 		new[i] = str[i];
 		i++;
 	}
-	new[i] = str[i];
+	new[i] = str[i];		//i + 1 maken
 	i++;
 	new[i] = '\"';
 	i++;
@@ -115,7 +115,7 @@ int		add_env_node(t_env **head, char *env_var)
 	if (!node)
 		return (1);
 	node->next = NULL;
-	node->data = ft_strdup(env_var);
+	node->data = ft_strdup(env_var);			//eventuele fout
 	add_to_back_env(head, node);
 	return (0);
 }
