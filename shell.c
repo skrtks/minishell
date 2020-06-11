@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/11 09:24:37 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 11:18:17 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,48 @@
 #include "lexer.h"
 #include "parser.h"
 
-t_env *get_env(char **envp)
+t_lists	*get_env(char **envp)
 {
-	t_env	*head;
+	t_lists	*list;
 
-	head = NULL;
+	if (!(list = malloc(sizeof(t_lists))))
+		return (NULL);
+	list->env_list = NULL;
+	list->export_list = NULL;
 	while (*envp)
 	{
-		if (add_env_node(&head, *envp))
+		if (add_env_node(&list->env_list, *envp))
+			return (NULL);
+		if (add_env_node(&list->export_list, *envp))
 			return (NULL);
 		envp++;
 	}
-	return (head);
+	return (list);
 }
 
-void sig_handler()
+void	sig_handler()
 {
 	ft_printf("\nminishell> $ ");
 	return ;
 }
 
-int	main(int argc, char **argv, char **envp)
+int		main(int argc, char **argv, char **envp)
 {
 	int		ret;
 	char	*input;
 	t_node	*command_list;
-	t_env	*env_list;
+	t_lists	*list;
 
+	list = get_env(envp);
+	// while (list->env_list)
+	// {
+	// 	printf("%s\n", list->env_list->data);
+	// 	list->env_list = list->env_list->next;
+	// }
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	signal(SIGTSTP, sig_handler);
-	env_list = get_env(envp);
-	if (!env_list)
+	if (!list)
 	{
 		printf("Error starting, env could not be loaded. \nTerminating...\n");
 		exit(1);
@@ -62,11 +72,11 @@ int	main(int argc, char **argv, char **envp)
 		}
 		command_list = lexer(input);
 		free(input);
-		parse(command_list, &env_list);
+		parse(command_list, &list);
 		free_cmdlist(&command_list);
 	}
 	argc = 0;
 	argv = NULL;
-	free_envlist(&env_list);
+	//free_envlist(&env_list);			//listst van maken
 	return (0);
 }

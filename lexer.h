@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 09:47:57 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/11 11:37:35 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@ typedef struct	s_node
 	struct s_node	*next;
 }				t_node;
 
-typedef struct s_env
+typedef struct	s_env
 {
 	char			*data;
 	struct s_env	*next;
 }				t_env;
+
+typedef struct	s_lists
+{
+	struct s_env		*env_list;
+	struct s_env		*export_list;
+}				t_lists;
 
 typedef enum	e_commands
 {
