@@ -72,6 +72,7 @@ int		main(int argc, char **argv, char **envp)
 		}
 		command_list = lexer(input);
 		free(input);
+		input = NULL;
 		parse(command_list, &list);
 		free_cmdlist(&command_list);
 	}
