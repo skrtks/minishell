@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/10 19:57:43 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 09:24:37 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void sig_handler()
 	return ;
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	int		ret;
@@ -62,7 +61,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		command_list = lexer(input);
-		free (input);
+		free(input);
 		parse(command_list, &env_list);
 		free_cmdlist(&command_list);
 	}

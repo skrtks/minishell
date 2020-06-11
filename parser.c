@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/10 19:51:31 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 09:16:07 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "cd.h"
 #include "./libft/libft.h"
 
-t_node *execute_cmd(t_node *node, t_env **env_list)
+t_node	*execute_cmd(t_node *node, t_env **env_list)
 {
 	if (node->command == ECHO)
 		node = echo(node);

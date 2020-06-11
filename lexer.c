@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/10 12:36:03 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/11 09:17:55 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*extract_from_brackets(char *input, int *pos)
 	b_type = input[*pos];
 	*pos += 1;
 	len = *pos;
-	while (input[len] && (input[len] != b_type || (input[len] == b_type
+	while (input[len] && (input[len] != b_type || (input[len] == b_type\
 			&& input[len - 1] == '\\')))
 		len++;
 	len -= *pos;
@@ -32,7 +32,7 @@ char	*extract_from_brackets(char *input, int *pos)
 	if (!extr)
 		return (NULL);
 	i = *pos;
-	while (input[i] && (input[i] != b_type || (input[i] == b_type
+	while (input[i] && (input[i] != b_type || (input[i] == b_type\
 			&& input[i - 1] == '\\')))
 	{
 		extr[i - *pos] = input[i];
@@ -52,15 +52,15 @@ char	*extract_word(char *input, int *pos)
 	if ((input[*pos] == '\'' || input[*pos] == '\"') && input[*pos - 1] != '\\')
 		return (extract_from_brackets(input, pos));
 	len = *pos;
-	while (input[len] != ' ' && input[len] != '\0' && !((input[len] == '\'' 
-			|| input[len] == '\"') && input[len - 1] != '\\') && input[len] != ';')
+	while (input[len] != ' ' && input[len] != '\0' && !((input[len] == '\'' ||\
+		input[len] == '\"') && input[len - 1] != '\\') && input[len] != ';')
 		len++;
 	len -= *pos;
 	extr = malloc(sizeof(char) * (len + 1));
 	if (!extr)
 		return (NULL);
 	i = *pos;
-	while (input[i] != ' ' && input[i] != '\0' && !((input[i] == '\'' 
+	while (input[i] != ' ' && input[i] != '\0' && !((input[i] == '\''
 			|| input[i] == '\"') && input[i - 1] != '\\') && input[i] != ';')
 	{
 		extr[i - *pos] = input[i];
@@ -69,59 +69,6 @@ char	*extract_word(char *input, int *pos)
 	extr[i - *pos] = '\0';
 	*pos = i;
 	return (extr);
-}
-
-void	continue_populating(char *cmd, t_node *node)
-{
-	if (!ft_strncmp(cmd, ";", 1))
-		set_info(SEMICOLON, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "\'", 1))
-		set_info(APOSTROPHE, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "\"", 1))
-		set_info(QUATATION_MARK, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "<", 1))
-		set_info(ARROW_LEFT, SYMBOL, node);
-	else if (!ft_strncmp(cmd, ">", 1))
-		set_info(ARROW_RIGHT, SYMBOL, node);
-	else if (!ft_strncmp(cmd, ">>", 2))
-		set_info(ARROW_DOUBLE, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "|", 1))
-		set_info(PIPE, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "$", 1))
-		set_info(DOLLAR, SYMBOL, node);
-	else if (!ft_strncmp(cmd, "$?", 2))
-		set_info(DOLLAR_QUESTION, SYMBOL, node);
-	else
-		set_info(OTHER, ARGUMENT, node);
-}
-
-int	populate_node(char *cmd, t_node *node)
-{
-	node->data = ft_strdup(cmd);
-	if (!node->data)
-    {
-    	ft_printf("Error parsing command, try again.\n");
-    	return (1);
-    }
-	if (!ft_strncmp(cmd, "echo", 4))
-		set_info(ECHO, COMMAND, node);
-	else if (!ft_strncmp(cmd, "cd", 2))
-		set_info(CD, COMMAND, node);
-	else if (!ft_strncmp(cmd, "pwd", 3))
-		set_info(PWD, COMMAND, node);
-	else if (!ft_strncmp(cmd, "export", 6))
-		set_info(EXPORT, COMMAND, node);
-	else if (!ft_strncmp(cmd, "unset", 5))
-		set_info(UNSET, COMMAND, node);
-	else if (!ft_strncmp(cmd, "env", 3))
-		set_info(ENV, COMMAND, node);
-	else if (!ft_strncmp(cmd, "exit", 4))
-		set_info(EXIT, COMMAND, node);
-	else if (!ft_strncmp(cmd, "-n", 2))
-		set_info(N, FLAG, node);
-	else
-		continue_populating(cmd, node);
-	return (0);
 }
 
 int	add_node(t_node **head, char *cmd)
@@ -146,7 +93,7 @@ t_node	*lexer(char *input)
 
 	i = 0;
 	head = NULL;
-	if (input[i] == '\0')
+	if (input[i] == '\0')		//deze kan weg?
 		return (head);
 	while (input[i])
 	{
@@ -160,18 +107,16 @@ t_node	*lexer(char *input)
 		if (cmd[0])
 			if (add_node(&head, cmd))
 			{
-				free (cmd);
+				free(cmd);			//koppelen aan de free functie
 				return (NULL);
 			}
 		if (input[i] == ';')
-		{
 			if (add_node(&head, ";"))
 			{
-				free (cmd);
+				free(cmd);
 				return (NULL);
 			}
-			i++;
-		}
+		i++;
 		free(cmd);
 	}
 	return (head);

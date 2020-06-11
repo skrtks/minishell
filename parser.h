@@ -6,10 +6,9 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/10 19:54:14 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 09:01:50 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PARSER_H
 # define PARSER_H

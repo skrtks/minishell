@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/10 19:58:22 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 09:09:53 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ t_node			*pwd(t_node *node);
 int				add_env_node(t_env **head, char *env_var);
 void			add_to_back(t_node **head, t_node *node);
 void			add_to_back_env(t_env **head, t_env *node);
-void			add_front(t_node **head, char *str);
 void			free_envlist(t_env **head);
 void			free_cmdlist(t_node **head);
 void			set_info(int command, int type, t_node *node);
+void			continue_populating(char *cmd, t_node *node);
+int				populate_node(char *cmd, t_node *node);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 15:08:05 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/10 19:48:25 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 09:03:17 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,7 @@ void	add_to_back_env(t_env **head, t_env *node)
 	}
 }
 
-void		add_front(t_node **head, char *str)
-{
-	t_node *node;
-
-	if (!(node = malloc(sizeof(t_node))))
-		exit(1);
-	node->next = *head;
-	node->data = ft_strdup(str);
-	*head = node;
-}
-
-int	add_env_node(t_env **head, char *env_var)
+int		add_env_node(t_env **head, char *env_var)
 {
 	t_env *node;
 
