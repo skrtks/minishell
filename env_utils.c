@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 15:08:05 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/11 18:31:54 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/11 18:44:44 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,10 @@ int		check_equal_sign(char *str)
 char	*export_data(char *str)
 {
 	int		i;
-	int		j;
 	char	*new;
 
 	i = ft_strlen(str);
-	if (!(new = malloc(sizeof(char) * (i + 3))))		//waarom heb je hier moeite mee?
+	if (!(new = malloc(sizeof(char) * (i + 3))))
 		return (NULL);
 	i = 0;
 	while (str[i] && str[i] != '=')
@@ -73,14 +72,12 @@ char	*export_data(char *str)
 	}
 	new[i] = str[i];
 	i++;
-	j = i;
 	new[i] = '\"';
 	i++;
-	while (str[j] && str[j] != ' ')
+	while (str[i - 1] && str[i - 1] != ' ')
 	{
-		new[i] = str[j];
+		new[i] = str[i - 1];
 		i++;
-		j++;
 	}
 	new[i] = '\"';
 	i++;
