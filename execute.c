@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/12 15:04:26 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/12 16:56:50 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,24 @@
 #include <errno.h>
 #include <string.h>
 #include "./libft/libft.h"
+
+char **free_array(char **array)
+{
+	int i;
+
+	if (!array)
+		return (NULL);
+	i = 0;
+	while (array[i])
+	{
+		free (array[i]);
+		array[i] = NULL;
+		i++;
+	}
+	free (array);
+	array = NULL;
+	return (NULL);
+}
 
 char **list_to_array(t_node **node)
 {
@@ -44,6 +62,8 @@ char **list_to_array(t_node **node)
 	while (*node && (*node)->command != SEMICOLON)
 	{
 		argv[i] = ft_strdup((*node)->data);
+		if (!argv[i])
+			return (free_array(argv));
 		i++;
 		*node = (*node)->next;
 	}
@@ -73,23 +93,12 @@ char **env_list_to_array(t_env **node)
 	while (*node)
 	{
 		envp[i] = ft_strdup((*node)->data);
+		if (!envp[i])
+			return (free_array(envp));
 		i++;
 		*node = (*node)->next;
 	}
 	return (envp);
-}
-
-void free_array(char **array)
-{
-	int i;
-
-	i = 0;
-	while (array[i])
-	{
-		free (array[i]);
-		i++;
-	}
-	free (array);
 }
 
 t_node *execute(t_node *node, t_env *env_list)
@@ -103,6 +112,12 @@ t_node *execute(t_node *node, t_env *env_list)
 	filename = node->data;
 	argv = list_to_array(&node);
 	envp = env_list_to_array(&env_list);
+	if (!argv || !envp)
+	{
+		free_array(argv);
+    	free_array(envp);
+		return (NULL);
+	}
 	cpid = fork();
     if (cpid == -1) {
         perror("fork");
@@ -125,7 +140,6 @@ t_node *execute(t_node *node, t_env *env_list)
             perror("waitpid");
             exit(EXIT_FAILURE);
         }
-
     }
     free_array(argv);
     free_array(envp);
