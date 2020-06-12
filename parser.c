@@ -6,13 +6,14 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/12 12:11:45 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/12 14:27:41 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
 #include "echo.h"
+#include "execute.h"
 #include "shell.h"
 #include "exit.h"
 #include "cd.h"
@@ -36,10 +37,7 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 	else if (node->command == ENV)
 		node = env(node, (*list)->env_list);
 	else if (node->command == EXECUTABLE)
-	{
-		ft_printf("Executeable\n");
-		node = node->next;
-	}
+		node = execute(node, (*list)->env_list);
 	else if (node->command == EXIT)
 		exit_shell(node, &(*list)->env_list, 0);
 	else

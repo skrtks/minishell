@@ -11,6 +11,7 @@ add_subdirectory(libft/printf)
 
 add_executable(minishell
         env_utils.c
+        execute.c
         export.c
         exit.c
         cd.c
