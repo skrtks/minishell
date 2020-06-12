@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/12 14:47:07 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/12 15:04:26 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ t_node *execute(t_node *node, t_env *env_list)
 	filename = node->data;
 	argv = list_to_array(&node);
 	envp = env_list_to_array(&env_list);
-
 	cpid = fork();
     if (cpid == -1) {
         perror("fork");
@@ -111,7 +110,7 @@ t_node *execute(t_node *node, t_env *env_list)
     }
     if (cpid == 0)
     {
-    	signal(SIGINT, SIG_DFL);
+    	signal(SIGINT, SIG_DFL); // Kan denk ik weg
     	signal(SIGQUIT, SIG_DFL);
 		signal(SIGTSTP, SIG_DFL);
     	
