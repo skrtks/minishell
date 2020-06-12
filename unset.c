@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   unset.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 13:21:54 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/11 20:38:44 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/12 10:45:43 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
