@@ -89,6 +89,11 @@ t_node *unset(t_node *node, t_lists **list)
         node = node->next;
     else
         return (NULL);
-	remove_env_var(node->data, &(*list)->export_list);
+    while (node)
+    {
+        remove_env_var(node->data, &(*list)->export_list);
+        //    remove_env_var(node->data, &(*list)->env_list); Uncomment to also remove from env list (not tested)
+        node = node->next;
+    }
 	return (0);
 }
