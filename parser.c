@@ -6,13 +6,14 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 18:14:59 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/12 10:34:33 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "lexer.h"
 #include "echo.h"
+#include "unset.h"
 #include "shell.h"
 #include "exit.h"
 #include "cd.h"
@@ -29,10 +30,7 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 	else if (node->command == EXPORT)
 		node = export_cmd(node, &(*list)->export_list, &(*list)->env_list);
 	else if (node->command == UNSET)
-	{
-		node = node->next;
-		write(1, "Executed unset\n", 15);
-	}
+		node = unset(node, list);
 	else if (node->command == ENV)
 		node = env(node, (*list)->env_list);
 	else if (node->command == EXIT)
