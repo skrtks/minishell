@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/12 14:41:27 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/12 14:47:07 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,19 @@ char **env_list_to_array(t_env **node)
 	return (envp);
 }
 
+void free_array(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free (array[i]);
+		i++;
+	}
+	free (array);
+}
+
 t_node *execute(t_node *node, t_env *env_list)
 {
 	pid_t cpid;
@@ -103,7 +116,7 @@ t_node *execute(t_node *node, t_env *env_list)
 		signal(SIGTSTP, SIG_DFL);
     	
     	if (execve(filename, argv, envp))
-    		ft_printf("bash: %s", strerror(errno));
+    		ft_printf("bash: %s\n", strerror(errno));
     	exit(1);
     }
     else
@@ -115,22 +128,8 @@ t_node *execute(t_node *node, t_env *env_list)
         }
 
     }
-
-    int i = 0;
-	while (argv[i])
-	{
-		free (argv[i]);
-		i++;
-	}
-	free (argv);
-	i = 0;
-	while (envp[i])
-	{
-		free (envp[i]);
-		i++;
-	}
-	free (envp);
-
+    free_array(argv);
+    free_array(envp);
 	if (node)
 		node = node->next;
 	return (node);
