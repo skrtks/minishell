@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/11 20:33:12 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/12 10:01:22 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,6 @@ static void		sort_list(t_env **export_list)
 	return ;
 }
 
-void			extend_env_list(char *str, t_env **env_list)
-{
-	int		i;
-	char	*temp;
-
-	i = ft_strlen(str);
-	if (!(temp = malloc(sizeof(char) * (i + 1))))
-		return ;			//error
-	i = 0;
-	while (str[i] != ' ' && str[i])
-	{
-		temp[i] = str[i];
-		i++;
-	}
-	temp[i] = '\0';
-	add_env_node(env_list, temp);
-	free (temp);
-	return ;
-}
-
 t_node			*export_cmd(t_node *node, t_env **export_list, t_env **env_list)
 {
 	t_env *head;
@@ -98,7 +78,7 @@ t_node			*export_cmd(t_node *node, t_env **export_list, t_env **env_list)
 	}
 	sort_list(export_list);
 	head = *export_list;
-	while ((*export_list))
+	while (*export_list)
 	{
 		ft_printf("declare -x %s\n", (*export_list)->data);
 		(*export_list) = (*export_list)->next;
