@@ -111,9 +111,12 @@ t_node	*lexer(char *input)
 		if (cmd[0])
 			if (add_node(&head, cmd))
 				return (free_on_error(cmd));
-		if (input[i] == ';')
-			if (add_node(&head, ";"))
-				return (free_on_error(cmd));
+        if (input[i] == ';')
+        {
+            if (add_node(&head, ";"))
+                return (free_on_error(cmd));
+            i++;
+        }
 		free(cmd);
 	}
 	return (head);
