@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 11:37:35 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/12 12:10:29 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ typedef enum	e_commands
 	PIPE = 14,
 	DOLLAR = 15,
 	DOLLAR_QUESTION = 16,
-	OTHER = 17,
+	EXECUTABLE = 17,
+	OTHER = 18,
 }				t_commands;
 
 typedef enum	e_type
