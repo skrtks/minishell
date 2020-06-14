@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 13:21:54 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/12 10:45:43 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/12 11:47:29 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ t_node *unset(t_node *node, t_lists **list)
         //    remove_env_var(node->data, &(*list)->env_list); Uncomment to also remove from env list (not tested)
         node = node->next;
     }
-	return (0);
+	return (node);
 }

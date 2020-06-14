@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/12 10:34:37 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/12 11:38:53 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef enum	e_type
 }				t_type;
 
 t_node			*env(t_node *node, t_env *env_list);
-t_node			*export_cmd(t_node *node, t_env **export_list, t_env **env_list);
+t_node			*export_cmd(t_node *node, t_lists **list);
 t_node			*lexer(char *input);
 t_node			*pwd(t_node *node);
 

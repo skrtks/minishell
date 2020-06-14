@@ -6,12 +6,15 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/12 11:03:41 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/12 12:02:01 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 #include "lexer.h"
+#include "unset.h"
+
+int remove_env_var(char *data, t_env **list);
 
 static int		compare_data(char *str1, char *str2)
 {
@@ -60,7 +63,7 @@ static void		sort_list(t_env **export_list)
 	return ;
 }
 
-t_node			*export_cmd(t_node *node, t_env **export_list, t_env **env_list)
+t_node			*export_cmd(t_node *node, t_lists **list)
 {
 	t_env *head;
 
@@ -68,22 +71,23 @@ t_node			*export_cmd(t_node *node, t_env **export_list, t_env **env_list)
 	{
 		while (node->next != NULL && node->next->command != SEMICOLON)
 		{
-			add_export_node(export_list, node->next->data);
+			remove_env_var(node->data, &(*list)->export_list);
+			add_export_node(&(*list)->export_list, node->next->data);
 			if (check_equal_sign(node->next->data))
-				extend_env_list(node->next->data, env_list);
+				extend_env_list(node->next->data, &(*list)->env_list);
 			node = node->next;
 		}
 		node = node->next;
 		return (node);
 	}
-	sort_list(export_list);
-	head = *export_list;
-	while (*export_list)
+	sort_list(&(*list)->export_list);
+	head = (*list)->export_list;
+	while ((*list)->export_list)
 	{
-		ft_printf("declare -x %s\n", (*export_list)->data);
-		(*export_list) = (*export_list)->next;
+		ft_printf("declare -x %s\n", (*list)->export_list->data);
+		(*list)->export_list = (*list)->export_list->next;
 	}
-	*export_list = head;
+	(*list)->export_list = head;
 	node = node->next;
 	return (node);
 }
