@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/12 11:39:42 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/14 16:27:31 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "lexer.h"
 #include "echo.h"
 #include "unset.h"
-#include "shell.h"
 #include "exit.h"
 #include "cd.h"
 #include "./libft/libft.h"

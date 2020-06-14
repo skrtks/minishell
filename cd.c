@@ -6,12 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/11 09:02:46 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/14 16:07:52 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cd.h"
-#include "shell.h"
 #include "./libft/libft.h"
 #include "errno.h"
 #include <unistd.h>

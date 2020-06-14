@@ -6,14 +6,14 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/11 17:16:44 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/14 16:28:16 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
 #include <signal.h>
 #include "lexer.h"
 #include "parser.h"
+#include "./libft/libft.h"
 
 t_lists	*get_env(char **envp)
 {

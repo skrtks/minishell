@@ -6,11 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/14 15:37:01 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/14 16:26:51 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
 #include "libft/libft.h"
 #include "lexer.h"
 
@@ -71,7 +70,7 @@ char	*extract_word(char *input, int *pos)
 	return (extr);
 }
 
-int	add_node(t_node **head, char *cmd)
+int		add_node(t_node **head, char *cmd)
 {
 	t_node *node;
 
@@ -85,9 +84,9 @@ int	add_node(t_node **head, char *cmd)
 	return (0);
 }
 
-t_node *free_on_error(char *cmd)
+t_node	*free_on_error(char *cmd)
 {
-	free (cmd);
+	free(cmd);
 	return (NULL);
 }
 
@@ -103,20 +102,17 @@ t_node	*lexer(char *input)
 	{
 		while (input[i] == ' ')
 			i++;
-		if (!input[i])
-			return (head);
-		cmd = extract_word(input, &i);
-		if (!cmd)
+		if (!(cmd = extract_word(input, &i)))
 			return (NULL);
 		if (cmd[0])
 			if (add_node(&head, cmd))
 				return (free_on_error(cmd));
-        if (input[i] == ';')
-        {
-            if (add_node(&head, ";"))
-                return (free_on_error(cmd));
-            i++;
-        }
+		if (input[i] == ';')
+		{
+			if (add_node(&head, ";"))
+				return (free_on_error(cmd));
+			i++;
+		}
 		free(cmd);
 	}
 	return (head);

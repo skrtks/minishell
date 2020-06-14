@@ -6,11 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 15:08:05 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/11 20:34:21 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/14 16:09:20 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
 #include "libft/libft.h"
 #include "lexer.h"
 
@@ -70,10 +69,9 @@ char	*export_data(char *str)
 		new[i] = str[i];
 		i++;
 	}
-	new[i] = str[i];		//i + 1 maken
-	i++;
-	new[i] = '\"';
-	i++;
+	new[i] = str[i];
+	new[i + 1] = '\"';
+	i += 2;
 	while (str[i - 1] && str[i - 1] != ' ')
 	{
 		new[i] = str[i - 1];
@@ -115,7 +113,7 @@ int		add_env_node(t_env **head, char *env_var)
 	if (!node)
 		return (1);
 	node->next = NULL;
-	node->data = ft_strdup(env_var);			//eventuele fout
+	node->data = ft_strdup(env_var);
 	add_to_back_env(head, node);
 	return (0);
 }

@@ -6,16 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/14 16:00:37 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/14 16:16:55 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
 #include "lexer.h"
 #include "unset.h"
-
-int	compare(const char *input, const char *in_list, int n);
-int remove_node(t_env **node_cur, t_env **node_prev, t_env **head);
+#include "./libft/libft.h"
 
 static int		compare_data(char *str1, char *str2)
 {
@@ -97,6 +94,7 @@ t_node			*export_cmd(t_node *node, t_lists **list)
 		while (node->next != NULL && node->next->command != SEMICOLON)
 		{
 			check_existence(node->next->data, &(*list)->export_list);
+			check_existence(node->next->data, &(*list)->env_list);
 			add_export_node(&(*list)->export_list, node->next->data);
 			if (check_equal_sign(node->next->data))
 				extend_env_list(node->next->data, &(*list)->env_list);
@@ -116,7 +114,3 @@ t_node			*export_cmd(t_node *node, t_lists **list)
 	node = node->next;
 	return (node);
 }
-
-//dubbele overschrijven?
-//bij export doen
-//bij env doet hij het niet bij kaas="lekker"

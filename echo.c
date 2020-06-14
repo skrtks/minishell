@@ -6,13 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/11 09:03:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/14 16:08:14 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "echo.h"
 #include "lexer.h"
-#include "shell.h"
 #include "./libft/libft.h"
 
 t_node	*echo(t_node *node)

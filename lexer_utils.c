@@ -6,11 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 09:10:01 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/14 16:17:50 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
 #include "libft/libft.h"
 #include "lexer.h"
 
