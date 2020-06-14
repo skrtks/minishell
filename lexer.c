@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 09:42:03 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/14 15:37:01 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,7 @@ t_node	*lexer(char *input)
 		if (cmd[0])
 			if (add_node(&head, cmd))
 				return (free_on_error(cmd));
-<<<<<<< HEAD
-		if (input[i] == ';')
-=======
         if (input[i] == ';')
->>>>>>> master
         {
             if (add_node(&head, ";"))
                 return (free_on_error(cmd));

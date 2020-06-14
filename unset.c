@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 13:21:54 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/12 11:47:29 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/14 15:57:44 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	compare(const char *input, const char *in_list, int n)
     return (0);
 }
 
-int remove_env_var(char *data, t_env **list)
+void remove_env_var(char *data, t_env **list)
 {
     int len;
 	t_env *ptr;
@@ -68,8 +68,9 @@ int remove_env_var(char *data, t_env **list)
 	ptr = *list;
 	len = len_and_check(data);
 	if (len == -1)
-        return (1);
+        return ;
 	previous = NULL;
+	printf("%s\n", data);
 	while (ptr)
 	{
 		if (!compare(data, ptr->data, len))
@@ -80,7 +81,7 @@ int remove_env_var(char *data, t_env **list)
 		previous = ptr;
 		ptr = ptr->next;
 	}
-	return (0);
+	return ;
 }
 
 t_node *unset(t_node *node, t_lists **list)
