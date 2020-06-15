@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/15 16:19:22 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/15 19:15:58 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,69 +18,70 @@
 #include "exit.h"
 #include <string.h>
 #include "cd.h"
-#include "cd.h"
 #include "./libft/libft.h"
 #include <sys/stat.h>
+
+int clean_on_exit(char *path, char *cur_dir, char **paths_arr, int ret_val) {
+	chdir(cur_dir);
+	if (path)
+		free(path);
+	if (cur_dir)
+		free(cur_dir);
+	if (paths_arr)
+		free_array(paths_arr);
+	return (ret_val);
+}
+
+char **get_path_array(t_env *env_list)
+{
+	char *path;
+	char **paths_arr;
+
+	path = NULL;
+	while (env_list)
+	{
+		if (!ft_strncmp("PATH=", env_list->data, 5))
+		{
+			path = ft_strdup(env_list->data + 5); // Protect?
+			break ;
+		}
+		env_list = env_list->next;
+	}
+	paths_arr = ft_split(path, ':'); // Protect? (deze heeft geen probleem met NULL input)
+	if (path)
+		free(path);
+	return (paths_arr);
+}
 
 int check_for_path(char **cmd, t_env *env_list)
 {
 	char *path;
 	char *cur_dir;
 	char **paths_arr;
-    struct stat buffer;
-    t_env *ptr;
+	struct stat buffer;
 	int i;
 
-    (void)cmd;
-    path = NULL;
-	ptr = env_list;
-	while (ptr)
-	{
-		if (!ft_strncmp("PATH=", ptr->data, 5))
-		{
-			path = ft_strdup(ptr->data + 5);
-			break ;
-		}
-		ptr = ptr->next;
-	}
-    paths_arr = ft_split(path, ':');
-    cur_dir = getcwd(NULL, 0);
+	paths_arr = get_path_array(env_list); // Won't crash if not protected, still do it?
+	cur_dir = getcwd(NULL, 0);
+	path = NULL;
 	i = 0;
-	while (paths_arr[i])
-    {
-    	if (chdir(paths_arr[i]))
-		{
-			ft_printf("Error: %s\n", strerror(errno));
-			errno = 0;
-		}
-        if (stat(*cmd, &buffer) == 0) {
-            free(path);
-        	path = ft_strjoin(paths_arr[i], "/");
-        	free(paths_arr[i]);
-        	paths_arr[i] = path;
-        	path = ft_strjoin(path, *cmd);
-        	free(*cmd);
-        	*cmd = path;
-            if (chdir(cur_dir))
-			{
-				ft_printf("Error: %s\n", strerror(errno));
-				errno = 0;
-			}
-			free(cur_dir);
-			free_array(paths_arr);
-            return (1);
-        }
-        i++;
-    }
-    if (chdir(cur_dir))
+	while (paths_arr && paths_arr[i])
 	{
-		ft_printf("Error: %s\n", strerror(errno));
-		errno = 0;
+		chdir(paths_arr[i]);
+		if (stat(*cmd, &buffer) == 0)
+		{
+			free(path);
+			path = ft_strjoin(paths_arr[i], "/"); // Protect?
+			free(paths_arr[i]);
+			paths_arr[i] = path;
+			path = ft_strjoin(path, *cmd); // Protect?
+			free(*cmd);
+			*cmd = ft_strdup(path); // Protect?
+			return (clean_on_exit(path, cur_dir, paths_arr, 1));
+		}
+		i++;
 	}
-	free (path);
-	free_array(paths_arr);
-	free(cur_dir);
-	return (0);
+	return (clean_on_exit(path, cur_dir, paths_arr, 0));
 }
 
 t_node	*execute_cmd(t_node *node, t_lists **list)

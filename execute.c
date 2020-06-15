@@ -6,14 +6,13 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/15 10:30:57 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/15 19:13:23 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "execute.h"
 #include <sys/wait.h>
-#include <sys/types.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -30,7 +29,8 @@ char **free_array(char **array)
 	i = 0;
 	while (array[i])
 	{
-		free (array[i]);
+		if (array[i])
+			free (array[i]);
 		array[i] = NULL;
 		i++;
 	}
