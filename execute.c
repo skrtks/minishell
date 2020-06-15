@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/12 16:56:50 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/15 10:30:57 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char **list_to_array(t_node **node)
 	t_node *head;
 	char **argv;
 	int list_len;
-	int i;
 
 	head = *node; // Save start pos
 	list_len = 0;
@@ -58,13 +57,13 @@ char **list_to_array(t_node **node)
 		return (NULL);
 	argv[list_len] = NULL; // Terminate argv
 	*node = head; // Reset start
-	i = 0;
+	list_len = 0;
 	while (*node && (*node)->command != SEMICOLON)
 	{
-		argv[i] = ft_strdup((*node)->data);
-		if (!argv[i])
+		argv[list_len] = ft_strdup((*node)->data);
+		if (!argv[list_len])
 			return (free_array(argv));
-		i++;
+		list_len++;
 		*node = (*node)->next;
 	}
 	return (argv);
@@ -103,7 +102,7 @@ char **env_list_to_array(t_env **node)
 
 t_node *execute(t_node *node, t_env *env_list)
 {
-	pid_t cpid;
+	pid_t pid;
 	char *filename;
 	char **argv;
 	char **envp;
@@ -118,12 +117,12 @@ t_node *execute(t_node *node, t_env *env_list)
     	free_array(envp);
 		return (NULL);
 	}
-	cpid = fork();
-    if (cpid == -1) {
+	pid = fork();
+    if (pid == -1) {
         perror("fork");
         exit(EXIT_FAILURE);
     }
-    if (cpid == 0)
+    if (pid == 0)
     {
     	signal(SIGINT, SIG_DFL); // Kan denk ik weg
     	signal(SIGQUIT, SIG_DFL);

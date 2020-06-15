@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/11 09:02:46 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/15 13:50:21 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <string.h>
 
-static char	*get_homedir(t_env *env_list)
+char	*get_homedir(t_env *env_list)
 {
 	char	*home_dir;
 	t_env	*ptr;
@@ -43,7 +43,7 @@ t_node		*cd(t_node *node, t_env *env_list)
 		ft_printf("Error loading home directory, try again.\n");
 		return (NULL);
 	}
-	if (node->next)
+	if (node && node->next)
 	{
 		node = node->next;
 		path = node->data;
