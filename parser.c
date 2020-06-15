@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/15 15:53:56 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/15 16:19:22 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 int check_for_path(char **cmd, t_env *env_list)
 {
 	char *path;
-	char *homedir;
+	char *cur_dir;
 	char **paths_arr;
     struct stat buffer;
     t_env *ptr;
@@ -44,7 +44,7 @@ int check_for_path(char **cmd, t_env *env_list)
 		ptr = ptr->next;
 	}
     paths_arr = ft_split(path, ':');
-    homedir = get_homedir(env_list);
+    cur_dir = getcwd(NULL, 0);
 	i = 0;
 	while (paths_arr[i])
     {
@@ -61,25 +61,25 @@ int check_for_path(char **cmd, t_env *env_list)
         	path = ft_strjoin(path, *cmd);
         	free(*cmd);
         	*cmd = path;
-            if (chdir(homedir))
+            if (chdir(cur_dir))
 			{
 				ft_printf("Error: %s\n", strerror(errno));
 				errno = 0;
 			}
-			free(homedir);
+			free(cur_dir);
 			free_array(paths_arr);
             return (1);
         }
         i++;
     }
-    if (chdir(homedir))
+    if (chdir(cur_dir))
 	{
 		ft_printf("Error: %s\n", strerror(errno));
 		errno = 0;
 	}
 	free (path);
 	free_array(paths_arr);
-	free(homedir);
+	free(cur_dir);
 	return (0);
 }
 
