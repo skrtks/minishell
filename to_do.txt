@@ -1,0 +1,3 @@
+exit overal verwerken
+export helemaal vergelijken met bash
+export met variabel="leuk" goed doen
