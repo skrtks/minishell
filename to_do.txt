@@ -1,3 +1,14 @@
-exit overal verwerken
-export helemaal vergelijken met bash
-export met variabel="leuk" goed doen
+echo:
+	- bash neemt geen tabs en de onze wel
+	//misschien makkelijker om in echo in te bouwen dat hij alles weergeeft
+	//tot het einde of de semicolon ipv " in de lexer te doen
+exit:
+	- is nog niet helemaal verwerkt, vooral in Merels code niet
+
+export:
+	- export met variabel="leuk" goed doen (in export met "" en in env zonder)
+	//kan worden opgelost als " uit de lexer wordt gehaald
+
+env:
+	- alles komt weer in de env list te staan ipv alleen wanneer het in
+	het juiste format is
