@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/15 15:21:42 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/16 11:05:32 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_node			*export_cmd(t_node *node, t_lists **list)
 			check_existence(node->next->data, &(*list)->export_list);
 			check_existence(node->next->data, &(*list)->env_list);
 			add_export_node(&(*list)->export_list, node->next->data);
-			if (check_equal_sign(node->next->data))
+			if (check_equal_sign(node->next->data) >= 0)
 				extend_env_list(node->next->data, &(*list)->env_list);
 			node = node->next;
 		}

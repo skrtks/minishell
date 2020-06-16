@@ -9,6 +9,5 @@ export:
 	- export met variabel="leuk" goed doen (in export met "" en in env zonder)
 	//kan worden opgelost als " uit de lexer wordt gehaald
 
-env:
-	- alles komt weer in de env list te staan ipv alleen wanneer het in
-	het juiste format is
+general:
+	- lib maken voor linkedlist

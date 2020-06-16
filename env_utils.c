@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 15:08:05 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/14 16:09:20 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/16 11:02:02 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int		check_equal_sign(char *str)
 	while (str[i] && str[i] != ' ' && str[i] != '=')
 		i++;
 	if (str[i] == '=')
-		return (1);
-	return (0);
+		return (i);			//was 1
+	return (-1);
 }
 
 char	*export_data(char *str)
