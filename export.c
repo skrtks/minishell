@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/16 11:05:32 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/16 11:59:27 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,41 @@ void			check_existence(char *str, t_env **list)
 	return ;
 }
 
+t_node			*extend_lists(t_node *node, t_lists **list)
+{
+	char	*temp;
+	char	*temp2;
+	int		equal_sign;
+	
+	temp2 = ft_strdup(node->next->data);
+	equal_sign = check_equal_sign(node->next->data);
+	while (node->next != NULL && node->next->command != SEMICOLON)
+	{
+		node = node->next;
+		check_existence(node->data, &(*list)->export_list);
+		check_existence(node->data, &(*list)->env_list);
+		while (node->next != NULL && node->command != SEMICOLON)
+		{
+			if (!(temp = ft_strjoin(temp2, node->next->data)))
+				return (NULL);			//error
+			node = node->next;
+		}
+		add_export_node(&(*list)->export_list, temp);
+		if (equal_sign >= 0)
+			extend_env_list(temp, &(*list)->env_list);
+		free (temp);
+		free (temp2);
+	}
+	node = node->next;
+	return (node);
+}
+
 t_node			*export_cmd(t_node *node, t_lists **list)
 {
 	t_env *head;
 
 	if (node->next != NULL && node->next->command != SEMICOLON)
-	{
-		while (node->next != NULL && node->next->command != SEMICOLON)
-		{
-			check_existence(node->next->data, &(*list)->export_list);
-			check_existence(node->next->data, &(*list)->env_list);
-			add_export_node(&(*list)->export_list, node->next->data);
-			if (check_equal_sign(node->next->data) >= 0)
-				extend_env_list(node->next->data, &(*list)->env_list);
-			node = node->next;
-		}
-		return (node->next);
-	}
+		return (extend_lists(node, list));
 	sort_list(&(*list)->export_list);
 	head = (*list)->export_list;
 	while ((*list)->export_list)
