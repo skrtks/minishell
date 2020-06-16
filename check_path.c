@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 09:26:09 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/16 09:29:02 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/16 09:39:25 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include "./libft/libft.h"
 #include "execute.h"
 
-int		clean_on_exit(char *path, char *cur_dir, char **paths_arr, int ret_val) {
+int		clean_on_exit(char *path, char *cur_dir, char **paths_arr, 
+					int ret_val) {
 	chdir(cur_dir);
 	if (path)
 		free(path);

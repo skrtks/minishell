@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/15 19:13:23 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/16 09:53:17 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char **env_list_to_array(t_env **node)
 	t_env *head;
 	char **envp;
 	int list_len;
-	int i;
 
 	head = *node; // Save start pos
 	list_len = 0;
@@ -88,40 +87,26 @@ char **env_list_to_array(t_env **node)
 		return (NULL);
 	envp[list_len] = NULL; // Terminate envp
 	*node = head; // Reset start
-	i = 0;
+	list_len = 0;
 	while (*node)
 	{
-		envp[i] = ft_strdup((*node)->data);
-		if (!envp[i])
+		envp[list_len] = ft_strdup((*node)->data);
+		if (!envp[list_len])
 			return (free_array(envp));
-		i++;
+		list_len++;
 		*node = (*node)->next;
 	}
 	return (envp);
 }
 
-t_node *execute(t_node *node, t_env *env_list)
+int do_fork(char *filename, char **argv, char **envp)
 {
 	pid_t pid;
-	char *filename;
-	char **argv;
-	char **envp;
 	int status;
 
-	filename = node->data;
-	argv = list_to_array(&node);
-	envp = env_list_to_array(&env_list);
-	if (!argv || !envp)
-	{
-		free_array(argv);
-    	free_array(envp);
-		return (NULL);
-	}
 	pid = fork();
-    if (pid == -1) {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    }
+    if (pid == -1)
+    	return (1);
     if (pid == 0)
     {
     	signal(SIGINT, SIG_DFL); // Kan denk ik weg
@@ -135,11 +120,27 @@ t_node *execute(t_node *node, t_env *env_list)
     else
     {
     	if (wait(&status) == -1) 
-    	{
-            perror("waitpid");
-            exit(EXIT_FAILURE);
-        }
+	    	return (1);
     }
+    return (0);
+}
+
+t_node *execute(t_node *node, t_env *env_list)
+{
+	char *filename;
+	char **argv;
+	char **envp;
+
+	filename = node->data;
+	argv = list_to_array(&node);
+	envp = env_list_to_array(&env_list);
+	if (!argv || !envp)
+	{
+		free_array(argv);
+    	free_array(envp);
+		return (NULL);
+	}
+	do_fork(filename, argv, envp);
     free_array(argv);
     free_array(envp);
 	if (node)
