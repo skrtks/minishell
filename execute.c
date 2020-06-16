@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/16 09:53:17 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/16 16:06:41 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ char **list_to_array(t_node **node)
 		*node = (*node)->next;
 		list_len++;
 	}
-	argv = malloc(sizeof(char *) * (list_len + 1));
-	if (!argv)
+	if (!(argv = malloc(sizeof(char *) * (list_len + 1))))
 		return (NULL);
 	argv[list_len] = NULL; // Terminate argv
 	*node = head; // Reset start
@@ -82,8 +81,7 @@ char **env_list_to_array(t_env **node)
 		*node = (*node)->next;
 		list_len++;
 	}
-	envp = malloc(sizeof(char *) * (list_len + 1));
-	if (!envp)
+	if (!(envp = malloc(sizeof(char *) * (list_len + 1))))
 		return (NULL);
 	envp[list_len] = NULL; // Terminate envp
 	*node = head; // Reset start
