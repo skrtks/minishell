@@ -26,7 +26,8 @@ SRCS = builtins/cd.c \
 	    execute.c \
 	    lexer.c \
 	    parser.c \
-	    shell.c
+	    shell.c \
+		pipe.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJS = $(SRCS:.c=.o)
