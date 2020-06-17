@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 13:21:54 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/14 16:32:37 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 11:15:48 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "./libft/libft.h"
 
-void		remove_node(t_env **node_cur, t_env **node_prev, t_env **head)
+static void	remove_node(t_env **node_cur, t_env **node_prev, t_env **head)
 {
 	if ((*node_prev))
 		(*node_prev)->next = (*node_cur)->next;
@@ -25,7 +25,7 @@ void		remove_node(t_env **node_cur, t_env **node_prev, t_env **head)
 	(*node_cur) = NULL;
 }
 
-int		len_and_check(char *input)
+static int	len_and_check(char *input)
 {
 	int n;
 
@@ -42,7 +42,7 @@ int		len_and_check(char *input)
 	return (n + 1);
 }
 
-int		compare(const char *input, const char *in_list, int n)
+static int	compare(const char *input, const char *in_list, int n)
 {
 	int	i;
 
@@ -58,7 +58,7 @@ int		compare(const char *input, const char *in_list, int n)
 	return (0);
 }
 
-void	remove_env_var(char *data, t_env **list)
+static void	remove_env_var(char *data, t_env **list)
 {
 	int		len;
 	t_env	*ptr;
@@ -81,7 +81,7 @@ void	remove_env_var(char *data, t_env **list)
 	}
 }
 
-t_node	*unset(t_node *node, t_lists **list)
+t_node		*unset(t_node *node, t_lists **list)
 {
 	if (node->next)
 		node = node->next;

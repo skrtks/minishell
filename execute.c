@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/17 10:23:45 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 11:16:51 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <string.h>
 #include "./libft/libft.h"
 
-char	**free_array(char **array)
+static char	**free_array(char **array)
 {
 	int i;
 
@@ -38,7 +38,7 @@ char	**free_array(char **array)
 	return (NULL);
 }
 
-char	**list_to_array(t_node **node)
+static char	**list_to_array(t_node **node)
 {
 	t_node	*head;
 	char	**argv;
@@ -67,7 +67,7 @@ char	**list_to_array(t_node **node)
 	return (argv);
 }
 
-char		**env_list_to_array(t_env **node)
+static char	**env_list_to_array(t_env **node)
 {
 	t_env	*head;
 	char	**envp;

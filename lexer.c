@@ -6,14 +6,14 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/14 16:26:51 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 11:18:21 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "lexer.h"
 
-char	*extract_from_brackets(const char *input, int *pos)
+static char		*extract_from_brackets(const char *input, int *pos)
 {
 	char	b_type;
 	char	*extr;
@@ -42,7 +42,7 @@ char	*extract_from_brackets(const char *input, int *pos)
 	return (extr);
 }
 
-char	*extract_word(char *input, int *pos)
+static char		*extract_word(char *input, int *pos)
 {
 	char	*extr;
 	int		len;
@@ -70,7 +70,7 @@ char	*extract_word(char *input, int *pos)
 	return (extr);
 }
 
-int		add_node(t_node **head, char *cmd)
+static int		add_node(t_node **head, char *cmd)
 {
 	t_node *node;
 
@@ -84,13 +84,13 @@ int		add_node(t_node **head, char *cmd)
 	return (0);
 }
 
-t_node	*free_on_error(char *cmd)
+static t_node	*free_on_error(char *cmd)
 {
 	free(cmd);
 	return (NULL);
 }
 
-t_node	*lexer(char *input)
+t_node			*lexer(char *input)
 {
 	int		i;
 	char	*cmd;
