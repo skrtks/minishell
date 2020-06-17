@@ -6,12 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/17 11:18:21 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 11:57:14 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "lexer.h"
+#include "utils/utils.h"
 
 static char		*extract_from_brackets(const char *input, int *pos)
 {
@@ -70,6 +71,21 @@ static char		*extract_word(char *input, int *pos)
 	return (extr);
 }
 
+static void		add_to_back(t_node **head, t_node *node)
+{
+	t_node *ptr;
+
+	if (!(*head))
+		(*head) = node;
+	else
+	{
+		ptr = *head;
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = node;
+	}
+}
+
 static int		add_node(t_node **head, char *cmd)
 {
 	t_node *node;
@@ -82,12 +98,6 @@ static int		add_node(t_node **head, char *cmd)
 		return (1);
 	add_to_back(head, node);
 	return (0);
-}
-
-static t_node	*free_on_error(char *cmd)
-{
-	free(cmd);
-	return (NULL);
 }
 
 t_node			*lexer(char *input)

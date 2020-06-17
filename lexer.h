@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/17 10:36:15 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 12:01:43 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,7 @@ typedef enum	e_type
 	SYMBOL = 3,
 }				t_type;
 
+char			**free_array(char **array);
 t_node			*lexer(char *input);
-
-int				add_env_node(t_env **head, char *env_var);
-int				add_export_node(t_env **head, char *export_var);
-void			add_to_back(t_node **head, t_node *node);
-void			add_to_back_env(t_env **head, t_env *node);
-int				check_equal_sign(const char *str);
-void			extend_env_list(char *str, t_env **env_list);
-void			free_envlist(t_env **head);
-void			free_cmdlist(t_node **head);
-void			set_info(int command, int type, t_node *node);
-void			continue_populating(char *cmd, t_node *node);
-int				populate_node(char *cmd, t_node *node);
 
 #endif

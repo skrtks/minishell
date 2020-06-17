@@ -6,14 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 15:08:05 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/14 16:27:16 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 11:53:51 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "lexer.h"
+#include "utils.h"
 
-int		add_env_node(t_env **head, char *env_var)
+int			add_env_node(t_env **head, char *env_var)
 {
 	t_env *node;
 
@@ -26,7 +25,7 @@ int		add_env_node(t_env **head, char *env_var)
 	return (0);
 }
 
-char	*export_data(char *str)
+static char	*export_data(char *str)
 {
 	int		i;
 	char	*new;
@@ -53,14 +52,14 @@ char	*export_data(char *str)
 	return (new);
 }
 
-int		add_export_node(t_env **head, char *export_var)
+int			add_export_node(t_env **head, char *export_var)
 {
 	t_env	*node;
 	int		check;
 
 	check = 0;
 	node = malloc(sizeof(t_env));
-	if (!node)				//error
+	if (!node)
 		return (-1);
 	if (check_equal_sign(export_var))
 	{
@@ -75,22 +74,7 @@ int		add_export_node(t_env **head, char *export_var)
 	return (0);
 }
 
-void	add_to_back(t_node **head, t_node *node)
-{
-	t_node *ptr;
-
-	if (!(*head))
-		(*head) = node;
-	else
-	{
-		ptr = *head;
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = node;
-	}
-}
-
-void	add_to_back_env(t_env **head, t_env *node)
+void		add_to_back_env(t_env **head, t_env *node)
 {
 	t_env *ptr;
 
@@ -105,14 +89,14 @@ void	add_to_back_env(t_env **head, t_env *node)
 	}
 }
 
-void	extend_env_list(char *str, t_env **env_list)
+void		extend_env_list(char *str, t_env **env_list)
 {
 	int		i;
 	char	*temp;
 
 	i = ft_strlen(str);
 	if (!(temp = malloc(sizeof(char) * (i + 1))))
-		return ;			//error
+		return ;
 	i = 0;
 	while (str[i] != ' ' && str[i])
 	{
@@ -122,16 +106,4 @@ void	extend_env_list(char *str, t_env **env_list)
 	temp[i] = '\0';
 	add_env_node(env_list, temp);
 	free(temp);
-}
-
-int		check_equal_sign(const char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '=')
-		i++;
-	if (str[i] == '=')
-		return (i);
-	return (-1);
 }

@@ -6,15 +6,15 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 13:21:54 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/17 11:15:48 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 12:00:20 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "lexer.h"
-#include "./libft/libft.h"
+#include "libft/libft.h"
 
-static void	remove_node(t_env **node_cur, t_env **node_prev, t_env **head)
+void		remove_node(t_env **node_cur, t_env **node_prev, t_env **head)
 {
 	if ((*node_prev))
 		(*node_prev)->next = (*node_cur)->next;
@@ -42,7 +42,7 @@ static int	len_and_check(char *input)
 	return (n + 1);
 }
 
-static int	compare(const char *input, const char *in_list, int n)
+int			compare(const char *input, const char *in_list, int n)
 {
 	int	i;
 

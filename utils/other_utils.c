@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
+/*   other_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/17 11:59:52 by merelmourik   ########   odam.nl         */
+/*   Created: 2020/06/17 11:29:29 by merelmourik   #+#    #+#                 */
+/*   Updated: 2020/06/17 11:53:21 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "libft/libft.h"
+#include "utils.h"
 
-t_node	*echo(t_node *node)
+int		check_equal_sign(const char *str)
 {
-	int flag;
+	int		i;
 
-	flag = 0;
-	node = node->next;
-	if (node && node->command == N)
-	{
-		flag = 1;
-		node = node->next;
-	}
-	while (node && node->command != SEMICOLON)
-	{
-		ft_printf("%s ", node->data);
-		node = node->next;
-	}
-	if (!flag)
-		ft_printf("\n");
-	return (node);
+	i = 0;
+	while (str[i] && str[i] != ' ' && str[i] != '=')
+		i++;
+	if (str[i] == '=')
+		return (i);
+	return (-1);
+}
+
+t_node	*free_on_error(char *cmd)
+{
+	free(cmd);
+	return (NULL);
 }

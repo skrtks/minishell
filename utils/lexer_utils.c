@@ -3,49 +3,14 @@
 /*                                                        ::::::::            */
 /*   lexer_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/14 16:17:50 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 11:53:48 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "lexer.h"
-
-void	free_envlist(t_env **head_origin)
-{
-	t_env *head;
-	t_env *tmp;
-
-	head = *head_origin;
-	while (head != NULL)
-	{
-		tmp = head->next;
-		if (head->data)
-			free(head->data);
-		free(head);
-		head = tmp;
-	}
-	*head_origin = NULL;
-}
-
-void	free_cmdlist(t_node **head_origin)
-{
-	t_node *head;
-	t_node *tmp;
-
-	head = *head_origin;
-	while (head != NULL)
-	{
-		tmp = head->next;
-		if (head->data)
-			free(head->data);
-		free(head);
-		head = tmp;
-	}
-	*head_origin = NULL;
-}
+#include "utils.h"
 
 void	set_info(int command, int type, t_node *node)
 {

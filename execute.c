@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/17 11:16:51 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 11:39:36 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <string.h>
 #include "./libft/libft.h"
 
-static char	**free_array(char **array)
+char		**free_array(char **array)
 {
 	int i;
 

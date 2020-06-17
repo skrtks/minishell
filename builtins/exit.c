@@ -6,11 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/17 10:37:49 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 12:00:06 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+# include "utils/utils.h"
 
 void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, int code)
 {
