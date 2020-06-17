@@ -105,7 +105,7 @@ void	add_to_back_env(t_env **head, t_env *node)
 	}
 }
 
-void			extend_env_list(char *str, t_env **env_list)
+void	extend_env_list(char *str, t_env **env_list)
 {
 	int		i;
 	char	*temp;

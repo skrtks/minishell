@@ -12,7 +12,7 @@
 
 NAME = minishell
 SRCS = shell.c lexer.c lexer_utils.c parser.c cd.c env.c pwd.c echo.c export.c\
-	linkedlist_utils.c exit.c unset.c
+				exit.c execute.c check_path.c unset.c linkedlist_utils.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJS = $(SRCS:.c=.o)

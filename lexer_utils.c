@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   lexer_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
 /*   Updated: 2020/06/14 16:17:50 by merelmourik   ########   odam.nl         */
@@ -73,6 +73,8 @@ void	continue_populating(char *cmd, t_node *node)
 		set_info(DOLLAR, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "$?", 3))
 		set_info(DOLLAR_QUESTION, SYMBOL, node);
+	else if (!ft_strncmp(cmd, "./", 2) || !ft_strncmp(cmd, "/", 1))
+		set_info(EXECUTABLE, COMMAND, node);
 	else
 		set_info(OTHER, ARGUMENT, node);
 }

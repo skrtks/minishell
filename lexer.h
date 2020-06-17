@@ -59,7 +59,8 @@ typedef enum	e_commands
 	PIPE = 14,
 	DOLLAR = 15,
 	DOLLAR_QUESTION = 16,
-	OTHER = 17,
+	EXECUTABLE = 17,
+	OTHER = 18,
 }				t_commands;
 
 typedef enum	e_type
