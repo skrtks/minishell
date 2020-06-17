@@ -25,7 +25,7 @@ t_node	*export_cmd(t_node *node, t_lists **list);
 t_node	*pwd(t_node *node);
 t_node	*unset(t_node *node, t_lists **list);
 
-void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, int code);
+void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, t_io *io);
 void	remove_node(t_env **node_cur, t_env **node_prev, t_env **head);
 
 #endif

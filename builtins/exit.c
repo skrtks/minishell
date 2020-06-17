@@ -13,7 +13,7 @@
 #include "../lexer.h"
 # include "../utils/utils.h"
 
-void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, int code)
+void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, t_io *io)
 {
 	if (env_lst)
 		free_envlist(env_lst);
@@ -21,6 +21,15 @@ void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, int code)
 		free_envlist(exp_lst);
 	if (cmd_lst)
 		free_cmdlist(&cmd_lst);
+	if (io)
+	{
+		free (io->stdin);
+		free (io->stdout);
+		free (io->pipe_fd);
+		free (io->old_in);
+		free (io->old_out);
+		free (io);
+	}
 	system("leaks minishell"); // Remove before submitting
-	exit(code);
+	exit(0);
 }
