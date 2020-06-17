@@ -11,8 +11,20 @@
 # **************************************************************************** #
 
 NAME = minishell
-SRCS = shell.c lexer.c lexer_utils.c parser.c cd.c env.c pwd.c echo.c export.c\
-				exit.c execute.c check_path.c unset.c linkedlist_utils.c
+SRCS = builtins/cd.c \
+	    builtins/echo.c \
+	    builtins/env.c \
+	    builtins/exit.c \
+	    builtins/export.c \
+	    builtins/pwd.c \
+	    builtins/unset.c \
+	    utils/lexer_utils.c \
+	    utils/linkedlist_utils.c \
+	    check_path.c \
+	    execute.c \
+	    lexer.c \
+	    parser.c \
+	    shell.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJS = $(SRCS:.c=.o)

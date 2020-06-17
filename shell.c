@@ -37,7 +37,6 @@ t_lists	*get_env(char **envp)			//kan in lib
 void	sig_handler()
 {
 	ft_printf("\nminishell> $ ");
-	return ;
 }
 
 int		main(int argc, char **argv, char **envp)

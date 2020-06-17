@@ -10,14 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "./builtins/builtins.h"
 #include "parser.h"
 #include "lexer.h"
-#include "echo.h"
 #include "execute.h"
-#include "unset.h"
-#include "exit.h"
-#include <string.h>
-#include "cd.h"
 #include "./libft/libft.h"
 
 

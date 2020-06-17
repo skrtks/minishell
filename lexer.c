@@ -13,7 +13,7 @@
 #include "libft/libft.h"
 #include "lexer.h"
 
-char	*extract_from_brackets(char *input, int *pos)
+char	*extract_from_brackets(const char *input, int *pos)
 {
 	char	b_type;
 	char	*extr;

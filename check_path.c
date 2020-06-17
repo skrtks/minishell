@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <sys/stat.h>
-#include "cd.h"
 #include "./libft/libft.h"
 #include "execute.h"
 

@@ -13,7 +13,7 @@
 #include "builtins.h"
 #include "./libft/libft.h"
 
-static int		compare_data(char *str1, char *str2)
+static int		compare_data(const char *str1, const char *str2)
 {
 	int i;
 
@@ -57,7 +57,6 @@ static void		sort_list(t_env **export_list)
 				next = ptr->next;
 		}
 	}
-	return ;
 }
 
 void			check_existence(char *str, t_env **list)
@@ -81,7 +80,6 @@ void			check_existence(char *str, t_env **list)
 		previous = ptr;
 		ptr = ptr->next;
 	}
-	return ;
 }
 
 t_node			*extend_lists(t_node *node, t_lists **list)

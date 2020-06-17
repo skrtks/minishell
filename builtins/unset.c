@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unset.h"
+#include "builtins.h"
 #include "lexer.h"
 #include "./libft/libft.h"
 
@@ -23,7 +23,6 @@ void		remove_node(t_env **node_cur, t_env **node_prev, t_env **head)
 	free((*node_cur)->data);
 	free((*node_cur));
 	(*node_cur) = NULL;
-	return ;
 }
 
 int		len_and_check(char *input)
@@ -80,7 +79,6 @@ void	remove_env_var(char *data, t_env **list)
 		previous = ptr;
 		ptr = ptr->next;
 	}
-	return ;
 }
 
 t_node	*unset(t_node *node, t_lists **list)

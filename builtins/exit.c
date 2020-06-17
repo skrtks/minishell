@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
+#include "lexer.h"
 
 void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, int code)
 {

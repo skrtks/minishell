@@ -10,25 +10,22 @@ add_subdirectory(libft)
 add_subdirectory(libft/printf)
 
 add_executable(minishell
+        builtins/cd.c
+        builtins/echo.c
+        builtins/env.c
+        builtins/exit.c
+        builtins/export.c
+        builtins/pwd.c
+        builtins/unset.c
+        utils/lexer_utils.c
+        utils/linkedlist_utils.c
         check_path.c
-        env_utils.c
-        unset.c
-        unset.h
         execute.c
-        export.c
-        exit.c
-        cd.c
-        cd.h
-        echo.c
-        echo.h
-        env.c
         lexer.c
-        lexer.h
-        lexer_utils.c
         parser.c
-        parser.h
-        pwd.c
         shell.c
-        shell.h)
+        execute.h
+        lexer.h
+        parser.h)
 
 target_link_libraries(minishell PUBLIC libft printf)

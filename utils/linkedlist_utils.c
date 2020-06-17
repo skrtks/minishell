@@ -122,10 +122,9 @@ void	extend_env_list(char *str, t_env **env_list)
 	temp[i] = '\0';
 	add_env_node(env_list, temp);
 	free(temp);
-	return ;
 }
 
-int		check_equal_sign(char *str)
+int		check_equal_sign(const char *str)
 {
 	int		i;
 
