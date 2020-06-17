@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lexer.h"
-# include "../utils/utils.h"
+#include "lexer.h"
+# include "utils/utils.h"
 
 void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, t_io *io)
 {

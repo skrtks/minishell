@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lexer.h"
-#include "../libft/libft.h"
+#include "lexer.h"
+#include "libft/libft.h"
 
 t_node	*echo(t_node *node)
 {
@@ -24,7 +24,7 @@ t_node	*echo(t_node *node)
 		flag = 1;
 		node = node->next;
 	}
-	while (node && node->command != SEMICOLON && node->command != PIPE)
+	while (node && node->command != SEMICOLON)
 	{
 		ft_printf("%s ", node->data);
 		node = node->next;

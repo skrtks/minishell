@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "../libft/libft.h"
+#include "libft/libft.h"
 #include "errno.h"
 #include <unistd.h>
 #include <string.h>
@@ -54,7 +54,7 @@ t_node		*cd(t_node *node, t_env *env_list)
 		ft_printf("Error: %s\n", strerror(errno));
 		errno = 0;
 	}
-	while (node && node->command != SEMICOLON && node->command != PIPE)
+	while (node && node->command != SEMICOLON)
 		node = node->next;
 	free(home_dir);
 	return (node);

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "../libft/libft.h"
+#include "libft/libft.h"
 
 static int		compare_data(const char *str1, const char *str2)
 {
@@ -115,8 +115,7 @@ t_node			*export_cmd(t_node *node, t_lists **list)
 {
 	t_env *head;
 
-	if (node->next != NULL && node->next->command != SEMICOLON
-		&& node->command != PIPE)
+	if (node->next != NULL && node->next->command != SEMICOLON)
 		return (extend_lists(node, list));
 	sort_list(&(*list)->export_list);
 	head = (*list)->export_list;

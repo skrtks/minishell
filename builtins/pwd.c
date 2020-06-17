@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lexer.h"
-#include "../libft/libft.h"
+#include "lexer.h"
+#include "libft/libft.h"
 
 t_node	*pwd(t_node *node)
 {
@@ -20,7 +20,7 @@ t_node	*pwd(t_node *node)
 	path = getcwd(NULL, 0);
 	ft_printf("%s\n", path);
 	free(path);
-	while (node && node->command != SEMICOLON && node->command != PIPE)
+	while (node && node->command != SEMICOLON)
 		node = node->next;
 	return (node);
 }
