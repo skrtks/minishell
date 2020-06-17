@@ -19,7 +19,7 @@
 #include <string.h>
 #include "./libft/libft.h"
 
-static char	**free_array(char **array)
+char		**free_array(char **array)
 {
 	int i;
 

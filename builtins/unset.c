@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "./libft/libft.h"
 
-static void	remove_node(t_env **node_cur, t_env **node_prev, t_env **head)
+void		remove_node(t_env **node_cur, t_env **node_prev, t_env **head)
 {
 	if ((*node_prev))
 		(*node_prev)->next = (*node_cur)->next;
@@ -42,7 +42,7 @@ static int	len_and_check(char *input)
 	return (n + 1);
 }
 
-static int	compare(const char *input, const char *in_list, int n)
+int			compare(const char *input, const char *in_list, int n)
 {
 	int	i;
 
