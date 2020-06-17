@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "../lexer.h"
 
 t_node		*env(t_node *node, t_env *env_list)
 {
@@ -19,6 +19,7 @@ t_node		*env(t_node *node, t_env *env_list)
 		printf("%s\n", env_list->data);
 		env_list = env_list->next;
 	}
-	node = node->next;
+	while (node && node->command != SEMICOLON && node->command != PIPE)
+		node = node->next;
 	return (node);
 }

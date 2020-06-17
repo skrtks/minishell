@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "lexer.h"
-#include "libft/libft.h"
+#include "../lexer.h"
+#include "../libft/libft.h"
 
 void		remove_node(t_env **node_cur, t_env **node_prev, t_env **head)
 {
@@ -87,7 +87,7 @@ t_node		*unset(t_node *node, t_lists **list)
 		node = node->next;
 	else
 		return (NULL);
-	while (node)
+	while (node && node->command != SEMICOLON && node->command != PIPE)
 	{
 		remove_env_var(node->data, &(*list)->export_list);
 		remove_env_var(node->data, &(*list)->env_list);
