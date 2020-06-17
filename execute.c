@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/16 16:06:41 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/17 09:21:19 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char **list_to_array(t_node **node)
 	char **argv;
 	int list_len;
 
-	head = *node; // Save start pos
+	head = *node;
 	list_len = 0;
 	while (*node && (*node)->command != SEMICOLON)
 	{
@@ -54,8 +54,8 @@ char **list_to_array(t_node **node)
 	}
 	if (!(argv = malloc(sizeof(char *) * (list_len + 1))))
 		return (NULL);
-	argv[list_len] = NULL; // Terminate argv
-	*node = head; // Reset start
+	argv[list_len] = NULL;
+	*node = head;
 	list_len = 0;
 	while (*node && (*node)->command != SEMICOLON)
 	{
@@ -74,7 +74,7 @@ char **env_list_to_array(t_env **node)
 	char **envp;
 	int list_len;
 
-	head = *node; // Save start pos
+	head = *node;
 	list_len = 0;
 	while (*node)
 	{
@@ -83,8 +83,8 @@ char **env_list_to_array(t_env **node)
 	}
 	if (!(envp = malloc(sizeof(char *) * (list_len + 1))))
 		return (NULL);
-	envp[list_len] = NULL; // Terminate envp
-	*node = head; // Reset start
+	envp[list_len] = NULL;
+	*node = head;
 	list_len = 0;
 	while (*node)
 	{
@@ -97,17 +97,20 @@ char **env_list_to_array(t_env **node)
 	return (envp);
 }
 
-int do_fork(char *filename, char **argv, char **envp)
+void do_fork(char *filename, char **argv, char **envp)
 {
 	pid_t pid;
 	int status;
 
 	pid = fork();
     if (pid == -1)
-    	return (1);
+    {
+    	ft_printf("%s\n", strerror(errno));
+    	return ;
+    }
     if (pid == 0)
     {
-    	signal(SIGINT, SIG_DFL); // Kan denk ik weg
+    	signal(SIGINT, SIG_DFL);
     	signal(SIGQUIT, SIG_DFL);
 		signal(SIGTSTP, SIG_DFL);
     	
@@ -116,11 +119,7 @@ int do_fork(char *filename, char **argv, char **envp)
     	exit(1);
     }
     else
-    {
-    	if (wait(&status) == -1) 
-	    	return (1);
-    }
-    return (0);
+    	wait(&status);
 }
 
 t_node *execute(t_node *node, t_env *env_list)
