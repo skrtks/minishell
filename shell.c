@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/14 16:28:16 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 10:11:39 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "parser.h"
 #include "./libft/libft.h"
 
-t_lists	*get_env(char **envp)
+t_lists	*get_env(char **envp)			//kan in lib
 {
 	t_lists	*list;
 
@@ -48,11 +48,6 @@ int		main(int argc, char **argv, char **envp)
 	t_lists	*list;
 
 	list = get_env(envp);
-	// while (list->env_list)
-	// {
-	// 	printf("%s\n", list->env_list->data);
-	// 	list->env_list = list->env_list->next;
-	// }
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	signal(SIGTSTP, sig_handler);
@@ -76,8 +71,7 @@ int		main(int argc, char **argv, char **envp)
 		parse(command_list, &list);
 		free_cmdlist(&command_list);
 	}
-	argc = 0;
-	argv = NULL;
-	//free_envlist(&env_list);			//listst van maken
+	(void) argc;
+	(void) argv;
 	return (0);
 }

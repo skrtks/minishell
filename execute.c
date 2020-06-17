@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/17 09:21:19 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/17 10:23:45 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
 #include <errno.h>
 #include <string.h>
 #include "./libft/libft.h"
 
-char **free_array(char **array)
+char	**free_array(char **array)
 {
 	int i;
 
@@ -30,20 +29,20 @@ char **free_array(char **array)
 	while (array[i])
 	{
 		if (array[i])
-			free (array[i]);
+			free(array[i]);
 		array[i] = NULL;
 		i++;
 	}
-	free (array);
+	free(array);
 	array = NULL;
 	return (NULL);
 }
 
-char **list_to_array(t_node **node)
+char	**list_to_array(t_node **node)
 {
-	t_node *head;
-	char **argv;
-	int list_len;
+	t_node	*head;
+	char	**argv;
+	int		list_len;
 
 	head = *node;
 	list_len = 0;
@@ -68,11 +67,11 @@ char **list_to_array(t_node **node)
 	return (argv);
 }
 
-char **env_list_to_array(t_env **node)
+char		**env_list_to_array(t_env **node)
 {
-	t_env *head;
-	char **envp;
-	int list_len;
+	t_env	*head;
+	char	**envp;
+	int		list_len;
 
 	head = *node;
 	list_len = 0;
@@ -97,32 +96,31 @@ char **env_list_to_array(t_env **node)
 	return (envp);
 }
 
-void do_fork(char *filename, char **argv, char **envp)
+static void	do_fork(char *filename, char **argv, char **envp)
 {
-	pid_t pid;
-	int status;
+	pid_t	pid;
+	int		status;
 
 	pid = fork();
-    if (pid == -1)
-    {
-    	ft_printf("%s\n", strerror(errno));
-    	return ;
-    }
-    if (pid == 0)
-    {
-    	signal(SIGINT, SIG_DFL);
-    	signal(SIGQUIT, SIG_DFL);
+	if (pid == -1)
+	{
+		ft_printf("%s\n", strerror(errno));
+		return ;
+	}
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		signal(SIGTSTP, SIG_DFL);
-    	
-    	if (execve(filename, argv, envp))
-    		ft_printf("bash: %s\n", strerror(errno));
-    	exit(1);
-    }
-    else
-    	wait(&status);
+		if (execve(filename, argv, envp))
+			ft_printf("bash: %s\n", strerror(errno));
+		exit(1);
+	}
+	else
+		wait(&status);
 }
 
-t_node *execute(t_node *node, t_env *env_list)
+t_node		*execute(t_node *node, t_env *env_list)
 {
 	char *filename;
 	char **argv;
@@ -134,12 +132,12 @@ t_node *execute(t_node *node, t_env *env_list)
 	if (!argv || !envp)
 	{
 		free_array(argv);
-    	free_array(envp);
+		free_array(envp);
 		return (NULL);
 	}
 	do_fork(filename, argv, envp);
-    free_array(argv);
-    free_array(envp);
+	free_array(argv);
+	free_array(envp);
 	if (node)
 		node = node->next;
 	return (node);

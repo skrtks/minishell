@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   check_path.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 09:26:09 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/17 09:30:57 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/17 10:14:51 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include "./libft/libft.h"
 #include "execute.h"
 
-int		clean_on_exit(char *path, char *cur_dir, char **paths_arr, 
-					int ret_val) {
+static int	clean_exit(char *path, char *cur_dir, char **paths_arr, int ret_val)
+{
 	chdir(cur_dir);
 	if (path)
 		free(path);
@@ -27,7 +27,7 @@ int		clean_on_exit(char *path, char *cur_dir, char **paths_arr,
 	return (ret_val);
 }
 
-char	**get_path_array(t_env *env_list)
+static char	**get_path_array(t_env *env_list)
 {
 	char *path;
 	char **paths_arr;
@@ -48,7 +48,7 @@ char	**get_path_array(t_env *env_list)
 	return (paths_arr);
 }
 
-int		construct_path(char *path, char **cmd)
+static int	construct_path(char *path, char **cmd)
 {
 	char *tmp;
 	char *tmp2;
@@ -59,26 +59,26 @@ int		construct_path(char *path, char **cmd)
 	tmp2 = ft_strjoin(tmp, *cmd);
 	if (!tmp2)
 	{
-		free (tmp);
+		free(tmp);
 		return (0);
 	}
 	free(*cmd);
 	*cmd = ft_strdup(tmp2);
-	free (tmp);
-	free (tmp2);
+	free(tmp);
+	free(tmp2);
 	if (!*cmd)
 		return (0);
 	else
 		return (1);
 }
 
-int		check_for_path(char **cmd, t_env *env_list)
+int			check_for_path(char **cmd, t_env *env_list)
 {
-	char *path;
-	char *cur_dir;
-	char **paths_arr;
-	struct stat buffer;
-	int i;
+	char		*path;
+	char		*cur_dir;
+	char		**paths_arr;
+	int			i;
+	struct stat	buffer;
 
 	paths_arr = get_path_array(env_list);
 	cur_dir = getcwd(NULL, 0);
@@ -90,11 +90,11 @@ int		check_for_path(char **cmd, t_env *env_list)
 		if (stat(*cmd, &buffer) == 0)
 		{
 			if (construct_path(paths_arr[i], cmd))
-				return (clean_on_exit(path, cur_dir, paths_arr, 1));
+				return (clean_exit(path, cur_dir, paths_arr, 1));
 			else
-				return (clean_on_exit(path, cur_dir, paths_arr, 0));
+				return (clean_exit(path, cur_dir, paths_arr, 0));
 		}
 		i++;
 	}
-	return (clean_on_exit(path, cur_dir, paths_arr, 0));
+	return (clean_exit(path, cur_dir, paths_arr, 0));
 }
