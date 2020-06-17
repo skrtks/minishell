@@ -14,7 +14,7 @@
 # define UTILS_H
 
 # include "../lexer.h"
-# include "../libft/libft.h"
+# include "libft/libft.h"
 
 int				add_export_node(t_env **head, char *export_var);
 int				add_env_node(t_env **head, char *env_var);
