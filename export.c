@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/16 11:59:27 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 09:34:19 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ t_node			*extend_lists(t_node *node, t_lists **list)
 		{
 			if (!(temp = ft_strjoin(temp2, node->next->data)))
 				return (NULL);			//error
+			free (temp2);
 			node = node->next;
 		}
 		add_export_node(&(*list)->export_list, temp);
 		if (equal_sign >= 0)
 			extend_env_list(temp, &(*list)->env_list);
 		free (temp);
-		free (temp2);
 	}
 	node = node->next;
 	return (node);
