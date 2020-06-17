@@ -40,15 +40,6 @@ typedef struct	s_lists
 	struct s_env		*export_list;
 }				t_lists;
 
-typedef struct	s_io
-{
-				int *stdin;
-				int *stdout;
-				int *pipe_fd;
-				int *old_in;
-				int *old_out;
-}				t_io;
-
 typedef enum	e_commands
 {
 	ECHO = 0,

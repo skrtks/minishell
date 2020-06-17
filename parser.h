@@ -15,7 +15,7 @@
 
 # include "lexer.h"
 
-void	parse(t_node *cmd_list, t_lists **list, t_io *io);
+void	parse (t_node *cmd_list, t_lists **list);
 int		check_for_path(char **cmd, t_env *env_list);
 
 #endif

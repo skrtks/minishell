@@ -17,20 +17,15 @@ add_executable(minishell
         builtins/export.c
         builtins/pwd.c
         builtins/unset.c
-        utils/free_utils.c
         utils/lexer_utils.c
         utils/linkedlist_utils.c
-        utils/other_utils.c
-        utils/utils.h
         check_path.c
         execute.c
-        execute.h
         lexer.c
-        lexer.h
         parser.c
-        parser.h
-        pipe.c
-        pipe.h
-        shell.c)
+        shell.c
+        execute.h
+        lexer.h
+        parser.h)
 
 target_link_libraries(minishell PUBLIC libft printf)

@@ -15,7 +15,6 @@
 #include "parser.h"
 #include "libft/libft.h"
 #include "utils/utils.h"
-#include "pipe.h"
 
 t_lists	*get_env(char **envp)
 {
@@ -47,10 +46,7 @@ int		main(int argc, char **argv, char **envp)
 	char	*input;
 	t_node	*command_list;
 	t_lists	*list;
-	t_io	*io;
 
-	if(!(io = set_up_pipe()))
-		return (1);
 	list = get_env(envp);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
@@ -72,7 +68,7 @@ int		main(int argc, char **argv, char **envp)
 		command_list = lexer(input);
 		free(input);
 		input = NULL;
-		parse(command_list, &list, io);
+		parse(command_list, &list);
 		free_cmdlist(&command_list);
 	}
 	(void) argc;
