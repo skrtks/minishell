@@ -19,6 +19,8 @@ t_node		*env(t_node *node, t_env *env_list)
 		printf("%s\n", env_list->data);
 		env_list = env_list->next;
 	}
-	node = node->next;
+	while (node && node->command != SEMICOLON) {
+		node = node->next;
+	}
 	return (node);
 }

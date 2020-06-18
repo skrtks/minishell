@@ -48,9 +48,9 @@ int		main(int argc, char **argv, char **envp)
 	t_lists	*list;
 
 	list = get_env(envp);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	signal(SIGTSTP, sig_handler);
+	// signal(SIGINT, sig_handler);
+	// signal(SIGQUIT, sig_handler);
+	// signal(SIGTSTP, sig_handler);
 	if (!list)
 	{
 		printf("Error starting, env could not be loaded. \nTerminating...\n");
