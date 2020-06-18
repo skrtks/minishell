@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/18 13:09:42 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/18 20:40:27 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void		sort_list(t_env **export_list)
 	}
 }
 
-void			check_existence(char *str, t_env **list)
+void			check_existence_env(char *str, t_env **list)
 {
 	int		len;
 	t_env	*ptr;
@@ -82,6 +82,47 @@ void			check_existence(char *str, t_env **list)
 	}
 }
 
+int	compare_exp(const char *input, const char *in_list)
+{
+	int i;
+
+	i = 0;
+	while (input[i] != '\0' && in_list[i] != '\0')
+	{
+		if (input[i] == '\0')
+			return (-1);
+		if (input[i] == '=' && in_list[i] == '\0')
+			return (1);
+		if (input[i] == '=' && in_list[i] == '=')
+			return (1);
+		if (input[i] != in_list[i])
+			return (-1);
+		i++;
+	}
+	if (input[i] == '\0' && in_list[i] == '=')
+		return (2);
+	return (1);
+}
+
+void			check_existence_exp(char *input, t_env **head)
+{
+	t_env	*ptr;
+	t_env	*previous;
+
+	ptr = *head;
+	previous = NULL;
+	while (ptr)
+	{
+		if (compare_exp(input, ptr->data) == 1)
+		{
+			remove_node(&ptr, &previous, head);
+			break ;
+		}
+		previous = ptr;
+		ptr = ptr->next;
+	}
+}
+
 t_node			*extend_lists(t_node *node, t_lists **list)
 {
 	char	*temp;
@@ -94,8 +135,8 @@ t_node			*extend_lists(t_node *node, t_lists **list)
 	while (node->next != NULL && node->next->command != SEMICOLON)
 	{
 		node = node->next;
-		check_existence(node->data, &(*list)->export_list);
-		check_existence(node->data, &(*list)->env_list);
+		check_existence_exp(node->data, &(*list)->export_list);
+		check_existence_env(node->data, &(*list)->env_list);
 		while (node->next != NULL && node->command != SEMICOLON)
 		{
 			free(temp);
