@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/18 19:12:52 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/18 20:03:41 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_io *pipe_sequence(t_node *cmd_list, t_io *io)
 			pipe_ahead = 1;
 			if (io->active)
 			{
-				close(io->fd_write); // Lijkt geen invloed te hebben
+				close(io->fd_write);
+				close(io->fd_read);
 				pipe(fds);
 				io->fd_read = fds[0];
 				io->fd_write = fds[1];
