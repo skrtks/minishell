@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/17 11:57:14 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/18 10:23:46 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,32 +71,26 @@ static char		*extract_word(char *input, int *pos)
 	return (extr);
 }
 
-static void		add_to_back(t_node **head, t_node *node)
+static int		new_node(t_node **head, char *cmd)
 {
-	t_node *ptr;
+	t_node *new_node;
+	t_node *last;
 
-	if (!(*head))
-		(*head) = node;
-	else
+	last = *head;
+	if (!(new_node = malloc(sizeof(t_node))))
+		return (1);
+	populate_node(cmd, new_node);
+	new_node->next = NULL;
+	if (*head == NULL)
 	{
-		ptr = *head;
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = node;
+		new_node->previous = NULL;
+		*head = new_node;
+		return (0);
 	}
-}
-
-static int		add_node(t_node **head, char *cmd)
-{
-	t_node *node;
-
-	node = malloc(sizeof(t_node));
-	if (!node)
-		return (1);
-	node->next = NULL;
-	if (populate_node(cmd, node))
-		return (1);
-	add_to_back(head, node);
+	while (last->next != NULL)
+		last = last->next;
+	last->next = new_node;
+	new_node->previous = last;
 	return (0);
 }
 
@@ -115,11 +109,11 @@ t_node			*lexer(char *input)
 		if (!(cmd = extract_word(input, &i)))
 			return (NULL);
 		if (cmd[0])
-			if (add_node(&head, cmd))
+			if (new_node(&head, cmd))
 				return (free_on_error(cmd));
 		if (input[i] == ';')
 		{
-			if (add_node(&head, ";"))
+			if (new_node(&head, ";"))
 				return (free_on_error(cmd));
 			i++;
 		}
