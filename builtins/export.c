@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/17 12:00:11 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/18 13:09:42 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ t_node			*extend_lists(t_node *node, t_lists **list)
 	int		equal_sign;
 
 	temp2 = ft_strdup(node->next->data);
+	temp = ft_strdup(node->next->data);
 	equal_sign = check_equal_sign(node->next->data);
 	while (node->next != NULL && node->next->command != SEMICOLON)
 	{
@@ -97,11 +98,12 @@ t_node			*extend_lists(t_node *node, t_lists **list)
 		check_existence(node->data, &(*list)->env_list);
 		while (node->next != NULL && node->command != SEMICOLON)
 		{
+			free(temp);
 			if (!(temp = ft_strjoin(temp2, node->next->data)))
 				return (NULL);
-			free(temp2);
 			node = node->next;
 		}
+		free(temp2);
 		add_export_node(&(*list)->export_list, temp);
 		if (equal_sign >= 0)
 			extend_env_list(temp, &(*list)->env_list);
