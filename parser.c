@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/18 10:21:30 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/18 17:40:34 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "lexer.h"
 #include "execute.h"
 #include "./libft/libft.h"
+#include "pipe.h"
 
 static t_node	*execute_cmd(t_node *node, t_lists **list)
 {
@@ -47,15 +48,19 @@ static t_node	*execute_cmd(t_node *node, t_lists **list)
 	return (node);
 }
 
-void	parse(t_node *cmd_list, t_lists **list)
+void	parse(t_node *cmd_list, t_lists **list, t_io *io)
 {
 	t_node *ptr;
 
 	ptr = cmd_list;
 	while (ptr)
 	{
+		io = pipe_sequence(ptr, io);
 		ptr = execute_cmd(ptr, list);
 		if (ptr && ptr->command == SEMICOLON)
 			ptr = ptr->next;
+		if (ptr && ptr->command == PIPE)
+			ptr = ptr->next;
 	}
+    io = pipe_sequence(ptr, io);
 }

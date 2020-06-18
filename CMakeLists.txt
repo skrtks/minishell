@@ -29,6 +29,8 @@ add_executable(minishell
         lexer.h
         parser.c
         parser.h
-        shell.c)
+        shell.c
+        pipe.c
+        pipe.h)
 
 target_link_libraries(minishell PUBLIC libft printf)

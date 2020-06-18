@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/17 11:39:36 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/18 19:29:25 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,60 +38,60 @@ char		**free_array(char **array)
 	return (NULL);
 }
 
-static char	**list_to_array(t_node **node)
+static char	**list_to_array(t_node *node)
 {
 	t_node	*head;
 	char	**argv;
 	int		list_len;
 
-	head = *node;
+	head = node;
 	list_len = 0;
-	while (*node && (*node)->command != SEMICOLON)
+	while (node && node->command != SEMICOLON && node->command != PIPE)
 	{
-		*node = (*node)->next;
+		node = node->next;
 		list_len++;
 	}
 	if (!(argv = malloc(sizeof(char *) * (list_len + 1))))
 		return (NULL);
 	argv[list_len] = NULL;
-	*node = head;
+	node = head;
 	list_len = 0;
-	while (*node && (*node)->command != SEMICOLON)
+	while (node && node->command != SEMICOLON && node->command != PIPE)
 	{
-		argv[list_len] = ft_strdup((*node)->data);
+		argv[list_len] = ft_strdup(node->data);
 		if (!argv[list_len])
 			return (free_array(argv));
 		list_len++;
-		*node = (*node)->next;
+		node = node->next;
 	}
 	return (argv);
 }
 
-static char	**env_list_to_array(t_env **node)
+static char	**env_list_to_array(t_env *node)
 {
 	t_env	*head;
 	char	**envp;
 	int		list_len;
 
-	head = *node;
+	head = node;
 	list_len = 0;
-	while (*node)
+	while (node)
 	{
-		*node = (*node)->next;
+		node = node->next;
 		list_len++;
 	}
 	if (!(envp = malloc(sizeof(char *) * (list_len + 1))))
 		return (NULL);
 	envp[list_len] = NULL;
-	*node = head;
+	node = head;
 	list_len = 0;
-	while (*node)
+	while (node)
 	{
-		envp[list_len] = ft_strdup((*node)->data);
+		envp[list_len] = ft_strdup(node->data);
 		if (!envp[list_len])
 			return (free_array(envp));
 		list_len++;
-		*node = (*node)->next;
+		node = node->next;
 	}
 	return (envp);
 }
@@ -127,8 +127,8 @@ t_node		*execute(t_node *node, t_env *env_list)
 	char **envp;
 
 	filename = node->data;
-	argv = list_to_array(&node);
-	envp = env_list_to_array(&env_list);
+	argv = list_to_array(node);
+	envp = env_list_to_array(env_list);
 	if (!argv || !envp)
 	{
 		free_array(argv);
@@ -138,7 +138,7 @@ t_node		*execute(t_node *node, t_env *env_list)
 	do_fork(filename, argv, envp);
 	free_array(argv);
 	free_array(envp);
-	if (node)
+	while (node && node->command != SEMICOLON && node->command != PIPE)
 		node = node->next;
 	return (node);
 }

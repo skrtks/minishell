@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
+/*   pipe.h                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/18 17:40:48 by sam           ########   odam.nl         */
+/*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
+/*   Updated: 2020/06/18 17:07:07 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef PIPE_H
+# define PIPE_H
+#include "lexer.h"
 
-# include "lexer.h"
-
-void	parse (t_node *cmd_list, t_lists **list, t_io *io);
-int		check_for_path(char **cmd, t_env *env_list);
+t_io *setup_io(t_io *io);
+t_io *pipe_sequence(t_node *cmd_list, t_io *io);
 
 #endif
