@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/18 20:40:27 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/19 08:32:17 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ t_node			*extend_lists(t_node *node, t_lists **list)
 		node = node->next;
 		check_existence_exp(node->data, &(*list)->export_list);
 		check_existence_env(node->data, &(*list)->env_list);
-		while (node->next != NULL && node->command != SEMICOLON)
+		while (node->next != NULL && node->command != SEMICOLON && node->command == APOSTROPHE)
 		{
 			free(temp);
 			if (!(temp = ft_strjoin(temp2, node->next->data)))
@@ -153,6 +153,8 @@ t_node			*extend_lists(t_node *node, t_lists **list)
 	node = node->next;
 	return (node);
 }
+
+//"" not a valid identifier
 
 t_node			*export_cmd(t_node *node, t_lists **list)
 {
