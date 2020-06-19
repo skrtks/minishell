@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/19 13:53:54 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/19 13:56:24 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,11 @@ t_io *pipe_sequence(t_node *cmd_list, t_io *io)
 				io->fd_write = fds[1];
 				close(1);
 				dup(io->fd_write);
+				close(2);
 				if (pipe_plus)
-				{
-					close(2);
 					dup(io->fd_write);
-				}
 				else
-				{
-					close(2);
 					dup(io->ori_stderr);
-				}
 				if (io->switch_stdin)
 				{
 					close(0);
@@ -68,7 +63,7 @@ t_io *pipe_sequence(t_node *cmd_list, t_io *io)
 				io->switch_stdin = 1;
 				break ;
 			}
-			else 
+			else
 			{
                 pipe(fds);
                 io->fd_read = fds[0];
