@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: sam <sam@student.codam.nl>                   +#+                      #
+#    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/18 17:04:12 by sam           ########   odam.nl          #
+#    Updated: 2020/06/19 13:22:29 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS = builtins/cd.c \
 	    lexer.c \
 	    parser.c \
 	    shell.c \
-	    pipe.c
+	    pipe.c \
+		redirection.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJS = $(SRCS:.c=.o)
