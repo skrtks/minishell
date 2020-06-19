@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/18 19:29:25 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/19 13:32:52 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	**list_to_array(t_node *node)
 
 	head = node;
 	list_len = 0;
-	while (node && node->command != SEMICOLON && node->command != PIPE)
+	while (node && node->type != SYMBOL)
 	{
 		node = node->next;
 		list_len++;
@@ -56,7 +56,7 @@ static char	**list_to_array(t_node *node)
 	argv[list_len] = NULL;
 	node = head;
 	list_len = 0;
-	while (node && node->command != SEMICOLON && node->command != PIPE)
+	while (node && node->type != SYMBOL)
 	{
 		argv[list_len] = ft_strdup(node->data);
 		if (!argv[list_len])
@@ -138,7 +138,7 @@ t_node		*execute(t_node *node, t_env *env_list)
 	do_fork(filename, argv, envp);
 	free_array(argv);
 	free_array(envp);
-	while (node && node->command != SEMICOLON && node->command != PIPE)
+	while (node && node->type != SYMBOL)
 		node = node->next;
 	return (node);
 }

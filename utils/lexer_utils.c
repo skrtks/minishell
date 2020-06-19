@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/17 11:53:48 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/19 13:20:35 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,23 @@ void	continue_populating(char *cmd, t_node *node)
 	if (!ft_strncmp(cmd, ";", 2))
 		set_info(SEMICOLON, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "\'", 2))
-		set_info(APOSTROPHE, SYMBOL, node);
+		set_info(APOSTROPHE, X, node);
 	else if (!ft_strncmp(cmd, "\"", 2))
-		set_info(QUATATION_MARK, SYMBOL, node);
+		set_info(QUATATION_MARK, X, node);
 	else if (!ft_strncmp(cmd, "<", 2))
 		set_info(ARROW_LEFT, SYMBOL, node);
 	else if (!ft_strncmp(cmd, ">", 2))
 		set_info(ARROW_RIGHT, SYMBOL, node);
 	else if (!ft_strncmp(cmd, ">>", 3))
 		set_info(ARROW_DOUBLE, SYMBOL, node);
+	else if (!ft_strncmp(cmd, "|&", 3))
+		set_info(PIPE_PLUS, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "|", 2))
 		set_info(PIPE, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "$", 2))
-		set_info(DOLLAR, SYMBOL, node);
+		set_info(DOLLAR, X, node);
 	else if (!ft_strncmp(cmd, "$?", 3))
-		set_info(DOLLAR_QUESTION, SYMBOL, node);
+		set_info(DOLLAR_QUESTION, X, node);
 	else if (!ft_strncmp(cmd, "./", 2) || !ft_strncmp(cmd, "/", 1))
 		set_info(EXECUTABLE, COMMAND, node);
 	else
