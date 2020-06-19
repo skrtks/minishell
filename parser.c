@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/19 11:28:00 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/19 13:35:32 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ void	parse(t_node *cmd_list, t_lists **list, t_io *io)
 	{
 		io = pipe_sequence(ptr, io);
 		ptr = execute_cmd(ptr, list);
-		if (ptr && ptr->command == SEMICOLON)
-			ptr = ptr->next;
-		if (ptr && ptr->command == PIPE)
+		if (ptr && ptr->type == SYMBOL)
 			ptr = ptr->next;
 	}
     io = pipe_sequence(ptr, io);
