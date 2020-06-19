@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/19 13:27:33 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/19 13:53:54 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ t_io *setup_io(t_io *io)
 	io->switch_stdin = 0;
 	return (io);
 }
- 
+
 t_io *pipe_sequence(t_node *cmd_list, t_io *io)
 {
 	int *fds;
 	int pipe_ahead;
-	// int pipe_plus;
+	int pipe_plus;
 
 	pipe_ahead = 0;
-	// pipe_plus = 0;
+	pipe_plus = 0;
 	fds = malloc(sizeof(int) * 2);
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
-        // if (cmd_list->command == PIPE_PLUS)
-        //     pipe_plus = 1;
+        if (cmd_list->command == PIPE_PLUS)
+            pipe_plus = 1;
 		if (cmd_list->command == PIPE || cmd_list->command == PIPE_PLUS)
 		{
 			pipe_ahead = 1;
@@ -50,11 +50,16 @@ t_io *pipe_sequence(t_node *cmd_list, t_io *io)
 				io->fd_write = fds[1];
 				close(1);
 				dup(io->fd_write);
-				// if (pipe_plus)
-				// {
-				// 	close(2);
-				// 	dup(io->fd_write);
-				// }
+				if (pipe_plus)
+				{
+					close(2);
+					dup(io->fd_write);
+				}
+				else
+				{
+					close(2);
+					dup(io->ori_stderr);
+				}
 				if (io->switch_stdin)
 				{
 					close(0);
@@ -70,11 +75,11 @@ t_io *pipe_sequence(t_node *cmd_list, t_io *io)
                 io->fd_write = fds[1];
                 close(1);
                 dup(io->fd_write);
-    //             if (pipe_plus)
-				// {
-				// 	close(2);
-				// 	dup(io->fd_write);
-				// }
+                if (pipe_plus)
+				{
+					close(2);
+					dup(io->fd_write);
+				}
                 close(0);
                 dup(io->fd_read);
                 io->active = 1;
