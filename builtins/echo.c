@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/18 16:54:36 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/19 12:06:11 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_node	*echo(t_node *node)
 		flag = 1;
 		node = node->next;
 	}
-	while (node && node->command != SEMICOLON && node->command != PIPE)
+	while (node && node->type != SYMBOL)
 	{
 		ft_printf("%s ", node->data);
 		node = node->next;

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/18 17:40:34 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/19 11:28:00 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
