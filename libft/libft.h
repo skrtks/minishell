@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   libft.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/31 12:40:00 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/06 12:49:33 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/20 15:00:09 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char					*ft_strrchr(const char *s, int c);
 char					*ft_strtrim(char const *s1, char const *set);
 char					*ft_substr(char const *s, unsigned int start, \
 						size_t len);
+char					*ft_substr_gnl(char *s, unsigned int start, size_t len);
 int						ft_tolower(int c);
 int						ft_toupper(int c);
 int						get_next_line(int fd, char **line);
