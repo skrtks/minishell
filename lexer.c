@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/20 11:56:41 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/20 12:49:12 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,27 @@ static char		*extract_word(char *input, int *pos)
 static int		new_node(t_node **head, char *cmd)
 {
 	t_node *new_node;
-	t_node *last;
+	t_node *ptr;
 
-	last = *head;
+	ptr = *head;
 	if (!(new_node = malloc(sizeof(t_node))))
 		return (1);
-	populate_node(cmd, new_node);
+	if (populate_node(cmd, new_node))
+	{
+		free (new_node);
+		return (1);
+	}
 	new_node->next = NULL;
-	if (*head == NULL)
+	if (!(*head))
 	{
 		new_node->previous = NULL;
 		*head = new_node;
 		return (0);
 	}
-	while (last->next != NULL)
-		last = last->next;
-	last->next = new_node;
-	new_node->previous = last;
+	while (ptr->next)
+		ptr = ptr->next;
+	ptr->next = new_node;
+	new_node->previous = ptr;
 	return (0);
 }
 
