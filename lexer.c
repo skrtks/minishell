@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/20 12:49:12 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/20 16:35:52 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ t_node			*lexer(char *input)
 		if (cmd[0])
 			if (new_node(&head, cmd))
 				return (free_on_error(cmd));
-		if (ft_strchr(" 	|<>;\'\"\0", input[i]))
+		if (check_spec_char("|<>;\'\"", input[i]))
 		{
 			if(!set_metachar(&head, input, &i))
 				return (free_on_error(cmd));

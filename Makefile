@@ -6,7 +6,7 @@
 #    By: sam <sam@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/20 15:45:17 by sam           ########   odam.nl          #
+#    Updated: 2020/06/20 16:40:42 by sam           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAME): $(OBJS)
 	cd libft && make
 	cd libft/printf && make
 	cp ./libft/printf/libftprintf.a ./libft.a
-	$(CC) -I. -L. -lft $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) -I. -L. -lft $(SRCS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
