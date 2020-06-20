@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/20 11:51:54 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/20 11:55:04 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static char		*extract_word(char *input, int *pos)
 	int		i;
 	char	*metachars;
 
-	if (!metachars)
-		return (NULL);
 	if ((input[*pos] == '\'' || input[*pos] == '\"') && input[*pos - 1] != '\\')
 		return (extract_from_brackets(input, pos));
 	len = *pos;
