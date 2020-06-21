@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/18 12:54:47 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/20 16:35:52 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,14 @@ static char		*extract_word(char *input, int *pos)
 	if ((input[*pos] == '\'' || input[*pos] == '\"') && input[*pos - 1] != '\\')
 		return (extract_from_brackets(input, pos));
 	len = *pos;
-	while (input[len] != ' ' && input[len] != '\0' && !((input[len] == '\'' ||\
-		input[len] == '\"') && input[len - 1] != '\\') && input[len] != ';')
+	while (!ft_strchr(" 	|<>;\'\"\0", input[len]))
 		len++;
 	len -= *pos;
 	extr = malloc(sizeof(char) * (len + 1));
 	if (!extr)
 		return (NULL);
 	i = *pos;
-	while (input[i] != ' ' && input[i] != '\0' && !((input[i] == '\''
-			|| input[i] == '\"') && input[i - 1] != '\\') && input[i] != ';')
+	while (!ft_strchr(" 	|<>;\'\"\0", input[i]))
 	{
 		extr[i - *pos] = input[i];
 		i++;
@@ -74,23 +72,56 @@ static char		*extract_word(char *input, int *pos)
 static int		new_node(t_node **head, char *cmd)
 {
 	t_node *new_node;
-	t_node *last;
+	t_node *ptr;
 
-	last = *head;
+	ptr = *head;
 	if (!(new_node = malloc(sizeof(t_node))))
 		return (1);
-	populate_node(cmd, new_node);
+	if (populate_node(cmd, new_node))
+	{
+		free (new_node);
+		return (1);
+	}
 	new_node->next = NULL;
-	if (*head == NULL)
+	if (!(*head))
 	{
 		new_node->previous = NULL;
 		*head = new_node;
 		return (0);
 	}
-	while (last->next != NULL)
-		last = last->next;
-	last->next = new_node;
-	new_node->previous = last;
+	while (ptr->next)
+		ptr = ptr->next;
+	ptr->next = new_node;
+	new_node->previous = ptr;
+	return (0);
+}
+
+static int set_metachar(t_node **head, char *input, int *pos)
+{
+	int err;
+
+	err = 0;
+	if (!ft_strncmp(input + *pos, "|&", 2))
+	{
+		err = new_node(head, "|&");
+		(*pos)++;
+	}
+	else if (!ft_strncmp(input + *pos, "|", 1))
+		err = new_node(head, "|");
+	else if (!ft_strncmp(input + *pos, ">>", 2))
+	{
+		err = new_node(head, ">>");
+		(*pos)++;
+	}
+	else if (!ft_strncmp(input + *pos, ">", 1))
+		err = new_node(head, ">");
+	else if (!ft_strncmp(input + *pos, "<", 1))
+		err = new_node(head, "<");
+	else if (!ft_strncmp(input + *pos, ";", 1))
+		err = new_node(head, ";");
+	(*pos)++;
+	if (!err)
+		return (1);
 	return (0);
 }
 
@@ -111,11 +142,10 @@ t_node			*lexer(char *input)
 		if (cmd[0])
 			if (new_node(&head, cmd))
 				return (free_on_error(cmd));
-		if (input[i] == ';')
+		if (check_spec_char("|<>;\'\"", input[i]))
 		{
-			if (new_node(&head, ";"))
+			if(!set_metachar(&head, input, &i))
 				return (free_on_error(cmd));
-			i++;
 		}
 		free(cmd);
 	}
