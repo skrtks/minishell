@@ -6,7 +6,7 @@
 #    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/19 13:22:29 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/06/21 13:42:08 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ $(NAME): $(OBJS)
 	cd libft && make
 	cd libft/printf && make
 	cp ./libft/printf/libftprintf.a ./libft.a
-	$(CC) -I. -g -L. -lft $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) -I. -L. -lft $(SRCS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -54,6 +54,7 @@ fclean: clean
 	cd libft && make fclean
 	cd libft/printf && make fclean
 	rm -f libft.a
-	$(RM) $(NAME)
+	rm -f *.o
+	rm -f minishell
 
 re: fclean all

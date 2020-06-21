@@ -11,3 +11,6 @@ export:
 
 general:
 	- lib maken voor linkedlist
+
+Bugs:
+	- Soms is last->next van de cmdlist niet NULL

@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: skorteka <skorteka@student.codam.nl>         +#+                      #
+#    By: sam <sam@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/29 10:06:20 by skorteka      #+#    #+#                  #
-#    Updated: 2020/06/05 15:30:08 by skorteka      ########   odam.nl          #
+#    Updated: 2020/06/20 15:46:47 by sam           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ clean:
 	-rm -f $(OBJS)
 
 fclean: clean
-	-rm -f $(NAME)
+	rm -f *.o
+	rm -f $(NAME)
 
 re: fclean all
