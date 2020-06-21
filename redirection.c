@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/19 14:31:36 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/19 16:08:51 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
 #include "libft/libft.h"
 #include <stdio.h>
 #include <string.h>
-
-
+				
 void	redirection(t_node *cmd_list)
 {
-	int		fd;
+	int		fd;		//write
 
+	fd = 0;
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
 		if (cmd_list->command == ARROW_RIGHT)
 		{
-			fd = open(cmd_list->next->data, O_RDONLY | O_CREAT);
+			fd = open(cmd_list->next->data, O_RDONLY | O_CREAT | O_TRUNC);
 			if (fd == -1)
 			{
 				ft_printf("Error: %s\n", strerror(errno));
@@ -42,11 +42,9 @@ void	redirection(t_node *cmd_list)
 		}
 		cmd_list = cmd_list->next;
 	}
-	
-	
+	dup2(1, fd);
+	close(fd);			//nodig?
 }
-
-
 
 			// if ((dir = opendir(".")) == NULL)
 			// 	perror("opendir() error");
