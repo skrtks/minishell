@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/22 06:12:39 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/22 10:55:57 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct	s_fd
 	int fd_read;
 	int fd_write;
 	int	fd_error;
+	int fd_temp;
 }				t_fd;
 
 typedef enum	e_commands

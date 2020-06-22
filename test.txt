@@ -1,2 +1,5 @@
 hoi 
 Command not recognized
+leuk 
+Command not recognized
+exiy
