@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/25 13:15:48 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/25 16:40:07 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,32 +169,64 @@ int			check_input(char *str)		//uitbreiden
 	return (0);
 }
 
+char			*check_quotationmark(t_node *node)
+{
+	char *temp;
+	char *temp2;
+
+	if (!(temp = ft_strdup("node->data")))
+		return (NULL);			//error
+	if (!(temp2 = ft_strdup(node->data)))
+		return (NULL);			//error
+	node = node->next;
+	node = node->next;
+	while (node->next != NULL && node->command != SEMICOLON && node->command != QUATATION_MARK)
+	{
+		temp = ft_strjoin(temp, temp2);
+		free(temp2);
+		temp2 = ft_strdup(node->next->data);
+		node = node->next;
+	}
+	if (node->command != QUATATION_MARK)
+		return (NULL);			//error
+	free(temp2);
+	return (temp);
+}
+
 t_node			*extend_lists2(t_node *node, t_lists **list)
 {
-	int i;
+	int		i;
+	char	*temp;
 
 	while (node->next != NULL && node->next->command != SEMICOLON)
 	{
 		node = node->next;
+		temp = ft_strdup(node->data);
 		i = check_existence_exp(node->data, &(*list)->export_list);
 		if (check_input(node->data) < 0)
 		{
 			ft_printf("minishell: export: '%s': not a valid identifier\n", node->data);
-			node = node->next;
+			node = node->next;		//gaat nu waarschijnlijk soms iets te ver
 		}
 		if (check_equal_sign(node->data) > 0)
 		{
-			check_existence_env(node->data, &(*list)->env_list);
-			extend_env_list(node->data, &(*list)->env_list);
+			if (node->next != NULL)
+			{	
+				free (temp);
+				temp = ft_strjoin(node->data, node->next->data);
+			// ft_printf("hier %s\n", temp);x
+				node = node->next;
+			}
+			check_existence_env(temp, &(*list)->env_list);
+			add_env_node(&(*list)->env_list, temp);
 		}
 		if (i != -1)
-			add_export_node(&(*list)->export_list, node->data);
+			add_export_node(&(*list)->export_list, temp);
+		free(temp);
 	}
 	node = node->next;
 	return (node);
 }
-
-//"" not a valid identifier
 
 t_node			*export_cmd(t_node *node, t_lists **list)
 {
