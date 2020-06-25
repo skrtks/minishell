@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/19 12:01:59 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/25 10:56:11 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ typedef struct	s_io
 {
 				int fd_read;
 				int fd_write;
+				int fd_read_prev;
 				int ori_stdout;
 				int ori_stdin;
 				int ori_stderr;
 				int active;
-				int switch_stdin;
 }				t_io;
 
 typedef enum	e_commands
