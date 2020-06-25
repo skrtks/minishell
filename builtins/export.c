@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/19 08:32:17 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/25 13:15:48 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,28 @@ static void		sort_list(t_env **export_list)
 	}
 }
 
+int	compare_exp(const char *input, const char *in_list)
+{
+	int i;
+
+	i = 0;
+	while (input[i] != '\0' && in_list[i] != '\0')
+	{
+		if (input[i] == '\0')
+			return (-1);
+		if (input[i] == '=' && in_list[i] == '\0')
+			return (1);
+		if (input[i] == '=' && in_list[i] == '=')
+			return (1);
+		if (input[i] != in_list[i])
+			return (-1);
+		i++;
+	}
+	if (input[i] == '\0' && in_list[i] == '=')
+		return (2);
+	return (1);
+}
+
 void			check_existence_env(char *str, t_env **list)
 {
 	int		len;
@@ -82,29 +104,7 @@ void			check_existence_env(char *str, t_env **list)
 	}
 }
 
-int	compare_exp(const char *input, const char *in_list)
-{
-	int i;
-
-	i = 0;
-	while (input[i] != '\0' && in_list[i] != '\0')
-	{
-		if (input[i] == '\0')
-			return (-1);
-		if (input[i] == '=' && in_list[i] == '\0')
-			return (1);
-		if (input[i] == '=' && in_list[i] == '=')
-			return (1);
-		if (input[i] != in_list[i])
-			return (-1);
-		i++;
-	}
-	if (input[i] == '\0' && in_list[i] == '=')
-		return (2);
-	return (1);
-}
-
-void			check_existence_exp(char *input, t_env **head)
+int			check_existence_exp(char *input, t_env **head)
 {
 	t_env	*ptr;
 	t_env	*previous;
@@ -116,11 +116,14 @@ void			check_existence_exp(char *input, t_env **head)
 		if (compare_exp(input, ptr->data) == 1)
 		{
 			remove_node(&ptr, &previous, head);
-			break ;
+			return (0);
 		}
+		if (compare_exp(input, ptr->data) == 2)
+			return (-1);
 		previous = ptr;
 		ptr = ptr->next;
 	}
+	return (0);
 }
 
 t_node			*extend_lists(t_node *node, t_lists **list)
@@ -154,6 +157,43 @@ t_node			*extend_lists(t_node *node, t_lists **list)
 	return (node);
 }
 
+int			check_input(char *str)		//uitbreiden
+{
+	int i;
+	int len;
+
+	i = 0;
+	len = ft_strlen(str);
+	//if (str[i] == '=' || str[len] == '=')
+	//	return (-1);
+	return (0);
+}
+
+t_node			*extend_lists2(t_node *node, t_lists **list)
+{
+	int i;
+
+	while (node->next != NULL && node->next->command != SEMICOLON)
+	{
+		node = node->next;
+		i = check_existence_exp(node->data, &(*list)->export_list);
+		if (check_input(node->data) < 0)
+		{
+			ft_printf("minishell: export: '%s': not a valid identifier\n", node->data);
+			node = node->next;
+		}
+		if (check_equal_sign(node->data) > 0)
+		{
+			check_existence_env(node->data, &(*list)->env_list);
+			extend_env_list(node->data, &(*list)->env_list);
+		}
+		if (i != -1)
+			add_export_node(&(*list)->export_list, node->data);
+	}
+	node = node->next;
+	return (node);
+}
+
 //"" not a valid identifier
 
 t_node			*export_cmd(t_node *node, t_lists **list)
@@ -161,7 +201,7 @@ t_node			*export_cmd(t_node *node, t_lists **list)
 	t_env *head;
 
 	if (node->next != NULL && node->next->command != SEMICOLON)
-		return (extend_lists(node, list));
+		return (extend_lists2(node, list));
 	sort_list(&(*list)->export_list);
 	head = (*list)->export_list;
 	while ((*list)->export_list)
