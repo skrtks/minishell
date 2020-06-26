@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/26 11:24:29 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/26 21:35:34 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, int code)
 		free_envlist(exp_lst);
 	if (cmd_lst)
 		free_cmdlist(&cmd_lst);
-	// system("leaks minishell"); // Remove before submitting
+	system("leaks minishell"); // Remove before submitting
 	exit(code);
 }
