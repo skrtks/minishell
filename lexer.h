@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/25 10:56:11 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/26 21:17:10 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,6 @@ typedef struct	s_lists
 	struct s_env		*env_list;
 	struct s_env		*export_list;
 }				t_lists;
-
-typedef struct	s_io
-{
-				int fd_read;
-				int fd_write;
-				int fd_read_prev;
-				int ori_stdout;
-				int ori_stdin;
-				int ori_stderr;
-				int active;
-}				t_io;
 
 typedef enum	e_commands
 {

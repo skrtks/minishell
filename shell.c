@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/20 15:48:37 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/26 21:18:23 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,7 @@ int		main(int argc, char **argv, char **envp)
 	char	*input;
 	t_node	*command_list;
 	t_lists	*list;
-	t_io	*io;
 
-	io = malloc(sizeof(t_io));
-	if (!io)
-		return (1);
-	io = setup_io(io);
 	list = get_env(envp);
 	// signal(SIGINT, sig_handler);
 	// signal(SIGQUIT, sig_handler);
@@ -74,7 +69,7 @@ int		main(int argc, char **argv, char **envp)
 		command_list = lexer(input);
 		free(input);
 		input = NULL;
-		parse(command_list, &list, io);
+		parse(command_list, &list);
 		free_cmdlist(&command_list);
 	}
 	(void) argc;

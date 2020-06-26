@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/26 11:00:46 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/26 21:18:02 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 	return (node);
 }
 
-void	parse(t_node *cmd_list, t_lists **list, t_io *io)
+void	parse(t_node *cmd_list, t_lists **list)
 {
 	t_node *ptr;
 	int n_pipes;
-	(void)io; // weghalen
+
 	ptr = cmd_list;
 	n_pipes = count_pipes(cmd_list);
 	while (ptr)
