@@ -3,14 +3,10 @@
 /*                                                        ::::::::            */
 /*   utils.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/06/20 16:35:13 by sam           ########   odam.nl         */
-=======
-/*   Updated: 2020/06/26 11:31:30 by merelmourik   ########   odam.nl         */
->>>>>>> export
+/*   Updated: 2020/06/26 11:41:30 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
