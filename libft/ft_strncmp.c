@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_strncmp.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <marvin@codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/30 13:24:43 by skorteka      #+#    #+#                 */
-/*   Updated: 2019/10/30 13:24:45 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/18 15:17:22 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (count < n && (str1[count] != '\0' || str2[count] != '\0'))
 	{
 		if (str1[count] != str2[count])
-			return (str1[count] - str2[count]);
+			return (-1);
 		count++;
 	}
 	return (0);

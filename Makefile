@@ -6,7 +6,7 @@
 #    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/17 11:33:05 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/06/26 11:32:47 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS = builtins/cd.c \
 	    utils/linkedlist_utils.c \
 		utils/other_utils.c \
 		utils/free_utils.c \
+		utils/export_utils.c \
 	    check_path.c \
 	    execute.c \
 	    lexer.c \

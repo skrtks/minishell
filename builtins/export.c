@@ -6,30 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/18 13:09:42 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/26 11:35:15 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "libft/libft.h"
-
-static int		compare_data(const char *str1, const char *str2)
-{
-	int i;
-
-	i = 0;
-	while (str1[i] || str2[i])
-	{
-		if (str1[i] <= str2[i])
-			return (0);
-		if (str1[i] > str2[i])
-			return (1);
-		i++;
-	}
-	if (str2[i] == '\0')
-		return (1);
-	return (0);
-}
 
 static void		sort_list(t_env **export_list)
 {
@@ -59,7 +41,7 @@ static void		sort_list(t_env **export_list)
 	}
 }
 
-void			check_existence(char *str, t_env **list)
+static void		check_existence_env(char *str, t_env **list)
 {
 	int		len;
 	t_env	*ptr;
@@ -82,35 +64,55 @@ void			check_existence(char *str, t_env **list)
 	}
 }
 
-t_node			*extend_lists(t_node *node, t_lists **list)
+static int		check_existence_exp(char *input, t_env **head)
 {
-	char	*temp;
-	char	*temp2;
-	int		equal_sign;
+	t_env	*ptr;
+	t_env	*previous;
 
-	temp2 = ft_strdup(node->next->data);
-	temp = ft_strdup(node->next->data);
-	equal_sign = check_equal_sign(node->next->data);
+	ptr = *head;
+	previous = NULL;
+	while (ptr)
+	{
+		if (compare_exp(input, ptr->data) == 1)
+		{
+			remove_node(&ptr, &previous, head);
+			return (0);
+		}
+		if (compare_exp(input, ptr->data) == 2)
+			return (-1);
+		previous = ptr;
+		ptr = ptr->next;
+	}
+	return (0);
+}
+
+static t_node	*extend_lists(t_node *node, t_lists **list)
+{
+	int		i;
+	char	*temp;
+
 	while (node->next != NULL && node->next->command != SEMICOLON)
 	{
 		node = node->next;
-		check_existence(node->data, &(*list)->export_list);
-		check_existence(node->data, &(*list)->env_list);
-		while (node->next != NULL && node->command != SEMICOLON)
+		temp = ft_strdup(node->data);
+		i = check_existence_exp(node->data, &(*list)->export_list);
+		check_input(node);
+		if (check_equal_sign(node->data) > 0)
 		{
-			free(temp);
-			if (!(temp = ft_strjoin(temp2, node->next->data)))
-				return (NULL);
-			node = node->next;
+			if (node->next != NULL)
+			{
+				free(temp);
+				temp = ft_strjoin(node->data, node->next->data);
+				node = node->next;
+			}
+			check_existence_env(temp, &(*list)->env_list);
+			add_env_node(&(*list)->env_list, temp);
 		}
-		free(temp2);
-		add_export_node(&(*list)->export_list, temp);
-		if (equal_sign >= 0)
-			extend_env_list(temp, &(*list)->env_list);
+		if (i != -1)
+			add_export_node(&(*list)->export_list, temp);
 		free(temp);
 	}
-	node = node->next;
-	return (node);
+	return (node->next);
 }
 
 t_node			*export_cmd(t_node *node, t_lists **list)
