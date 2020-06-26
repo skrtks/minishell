@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/25 16:40:07 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/26 01:59:49 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,74 +126,46 @@ int			check_existence_exp(char *input, t_env **head)
 	return (0);
 }
 
-t_node			*extend_lists(t_node *node, t_lists **list)
+int			check_input(char *str)
 {
-	char	*temp;
-	char	*temp2;
-	int		equal_sign;
-
-	temp2 = ft_strdup(node->next->data);
-	temp = ft_strdup(node->next->data);
-	equal_sign = check_equal_sign(node->next->data);
-	while (node->next != NULL && node->next->command != SEMICOLON)
-	{
-		node = node->next;
-		check_existence_exp(node->data, &(*list)->export_list);
-		check_existence_env(node->data, &(*list)->env_list);
-		while (node->next != NULL && node->command != SEMICOLON && node->command == APOSTROPHE)
-		{
-			free(temp);
-			if (!(temp = ft_strjoin(temp2, node->next->data)))
-				return (NULL);
-			node = node->next;
-		}
-		free(temp2);
-		add_export_node(&(*list)->export_list, temp);
-		if (equal_sign >= 0)
-			extend_env_list(temp, &(*list)->env_list);
-		free(temp);
-	}
-	node = node->next;
-	return (node);
-}
-
-int			check_input(char *str)		//uitbreiden
-{
-	int i;
+	int i;			//als je hier een *t_node van maakt word de code beter en korter
 	int len;
-
+	char *str1 = "!";
+	char *str2 = "@^*+={}[]:,./?~";		//niet=
+	char *str3 = "()";
 	i = 0;
-	len = ft_strlen(str);
-	//if (str[i] == '=' || str[len] == '=')
-	//	return (-1);
+	len = ft_strlen(str) - 1;
+	
+	while (str1[i])
+	{
+		if (str[0] == str1[i])
+			ft_printf("minishell: %s: event not found\n", str);
+		i++;
+	}
+	i = 0;
+	while (str2[i])
+	{
+		if (str[0] == str2[i] || (str[len] == str2[i] && str2[i] != '=')\
+		|| i == len && str2[i] == '!')
+			ft_printf("minishell: export: '%s': not a valid identifier\n", str);
+		i++;
+	}
+	i = 0;
+	while (str3[i])
+	{
+		if (str[0] == str3[i] || (str[len] == str3[i]))
+			ft_printf("minishell: syntax error near unexpected token %s\n", str);
+		i++;
+	}
+	//deze negeert hij en haalt hij weg aan het begin vd string: #\
+	//deze doet hij helemaal niks mee: $
+	//deze doet vaag: &
+	//checken of deze niet al bij pipe wordt verwerkt |
+	//str[0] bij redirections opvangen
 	return (0);
 }
 
-char			*check_quotationmark(t_node *node)
-{
-	char *temp;
-	char *temp2;
-
-	if (!(temp = ft_strdup("node->data")))
-		return (NULL);			//error
-	if (!(temp2 = ft_strdup(node->data)))
-		return (NULL);			//error
-	node = node->next;
-	node = node->next;
-	while (node->next != NULL && node->command != SEMICOLON && node->command != QUATATION_MARK)
-	{
-		temp = ft_strjoin(temp, temp2);
-		free(temp2);
-		temp2 = ft_strdup(node->next->data);
-		node = node->next;
-	}
-	if (node->command != QUATATION_MARK)
-		return (NULL);			//error
-	free(temp2);
-	return (temp);
-}
-
-t_node			*extend_lists2(t_node *node, t_lists **list)
+t_node			*extend_lists(t_node *node, t_lists **list)
 {
 	int		i;
 	char	*temp;
@@ -204,17 +176,13 @@ t_node			*extend_lists2(t_node *node, t_lists **list)
 		temp = ft_strdup(node->data);
 		i = check_existence_exp(node->data, &(*list)->export_list);
 		if (check_input(node->data) < 0)
-		{
-			ft_printf("minishell: export: '%s': not a valid identifier\n", node->data);
 			node = node->next;		//gaat nu waarschijnlijk soms iets te ver
-		}
 		if (check_equal_sign(node->data) > 0)
 		{
 			if (node->next != NULL)
-			{	
+			{
 				free (temp);
 				temp = ft_strjoin(node->data, node->next->data);
-			// ft_printf("hier %s\n", temp);x
 				node = node->next;
 			}
 			check_existence_env(temp, &(*list)->env_list);
@@ -224,8 +192,7 @@ t_node			*extend_lists2(t_node *node, t_lists **list)
 			add_export_node(&(*list)->export_list, temp);
 		free(temp);
 	}
-	node = node->next;
-	return (node);
+	return (node->next);
 }
 
 t_node			*export_cmd(t_node *node, t_lists **list)
@@ -233,7 +200,7 @@ t_node			*export_cmd(t_node *node, t_lists **list)
 	t_env *head;
 
 	if (node->next != NULL && node->next->command != SEMICOLON)
-		return (extend_lists2(node, list));
+		return (extend_lists(node, list));
 	sort_list(&(*list)->export_list);
 	head = (*list)->export_list;
 	while ((*list)->export_list)
