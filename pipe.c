@@ -6,94 +6,140 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/25 15:40:21 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/26 19:12:13 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+#include <sys/wait.h>
+#include "./libft/libft.h"
 #include "lexer.h"
 #include "pipe.h"
+#include "parser.h"
 
-t_io *setup_io(t_io *io)
+t_io *setup_io(t_io *io) // weghalen
 {
-	io->fd_read = -1;
-	io->fd_write = -1;
-	io->fd_read_prev = -1;
-	io->ori_stdin = dup(0);
-	io->ori_stdout = dup(1);
-	io->ori_stderr = dup(2);
-	io->active = 0;
 	return (io);
 }
 
-void no_ahead(t_io *io)
+int count_pipes(t_node *cmd_list)
 {
-    if (io->active)
-    {
-        if (io->fd_read_prev != -1)
-            close(io->fd_read_prev);
-        close(io->fd_write);
-        dup2(io->fd_read, 0);
-        dup2(io->ori_stdout, 1);
-        io->active = 0;
-    }
-    else
-    {
-        close(io->fd_read);
-        dup2(io->ori_stdin, 0);
-        setup_io(io);
-    }
-}
+	int n;
 
-void new_ahead(t_io *io, int pipe_plus)
-{
-    int *fds;
-    (void)pipe_plus;
-    fds = malloc(sizeof(int) * 2);
-    if (io->active)
-    {
-        if (io->fd_read_prev != -1)
-            close(io->fd_read_prev);
-        io->fd_read_prev = dup(io->fd_read);
-        close(io->fd_write);
-        pipe(fds);
-        io->fd_read = fds[0];
-        io->fd_write = fds[1];
-        dup2(io->fd_write, 1);
-        dup2(io->fd_read_prev, 0);
-    }
-    else
-    {
-        pipe(fds);
-        io->fd_read = fds[0];
-        io->fd_write = fds[1];
-        dup2(io->fd_write, 1);
-        io->active = 1;
-    }
-    free (fds);
-}
-
-t_io *pipe_sequence(t_node *cmd_list, t_io *io)
-{
-	int pipe_ahead;
-	int pipe_plus;
-
-	pipe_ahead = 0;
-	pipe_plus = 0;
+	n = 0;
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
-        if (cmd_list->command == PIPE_PLUS)
-            pipe_plus = 1;
 		if (cmd_list->command == PIPE || cmd_list->command == PIPE_PLUS)
-		{
-			pipe_ahead = 1;
-            new_ahead(io, pipe_plus);
-            break ;
-		}
-        cmd_list = cmd_list->next;
+			n++;
+		cmd_list = cmd_list->next;
 	}
-	if (!pipe_ahead)
+	return (n);
+}
+
+int setup_pipes(int n_pipes, int **fds)
+{
+	int i;
+
+	*fds = malloc(sizeof(int) * (n_pipes * 2));
+	if (!(*fds))
+		return (1);
+	i = 0;
+	while (i < n_pipes)
 	{
-        no_ahead(io);
-    }
-	return (io);
+		if (pipe((*fds) + i * 2) < 0)
+		{
+			ft_printf("%s\n", strerror(errno));
+			free((*fds));
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+void exit_on_error(int *fds)
+{
+	if (fds)
+		free(fds);
+	ft_printf("%s\n", strerror(errno));
+	exit(1);
+}
+// https://stackoverflow.com/questions/8389033/implementation-of-multiple-pipes-in-c
+int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list)
+{
+	int *fds;
+	pid_t	pid;
+	pid_t	*pid_list;
+	int cmd_index;
+	int i;
+
+	if (setup_pipes(n_pipes, &fds))
+	{
+		ft_printf("%s\n", strerror(errno));
+		free(fds);
+		return (1);
+	}
+	pid_list = malloc(sizeof(pid_t) * (n_pipes + 2));
+	if (!pid_list)
+		return (1);
+	pid_list[n_pipes + 2] = -1;
+	cmd_index = 0;
+	while ((*ptr) && (*ptr)->command != SEMICOLON) // Update to recognize redirections
+	{
+		pid = fork();
+		if (pid == -1)
+		{
+			ft_printf("%s\n", strerror(errno));
+			free(fds);
+			return (1);
+		}
+		else if (pid == 0)
+		{
+			if (cmd_index != 0)
+			{
+				// ft_printf("Start from != 0\n");
+				if (dup2(fds[(cmd_index - 1) * 2], 0) < 0)
+					exit_on_error(fds);
+			}
+			if (cmd_index != n_pipes)
+			{
+				// ft_printf("Start from != np\n");
+				if (dup2(fds[cmd_index * 2 + 1], 1) < 0)
+					exit_on_error(fds);
+			}
+
+			execute_cmd(*ptr, list);
+
+			i = 0;
+			while (i < (2 * n_pipes))
+			{
+				close(fds[i]);
+				i++;
+			}
+			exit(1);
+		}
+		else
+		{
+			pid_list[cmd_index] = pid;
+		}
+		while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != SEMICOLON)
+			*ptr = (*ptr)->next;
+		if (*ptr && (*ptr)->command == PIPE)
+			*ptr = (*ptr)->next;
+		cmd_index++;
+	}
+	i = 0;
+	while (i < (2 * n_pipes))
+	{
+		close(fds[i]);
+		i++;
+	}
+	i = 0;
+	while (pid_list[cmd_index] != -1)
+	{
+		waitpid(pid_list[cmd_index], NULL, 0);
+        cmd_index++;
+	}
+	free (fds);
+	return (0);
 }

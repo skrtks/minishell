@@ -6,7 +6,7 @@
 #    By: sam <sam@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/20 16:40:42 by sam           ########   odam.nl          #
+#    Updated: 2020/06/26 15:39:42 by sam           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS = builtins/cd.c \
 	    shell.c \
 	    pipe.c
 CC = gcc
-CFLAGS = -I. -Wall -Werror -Wextra
+CFLAGS = -I. -Wall -Werror -Wextra -g
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
