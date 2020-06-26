@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/26 01:59:49 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/26 10:32:47 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,20 @@ int			check_existence_exp(char *input, t_env **head)
 	return (0);
 }
 
-int			check_input(char *str)
+int			input_check(char *str, char c)
+{
+	int i;
+
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+t_node		*check_input(t_node *node)
 {
 	int i;			//als je hier een *t_node van maakt word de code beter en korter
 	int len;
@@ -134,27 +147,28 @@ int			check_input(char *str)
 	char *str2 = "@^*+={}[]:,./?~";		//niet=
 	char *str3 = "()";
 	i = 0;
-	len = ft_strlen(str) - 1;
+	len = ft_strlen(node->data) - 1;
 	
+	if (!(input_check()))
 	while (str1[i])
 	{
-		if (str[0] == str1[i])
-			ft_printf("minishell: %s: event not found\n", str);
+		if (node->data[0] == str1[i])
+			ft_printf("minishell: %s: event not found\n", node->data);
 		i++;
 	}
 	i = 0;
 	while (str2[i])
 	{
-		if (str[0] == str2[i] || (str[len] == str2[i] && str2[i] != '=')\
-		|| i == len && str2[i] == '!')
-			ft_printf("minishell: export: '%s': not a valid identifier\n", str);
+		if (node->data[0] == str2[i] || (node->data[len] == str2[i] && str2[i] != '=')\
+		|| (i == len && node->data[len] == '!'))
+			ft_printf("minishell: export: '%s': not a valid identifier\n", node->data);
 		i++;
 	}
 	i = 0;
 	while (str3[i])
 	{
-		if (str[0] == str3[i] || (str[len] == str3[i]))
-			ft_printf("minishell: syntax error near unexpected token %s\n", str);
+		if (node->data[0] == str3[i] || (node->data[len] == str3[i]))
+			ft_printf("minishell: syntax error near unexpected token %s\n", node->data);
 		i++;
 	}
 	//deze negeert hij en haalt hij weg aan het begin vd string: #\
@@ -162,7 +176,7 @@ int			check_input(char *str)
 	//deze doet vaag: &
 	//checken of deze niet al bij pipe wordt verwerkt |
 	//str[0] bij redirections opvangen
-	return (0);
+	return (node);
 }
 
 t_node			*extend_lists(t_node *node, t_lists **list)
@@ -175,8 +189,7 @@ t_node			*extend_lists(t_node *node, t_lists **list)
 		node = node->next;
 		temp = ft_strdup(node->data);
 		i = check_existence_exp(node->data, &(*list)->export_list);
-		if (check_input(node->data) < 0)
-			node = node->next;		//gaat nu waarschijnlijk soms iets te ver
+		check_input(node);
 		if (check_equal_sign(node->data) > 0)
 		{
 			if (node->next != NULL)
