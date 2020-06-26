@@ -1,2 +1,0 @@
-export:
-	hij snapt nog niet dat kaas= belangrijker is dan kaas

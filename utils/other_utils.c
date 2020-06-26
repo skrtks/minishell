@@ -6,23 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:29:29 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/25 12:07:47 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/26 11:27:47 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
-int		check_equal_sign(const char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '=')
-		i++;
-	if (str[i] == '=')
-		return (i);
-	return (-1);
-}
 
 t_node	*free_on_error(char *cmd)
 {
