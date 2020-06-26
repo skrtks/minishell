@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/20 16:35:52 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/26 16:20:19 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,16 @@ t_node			*lexer(char *input)
 				return (free_on_error(cmd));
 		if (check_spec_char("|<>;\'\"", input[i]))
 		{
-			if(!set_metachar(&head, input, &i))
+			if (!set_metachar(&head, input, &i))
 				return (free_on_error(cmd));
 		}
+		//met deze if statement ipv bovenstaande doet export het wel 
+		// if (input[i] == ';')
+		// {
+		// 	if (new_node(&head, ";"))
+		// 		return (free_on_error(cmd));
+		// 	i++;
+		// }
 		free(cmd);
 	}
 	return (head);
