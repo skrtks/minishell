@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/26 21:18:02 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/26 21:25:33 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ void	parse(t_node *cmd_list, t_lists **list)
 	while (ptr)
 	{
 		if (n_pipes)
-		{
-			if(execute_in_pipeline(&ptr, n_pipes, list))
-				return ;
-		}
+			execute_in_pipeline(&ptr, n_pipes, list);
 		else
 		{
 			ptr = execute_cmd(ptr, list);
