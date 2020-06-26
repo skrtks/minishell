@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/26 19:12:13 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/26 21:16:42 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 #include "lexer.h"
 #include "pipe.h"
 #include "parser.h"
-
-t_io *setup_io(t_io *io) // weghalen
-{
-	return (io);
-}
 
 int count_pipes(t_node *cmd_list)
 {
@@ -68,8 +63,8 @@ void exit_on_error(int *fds)
 int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list)
 {
 	int *fds;
-	pid_t	pid;
-	pid_t	*pid_list;
+	int	pid;
+	int	*pid_list;
 	int cmd_index;
 	int i;
 
@@ -79,7 +74,7 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list)
 		free(fds);
 		return (1);
 	}
-	pid_list = malloc(sizeof(pid_t) * (n_pipes + 2));
+	pid_list = malloc(sizeof(int) * (n_pipes + 2));
 	if (!pid_list)
 		return (1);
 	pid_list[n_pipes + 2] = -1;
@@ -97,25 +92,19 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list)
 		{
 			if (cmd_index != 0)
 			{
-				// ft_printf("Start from != 0\n");
 				if (dup2(fds[(cmd_index - 1) * 2], 0) < 0)
 					exit_on_error(fds);
 			}
 			if (cmd_index != n_pipes)
-			{
-				// ft_printf("Start from != np\n");
 				if (dup2(fds[cmd_index * 2 + 1], 1) < 0)
 					exit_on_error(fds);
-			}
-
-			execute_cmd(*ptr, list);
-
 			i = 0;
 			while (i < (2 * n_pipes))
 			{
 				close(fds[i]);
 				i++;
 			}
+			execute_cmd(*ptr, list);
 			exit(1);
 		}
 		else
@@ -134,12 +123,8 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list)
 		close(fds[i]);
 		i++;
 	}
-	i = 0;
-	while (pid_list[cmd_index] != -1)
-	{
-		waitpid(pid_list[cmd_index], NULL, 0);
-        cmd_index++;
-	}
-	free (fds);
+	while ((pid = wait(NULL)) > 0);
+	free(fds);
+	free(pid_list);
 	return (0);
 }
