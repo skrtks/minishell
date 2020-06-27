@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/27 13:27:47 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/27 13:57:38 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,6 @@
 #include "lexer.h"
 #include "pipe.h"
 #include "parser.h"
-
-int count_pipes(t_node *cmd_list)
-{
-	int n;
-
-	n = 0;
-	while (cmd_list && cmd_list->command != SEMICOLON)
-	{
-		if (cmd_list->command == PIPE || cmd_list->command == PIPE_PLUS)
-			n++;
-		cmd_list = cmd_list->next;
-	}
-	return (n);
-}
 
 int setup_pipes(int n_pipes, int **fds)
 {
@@ -52,37 +38,6 @@ int setup_pipes(int n_pipes, int **fds)
 	return (0);
 }
 
-void exit_on_error(int *fds)
-{
-	if (fds)
-		free(fds);
-	ft_printf("%s\n", strerror(errno));
-	exit(1);
-}
-
-void close_fds(int n_pipes, const int *fds) 
-{
-	int i;
-
-	i = 0;
-	while (i < (2 * n_pipes))
-	{
-		close(fds[i]);
-		i++;
-	}
-}
-
-void check_type(t_node *ptr, int *type)
-{
-	while (ptr && ptr->command != PIPE && ptr->command != PIPE_PLUS
-			&& ptr->command != SEMICOLON) // Update to recognize redirections
-			ptr = ptr->next;
-	if (ptr && ptr->command == PIPE_PLUS)
-		*type = 1;
-	else
-		*type = 0;
-}
-
 void	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 {
 	int pipe_plus;
@@ -100,17 +55,6 @@ void	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 				exit_on_error(fds);
 	}
 	close_fds(n_pipes, fds);
-}
-
-int skip_to_cmd(t_node **ptr, int cmd_index) 
-{
-    while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != PIPE_PLUS
-			&& (*ptr)->command != SEMICOLON)
-        *ptr = (*ptr)->next;        //update for redirections
-    if (*ptr && ((*ptr)->command == PIPE_PLUS || (*ptr)->command == PIPE))
-        *ptr = (*ptr)->next;
-    cmd_index++;
-    return cmd_index;
 }
 
 int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds)
