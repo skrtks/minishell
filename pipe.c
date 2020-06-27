@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipe.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/27 12:53:18 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/27 13:27:47 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,17 @@ void	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 	close_fds(n_pipes, fds);
 }
 
+int skip_to_cmd(t_node **ptr, int cmd_index) 
+{
+    while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != PIPE_PLUS
+			&& (*ptr)->command != SEMICOLON)
+        *ptr = (*ptr)->next;        //update for redirections
+    if (*ptr && ((*ptr)->command == PIPE_PLUS || (*ptr)->command == PIPE))
+        *ptr = (*ptr)->next;
+    cmd_index++;
+    return cmd_index;
+}
+
 int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds)
 {
 	int	pid;
@@ -122,13 +133,8 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds)
 			execute_cmd(*ptr, list);
 			exit(1);
 		}
-		while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != PIPE_PLUS
-				&& (*ptr)->command != SEMICOLON)
-			*ptr = (*ptr)->next;		//update for redirections
-		if (*ptr && ((*ptr)->command == PIPE_PLUS || (*ptr)->command == PIPE))
-			*ptr = (*ptr)->next;
-		cmd_index++;
-	}
+        cmd_index = skip_to_cmd(ptr, cmd_index);
+    }
 	close_fds(n_pipes, fds);
 	while ((pid = wait(NULL)) > 0)
 		;
