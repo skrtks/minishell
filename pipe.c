@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipe.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/27 11:11:43 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/27 12:53:18 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,16 @@ void exit_on_error(int *fds)
 	exit(1);
 }
 
-void close_fds(int n_pipes, const int *fds) {
-    int i;
+void close_fds(int n_pipes, const int *fds) 
+{
+	int i;
 
-    i = 0;
-    while (i < (2 * n_pipes))
-    {
-        close(fds[i]);
-        i++;
-    }
+	i = 0;
+	while (i < (2 * n_pipes))
+	{
+		close(fds[i]);
+		i++;
+	}
 }
 
 void check_type(t_node *ptr, int *type)
@@ -82,19 +83,33 @@ void check_type(t_node *ptr, int *type)
 		*type = 0;
 }
 
-int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list)
+void	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 {
-	int *fds;
-	int	pid;
-	int cmd_index;
 	int pipe_plus;
 
-	if (setup_pipes(n_pipes, &fds))
-		return (1);
+	check_type(*ptr, &pipe_plus);
+	if (cmd_index != 0)
+		if (dup2(fds[(cmd_index - 1) * 2], 0) < 0)
+			exit_on_error(fds);
+	if (cmd_index != n_pipes)
+	{
+		if (dup2(fds[cmd_index * 2 + 1], 1) < 0)
+			exit_on_error(fds);
+		if (pipe_plus)
+			if (dup2(fds[cmd_index * 2 + 1], 2) < 0)
+				exit_on_error(fds);
+	}
+	close_fds(n_pipes, fds);
+}
+
+int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds)
+{
+	int	pid;
+	int cmd_index;
+
 	cmd_index = 0;
 	while ((*ptr) && (*ptr)->command != SEMICOLON) // Update to recognize redirections
 	{
-		check_type(*ptr, &pipe_plus);
 		if ((pid = fork()) == -1)
 		{
 			ft_printf("%s\n", strerror(errno));
@@ -103,30 +118,20 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list)
 		}
 		else if (pid == 0)
 		{
-			if (cmd_index != 0)
-				if (dup2(fds[(cmd_index - 1) * 2], 0) < 0)
-					exit_on_error(fds);
-			if (cmd_index != n_pipes)
-			{
-				if (dup2(fds[cmd_index * 2 + 1], 1) < 0)
-					exit_on_error(fds);
-				if (pipe_plus)
-					if (dup2(fds[cmd_index * 2 + 1], 2) < 0)
-						exit_on_error(fds);
-			}
-            close_fds(n_pipes, fds);
-            execute_cmd(*ptr, list);
+			child_process(cmd_index, fds, n_pipes, ptr);
+			execute_cmd(*ptr, list);
 			exit(1);
 		}
 		while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != PIPE_PLUS
-				&& (*ptr)->command != SEMICOLON) // Update to recognize redirections
-			*ptr = (*ptr)->next;
+				&& (*ptr)->command != SEMICOLON)
+			*ptr = (*ptr)->next;		//update for redirections
 		if (*ptr && ((*ptr)->command == PIPE_PLUS || (*ptr)->command == PIPE))
 			*ptr = (*ptr)->next;
 		cmd_index++;
 	}
-    close_fds(n_pipes, fds);
-	while ((pid = wait(NULL)) > 0);
+	close_fds(n_pipes, fds);
+	while ((pid = wait(NULL)) > 0)
+		;
 	free(fds);
 	return (0);
 }
