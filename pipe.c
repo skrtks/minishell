@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/27 10:59:26 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/27 11:11:43 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,7 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list)
 	int pipe_plus;
 
 	if (setup_pipes(n_pipes, &fds))
-	{
-		ft_printf("%s\n", strerror(errno));
-		free(fds);
 		return (1);
-	}
 	cmd_index = 0;
 	while ((*ptr) && (*ptr)->command != SEMICOLON) // Update to recognize redirections
 	{
