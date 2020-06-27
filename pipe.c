@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/26 21:38:40 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/27 10:59:26 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,23 @@ void close_fds(int n_pipes, const int *fds) {
     }
 }
 
-int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list) // TODO: implement pipe_plus
+void check_type(t_node *ptr, int *type)
+{
+	while (ptr && ptr->command != PIPE && ptr->command != PIPE_PLUS
+			&& ptr->command != SEMICOLON) // Update to recognize redirections
+			ptr = ptr->next;
+	if (ptr && ptr->command == PIPE_PLUS)
+		*type = 1;
+	else
+		*type = 0;
+}
+
+int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list)
 {
 	int *fds;
 	int	pid;
 	int cmd_index;
+	int pipe_plus;
 
 	if (setup_pipes(n_pipes, &fds))
 	{
@@ -86,6 +98,7 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list) // TODO: impl
 	cmd_index = 0;
 	while ((*ptr) && (*ptr)->command != SEMICOLON) // Update to recognize redirections
 	{
+		check_type(*ptr, &pipe_plus);
 		if ((pid = fork()) == -1)
 		{
 			ft_printf("%s\n", strerror(errno));
@@ -98,15 +111,21 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list) // TODO: impl
 				if (dup2(fds[(cmd_index - 1) * 2], 0) < 0)
 					exit_on_error(fds);
 			if (cmd_index != n_pipes)
+			{
 				if (dup2(fds[cmd_index * 2 + 1], 1) < 0)
 					exit_on_error(fds);
+				if (pipe_plus)
+					if (dup2(fds[cmd_index * 2 + 1], 2) < 0)
+						exit_on_error(fds);
+			}
             close_fds(n_pipes, fds);
             execute_cmd(*ptr, list);
 			exit(1);
 		}
-		while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != SEMICOLON) // Update to recognize redirections
+		while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != PIPE_PLUS
+				&& (*ptr)->command != SEMICOLON) // Update to recognize redirections
 			*ptr = (*ptr)->next;
-		if (*ptr && (*ptr)->command == PIPE)
+		if (*ptr && ((*ptr)->command == PIPE_PLUS || (*ptr)->command == PIPE))
 			*ptr = (*ptr)->next;
 		cmd_index++;
 	}
