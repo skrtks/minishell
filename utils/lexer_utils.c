@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/19 13:20:35 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/27 12:30:15 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	continue_populating(char *cmd, t_node *node)
 	else if (!ft_strncmp(cmd, "\'", 2))
 		set_info(APOSTROPHE, X, node);
 	else if (!ft_strncmp(cmd, "\"", 2))
-		set_info(QUATATION_MARK, X, node);
+	{
+		ft_printf("doe jij dit\n");
+		set_info(QUATATION_MARK, SYMBOL, node);
+	}
 	else if (!ft_strncmp(cmd, "<", 2))
 		set_info(ARROW_LEFT, SYMBOL, node);
 	else if (!ft_strncmp(cmd, ">", 2))

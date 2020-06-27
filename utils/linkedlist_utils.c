@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 15:08:05 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/17 11:53:51 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/26 02:02:58 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static char	*export_data(char *str)
 	new[i] = str[i];
 	new[i + 1] = '\"';
 	i += 2;
-	while (str[i - 1] && str[i - 1] != ' ')
+	while (str[i - 1])
 	{
 		new[i] = str[i - 1];
 		i++;
@@ -98,7 +98,7 @@ void		extend_env_list(char *str, t_env **env_list)
 	if (!(temp = malloc(sizeof(char) * (i + 1))))
 		return ;
 	i = 0;
-	while (str[i] != ' ' && str[i])
+	while (str[i])
 	{
 		temp[i] = str[i];
 		i++;

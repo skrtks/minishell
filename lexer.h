@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/22 10:55:57 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/27 12:29:47 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef enum	e_commands
 	N = 7,
 	SEMICOLON = 8,
 	APOSTROPHE = 9,
-	QUATATION_MARK = 10,
+	QUATATION_MARK = 10,		//deze kan er uit toch?
 	ARROW_LEFT = 11,
 	ARROW_RIGHT = 12,
 	ARROW_DOUBLE = 13,
