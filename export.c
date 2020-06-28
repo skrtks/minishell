@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/11 11:54:02 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/11 13:23:32 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@ static void		sort_list(t_env **env_list)
 	return ;
 }
 
+
+/*
+- de argumenten altijd opslaan in export
+- zorgen dat export losse argumenten individueel opslaat tot eind of tot semicolon
+- in de exportlijst komt er na = altijd ""
+- alleen hetgeen gelijk na = wordt tussen "" gezet
+- zodra een argument de opbouw arg= heeft, komt deze ook in de env lijst
+- in de env list komt nooit "", ook niet als het wel in de input staat
+ */
+ 
 t_node			*export_cmd(t_node *node, t_env **env_list)
 {
 	t_env *head;
