@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/19 13:32:52 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/28 15:04:23 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static void	do_fork(char *filename, char **argv, char **envp)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGTSTP, SIG_DFL);
-		if (execve(filename, argv, envp))
+		if (execve(filename, argv, envp))		//met stat kan je hem er in een keer uithalen
 			ft_printf("bash: %s\n", strerror(errno));
 		exit(1);
 	}

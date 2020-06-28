@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/26 16:08:17 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/28 16:43:35 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void		reset_std(void)
 int		open_file(t_node *cmd_list)
 {
 	if (cmd_list->command == ARROW_RIGHT)
-		return (open(cmd_list->next->data, O_RDWR | O_CREAT | O_TRUNC, 0677));
+		return (open(cmd_list->next->data, O_RDWR | O_CREAT | O_TRUNC, 0644));
 	if (cmd_list->command == ARROW_DOUBLE)
-		return (open(cmd_list->next->data, O_RDWR | O_CREAT | O_APPEND, 0677));
+		return (open(cmd_list->next->data, O_RDWR | O_CREAT | O_APPEND, 0644));
 	return (0);
 }
 
@@ -85,3 +85,7 @@ void	redirection(t_node *cmd_list, t_fd *fd)
 	}
 	return ;
 }
+//lsof -c minishell
+
+//eerst bekijken of er nog meer redirections zijn
+//als dat zo is moet voor de tussenliggende fils wel
