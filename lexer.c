@@ -3,18 +3,18 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 09:42:03 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/27 12:27:49 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
 #include "libft/libft.h"
 #include "lexer.h"
+#include "utils/utils.h"
 
-char	*extract_from_brackets(char *input, int *pos)
+static char		*extract_from_brackets(const char *input, int *pos)
 {
 	char	b_type;
 	char	*extr;
@@ -43,7 +43,7 @@ char	*extract_from_brackets(char *input, int *pos)
 	return (extr);
 }
 
-char	*extract_word(char *input, int *pos)
+static char		*extract_word(char *input, int *pos)
 {
 	char	*extr;
 	int		len;
@@ -52,16 +52,14 @@ char	*extract_word(char *input, int *pos)
 	if ((input[*pos] == '\'' || input[*pos] == '\"') && input[*pos - 1] != '\\')
 		return (extract_from_brackets(input, pos));
 	len = *pos;
-	while (input[len] != ' ' && input[len] != '\0' && !((input[len] == '\'' ||\
-		input[len] == '\"') && input[len - 1] != '\\') && input[len] != ';')
+	while (!ft_strchr(" 	|<>;\'\"\0", input[len]))
 		len++;
 	len -= *pos;
 	extr = malloc(sizeof(char) * (len + 1));
 	if (!extr)
 		return (NULL);
 	i = *pos;
-	while (input[i] != ' ' && input[i] != '\0' && !((input[i] == '\''
-			|| input[i] == '\"') && input[i - 1] != '\\') && input[i] != ';')
+	while (!ft_strchr(" 	|<>;\'\"\0", input[i]))
 	{
 		extr[i - *pos] = input[i];
 		i++;
@@ -71,27 +69,63 @@ char	*extract_word(char *input, int *pos)
 	return (extr);
 }
 
-int	add_node(t_node **head, char *cmd)
+static int		new_node(t_node **head, char *cmd)
 {
-	t_node *node;
+	t_node *new_node;
+	t_node *ptr;
 
-	node = malloc(sizeof(t_node));
-	if (!node)
+	ptr = *head;
+	if (!(new_node = malloc(sizeof(t_node))))
 		return (1);
-	node->next = NULL;
-	if (populate_node(cmd, node))
+	if (populate_node(cmd, new_node))
+	{
+		free (new_node);
 		return (1);
-	add_to_back(head, node);
+	}
+	new_node->next = NULL;
+	if (!(*head))
+	{
+		new_node->previous = NULL;
+		*head = new_node;
+		return (0);
+	}
+	while (ptr->next)
+		ptr = ptr->next;
+	ptr->next = new_node;
+	new_node->previous = ptr;
 	return (0);
 }
 
-t_node *free_on_error(char *cmd)
+static int set_metachar(t_node **head, char *input, int *pos)
 {
-	free (cmd);
-	return (NULL);
+	int err;
+
+	err = 0;
+	if (!ft_strncmp(input + *pos, "|&", 2))
+	{
+		err = new_node(head, "|&");
+		(*pos)++;
+	}
+	else if (!ft_strncmp(input + *pos, "|", 1))
+		err = new_node(head, "|");
+	else if (!ft_strncmp(input + *pos, ">>", 2))
+	{
+		err = new_node(head, ">>");
+		(*pos)++;
+	}
+	else if (!ft_strncmp(input + *pos, ">", 1))
+		err = new_node(head, ">");
+	else if (!ft_strncmp(input + *pos, "<", 1))
+		err = new_node(head, "<");
+	else if (!ft_strncmp(input + *pos, ";", 1))
+		err = new_node(head, ";");
+	(*pos)++;
+	if (!err)
+		return (1);
+	return (0);
 }
 
-t_node	*lexer(char *input)
+t_node			*lexer(char *input)
 {
 	int		i;
 	char	*cmd;
@@ -103,17 +137,16 @@ t_node	*lexer(char *input)
 	{
 		while (input[i] == ' ')
 			i++;
-		if (!input[i])
-			return (head);
-		cmd = extract_word(input, &i);
-		if (!cmd)
+		if (!(cmd = extract_word(input, &i)))
 			return (NULL);
 		if (cmd[0])
-			if (add_node(&head, cmd))
+			if (new_node(&head, cmd))
 				return (free_on_error(cmd));
-		if (input[i] == ';')
-			if (add_node(&head, ";"))
+		if (check_spec_char("|<>;", input[i]))
+		{
+			if (!set_metachar(&head, input, &i))
 				return (free_on_error(cmd));
+		}
 		free(cmd);
 	}
 	return (head);

@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
+/*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/11 09:03:03 by merelmourik   ########   odam.nl         */
+/*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
+/*   Updated: 2020/06/18 08:10:06 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "echo.h"
 #include "lexer.h"
-#include "shell.h"
-#include "./libft/libft.h"
+#include "utils/utils.h"
 
-t_node	*echo(t_node *node)
+void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, int code)
 {
-	int flag;
-
-	flag = 0;
-	node = node->next;
-	if (node && node->command == N)
-	{
-		flag = 1;
-		node = node->next;
-	}
-	while (node && node->command != SEMICOLON)
-	{
-		ft_printf("%s ", node->data);
-		node = node->next;
-	}
-	if (!flag)
-		ft_printf("\n");
-	return (node);
+	if (env_lst)
+		free_envlist(env_lst);
+	if (exp_lst)
+		free_envlist(exp_lst);
+	if (cmd_lst)
+		free_cmdlist(&cmd_lst);
+	system("leaks minishell"); // Remove before submitting
+	exit(code);
 }

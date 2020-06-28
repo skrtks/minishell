@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   exit.h                                             :+:    :+:            */
+/*   other_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/10 19:59:09 by merelmourik   ########   odam.nl         */
+/*   Created: 2020/06/17 11:29:29 by merelmourik   #+#    #+#                 */
+/*   Updated: 2020/06/26 11:39:34 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXIT_H
-# define EXIT_H
+#include "utils.h"
 
-#include "lexer.h"
+t_node	*free_on_error(char *cmd)
+{
+	free(cmd);
+	return (NULL);
+}
 
-void exit_shell(t_node *command_list, t_env **env_list, int exit_code);
+char	*check_spec_char(const char *str, int c)
+{
+	const char		*src;
+	size_t			count;
 
-#endif
+	src = str;
+	count = 0;
+	while (src[count] != '\0')
+	{
+		if (src[count] == (char)c)
+			return ((char *)str);
+		count++;
+		str++;
+	}
+	return (NULL);
+}

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15.3)
+cmake_minimum_required(VERSION 3.16)
 project(minishell C)
 
 set(CMAKE_C_STANDARD 11)
@@ -10,21 +10,25 @@ add_subdirectory(libft)
 add_subdirectory(libft/printf)
 
 add_executable(minishell
-        env_utils.c
-        export.c
-        exit.c
-        cd.c
-        cd.h
-        echo.c
-        echo.h
-        env.c
+        builtins/cd.c
+        builtins/echo.c
+        builtins/env.c
+        builtins/exit.c
+        builtins/export.c
+        builtins/pwd.c
+        builtins/unset.c
+        utils/free_utils.c
+        utils/lexer_utils.c
+        utils/linkedlist_utils.c
+        utils/other_utils.c
+        utils/utils.h
+        check_path.c
+        execute.c
+        execute.h
         lexer.c
         lexer.h
-        lexer_utils.c
         parser.c
         parser.h
-        pwd.c
-        shell.c
-        shell.h)
+        shell.c)
 
 target_link_libraries(minishell PUBLIC libft printf)

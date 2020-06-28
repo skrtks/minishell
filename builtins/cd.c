@@ -6,13 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/11 09:02:46 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/17 11:59:06 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cd.h"
-#include "shell.h"
-#include "./libft/libft.h"
+#include "builtins.h"
+#include "libft/libft.h"
 #include "errno.h"
 #include <unistd.h>
 #include <string.h>
@@ -43,7 +42,7 @@ t_node		*cd(t_node *node, t_env *env_list)
 		ft_printf("Error loading home directory, try again.\n");
 		return (NULL);
 	}
-	if (node->next)
+	if (node && node->next)
 	{
 		node = node->next;
 		path = node->data;

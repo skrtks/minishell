@@ -3,22 +3,20 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/11 11:37:44 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/18 10:21:30 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "./builtins/builtins.h"
 #include "parser.h"
 #include "lexer.h"
-#include "echo.h"
-#include "shell.h"
-#include "exit.h"
-#include "cd.h"
+#include "execute.h"
 #include "./libft/libft.h"
 
-t_node	*execute_cmd(t_node *node, t_lists **list)
+static t_node	*execute_cmd(t_node *node, t_lists **list)
 {
 	if (node->command == ECHO)
 		node = echo(node);
@@ -27,20 +25,24 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 	else if (node->command == PWD)
 		node = pwd(node);
 	else if (node->command == EXPORT)
-		node = export_cmd(node, &(*list)->export_list);
+		node = export_cmd(node, list);
 	else if (node->command == UNSET)
-	{
-		node = node->next;
-		write(1, "Executed unset\n", 15);
-	}
+		node = unset(node, list);
 	else if (node->command == ENV)
 		node = env(node, (*list)->env_list);
+	else if (node->command == EXECUTABLE)
+		node = execute(node, (*list)->env_list);
 	else if (node->command == EXIT)
-		exit_shell(node, &(*list)->env_list, 0);
+		exit_shell(node, &(*list)->env_list, &(*list)->export_list, 0);
 	else
 	{
-		node = node->next;
-		write(1, "Command not recognized\n", 23);
+		if (check_for_path(&(node)->data, (*list)->env_list))
+			node = execute(node, (*list)->env_list);
+		else
+		{
+			node = node->next; // Skip to end or next semicolon
+			write(1, "Command not recognized\n", 23);
+		}
 	}
 	return (node);
 }

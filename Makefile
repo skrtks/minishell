@@ -3,16 +3,31 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: sam <sam@student.codam.nl>                   +#+                      #
+#    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/10 15:52:16 by sam           ########   odam.nl          #
+#    Updated: 2020/06/26 11:32:47 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-SRCS = shell.c lexer.c lexer_utils.c parser.c cd.c env.c pwd.c echo.c export.c\
-	env_utils.c exit.c
+SRCS = builtins/cd.c \
+	    builtins/echo.c \
+	    builtins/env.c \
+	    builtins/exit.c \
+	    builtins/export.c \
+	    builtins/pwd.c \
+	    builtins/unset.c \
+	    utils/lexer_utils.c \
+	    utils/linkedlist_utils.c \
+		utils/other_utils.c \
+		utils/free_utils.c \
+		utils/export_utils.c \
+	    check_path.c \
+	    execute.c \
+	    lexer.c \
+	    parser.c \
+	    shell.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 OBJS = $(SRCS:.c=.o)
