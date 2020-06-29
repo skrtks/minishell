@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/27 12:30:59 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/29 12:36:52 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char		*extract_word(char *input, int *pos)
 	return (extr);
 }
 
-static int		new_node(t_node **head, char *cmd)
+int		new_node(t_node **head, char *cmd)
 {
 	t_node *new_node;
 	t_node *ptr;
