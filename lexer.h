@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/29 09:18:53 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/29 09:34:37 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,13 @@ typedef enum	e_type
 	FLAG = 1,
 	SYMBOL = 2,
 	ARGUMENT = 3,
-	X = 4
+	REDIRECTION = 4,
+	X = 5
 }				t_type;
 
 char			**free_array(char **array);
 t_node			*lexer(char *input);
+
+
 
 #endif

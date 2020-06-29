@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/28 22:30:22 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/29 09:34:05 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		count_redirections(t_node *cmd_list)
 	temp = cmd_list;
 	while (temp)
 	{
-		if (temp->type == SYMBOL)
+		if (temp->type == REDIRECTION)
 			i++;
 		temp = temp->next;
 	}
@@ -67,7 +67,7 @@ void	redirection(t_node *cmd_list)
 		return ;
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
-		if (cmd_list->type == SYMBOL)
+		if (cmd_list->type == REDIRECTION)
 		{
 			i--;
 			if (!(fd = open_file(cmd_list)))

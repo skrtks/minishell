@@ -1,2 +1,2 @@
-Command not recognized
-Command not recognized
+hoi > test.txt 
+leuk >> test.txt 

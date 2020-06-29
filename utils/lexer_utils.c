@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/27 12:30:15 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/29 09:30:22 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,13 @@ void	continue_populating(char *cmd, t_node *node)
 	else if (!ft_strncmp(cmd, "\'", 2))
 		set_info(APOSTROPHE, X, node);
 	else if (!ft_strncmp(cmd, "\"", 2))
-	{
-		ft_printf("doe jij dit\n");
 		set_info(QUATATION_MARK, SYMBOL, node);
-	}
 	else if (!ft_strncmp(cmd, "<", 2))
-		set_info(ARROW_LEFT, SYMBOL, node);
+		set_info(ARROW_LEFT, REDIRECTION, node);
 	else if (!ft_strncmp(cmd, ">", 2))
-		set_info(ARROW_RIGHT, SYMBOL, node);
+		set_info(ARROW_RIGHT, REDIRECTION, node);
 	else if (!ft_strncmp(cmd, ">>", 3))
-		set_info(ARROW_DOUBLE, SYMBOL, node);
+		set_info(ARROW_DOUBLE, REDIRECTION, node);
 	else if (!ft_strncmp(cmd, "|&", 3))
 		set_info(PIPE_PLUS, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "|", 2))
