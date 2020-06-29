@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/29 09:37:22 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/29 09:56:31 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	parse(t_node *cmd_list, t_lists **list)
 	n_pipes = count_pipes(cmd_list);
 	while (ptr)
 	{
-		redirection(cmd_list);
+		redirection(ptr);
+		printf("%s\n", ptr->data);
 		if (n_pipes)
 		{
 			if (setup_pipes(n_pipes, &fds))
@@ -78,8 +79,22 @@ void	parse(t_node *cmd_list, t_lists **list)
 		if (ptr && ptr->type == SYMBOL)
 			ptr = ptr->next;
 		n_pipes = 0;
-		if (ptr->command == SEMICOLON)
-			reset_fd(std);
 	}
 	reset_fd(std);
 }
+
+// void	parse(t_node *cmd_list, t_lists **list)
+// {
+// 	t_node *ptr;
+// 	int std[3];
+	
+// 	ptr = cmd_list;
+// 	while (ptr)
+// 	{
+// 		redirection(cmd_list);
+// 		ptr = execute_cmd(ptr, list);
+// 		if (ptr && ptr->type == SYMBOL)
+// 			ptr = ptr->next;
+// 	}
+// 	reset_fd(std);
+// }

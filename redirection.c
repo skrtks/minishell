@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/29 09:34:05 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/29 09:56:49 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int		count_redirections(t_node *cmd_list)
 	return (i);
 }
 
-void	redirection(t_node *cmd_list)
+t_node	*redirection(t_node *cmd_list)
 {
 	int		i;
 	int		fd;
 
 	if ((i = count_redirections(cmd_list)) == 0)
-		return ;
+		return (cmd_list);
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
 		if (cmd_list->type == REDIRECTION)
@@ -82,6 +82,7 @@ void	redirection(t_node *cmd_list)
 		}
 		cmd_list = cmd_list->next;
 	}
-	return ;
+	// cmd_list = cmd_list->previous;
+	return (cmd_list);
 }
 //lsof -c minishell
