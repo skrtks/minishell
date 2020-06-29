@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/22 06:24:28 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/28 22:03:50 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,11 @@ int		main(int argc, char **argv, char **envp)
 	t_node	*command_list;
 	t_lists	*list;
 	t_io	*io;
-	t_fd    *fd;
 
 	io = malloc(sizeof(t_io));
-	fd = malloc(sizeof(t_fd));
 	if (!io)
 		return (1);
 	io = setup_io(io);
-	fd = setup_fd(fd);
 	list = get_env(envp);
 	// signal(SIGINT, sig_handler);
 	// signal(SIGQUIT, sig_handler);
@@ -77,7 +74,7 @@ int		main(int argc, char **argv, char **envp)
 		command_list = lexer(input);
 		free(input);
 		input = NULL;
-		parse(command_list, &list, io, fd);
+		parse(command_list, &list, io);
 		free_cmdlist(&command_list);
 	}
 	(void) argc;

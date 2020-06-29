@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/22 07:03:25 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/28 22:03:15 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,20 @@ void		reset_fd(int *std)
 	dup2(std[2], STDERR_FILENO);
 }
 
-void	parse(t_node *cmd_list, t_lists **list, t_io *io, t_fd *fd)
+void	parse(t_node *cmd_list, t_lists **list, t_io *io)
 {
 	t_node *ptr;
 	int std[3];
 
-	ptr = cmd_list;
+	ptr = cmd_list;		//waarom geven we niet gewoon de cmd_list mee?
 	while (ptr)
 	{
 		io = pipe_sequence(ptr, io);
-		redirection(ptr, fd);
+		redirection(ptr);
 		ptr = execute_cmd(ptr, list);
 		if (ptr && ptr->type == SYMBOL)
 			ptr = ptr->next;
 	}
-    // io = pipe_sequence(ptr, io);
 	reset_fd(std);
+    // io = pipe_sequence(ptr, io);
 }

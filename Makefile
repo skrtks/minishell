@@ -6,7 +6,7 @@
 #    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/27 12:29:54 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/06/28 22:04:07 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS = builtins/cd.c \
 	    execute.c \
 	    lexer.c \
 	    parser.c \
-	    shell.c \
+	    minishell.c \
 	    pipe.c \
 		redirection.c
 CC = gcc
