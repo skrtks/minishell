@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/27 12:29:47 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/29 09:18:53 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,6 @@ typedef struct	s_lists
 	struct s_env		*env_list;
 	struct s_env		*export_list;
 }				t_lists;
-
-typedef struct	s_io
-{
-	int fd_read;
-	int fd_write;
-	int ori_stdout;
-	int ori_stdin;
-	int ori_stderr;
-	int active;
-	int switch_stdin;
-}				t_io;
-
-typedef struct	s_fd
-{
-	int	active;
-	int fd_read;
-	int fd_write;
-	int	fd_error;
-	int fd_temp;
-}				t_fd;
 
 typedef enum	e_commands
 {

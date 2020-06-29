@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/28 15:04:23 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/06/29 09:19:13 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ static void	do_fork(char *filename, char **argv, char **envp)
 	}
 	if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGTSTP, SIG_DFL);
-		if (execve(filename, argv, envp))		//met stat kan je hem er in een keer uithalen
+		// signal(SIGINT, SIG_DFL);
+		// signal(SIGQUIT, SIG_DFL);
+		// signal(SIGTSTP, SIG_DFL);
+		if (execve(filename, argv, envp))
 			ft_printf("bash: %s\n", strerror(errno));
 		exit(1);
 	}

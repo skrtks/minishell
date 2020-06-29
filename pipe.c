@@ -6,108 +6,132 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/22 05:57:33 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/29 09:22:57 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+#include <sys/wait.h>
+#include "./libft/libft.h"
 #include "lexer.h"
 #include "pipe.h"
+#include "parser.h"
 
-t_io *setup_io(t_io *io)
+int count_pipes(t_node *cmd_list)
 {
-	io->fd_read = -1;
-	io->fd_write = -1;
-	io->ori_stdin = dup(0);
-	io->ori_stdout = dup(1);
-	io->ori_stderr = dup(2);
-	io->active = 0;
-	io->switch_stdin = 0;
-	return (io);
-}
+	int n;
 
-t_io *pipe_sequence(t_node *cmd_list, t_io *io)
-{
-	int *fds;
-	int pipe_ahead;
-	int pipe_plus;
-
-	pipe_ahead = 0;
-	pipe_plus = 0;
-	fds = malloc(sizeof(int) * 2);
+	n = 0;
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
-        if (cmd_list->command == PIPE_PLUS)
-            pipe_plus = 1;
 		if (cmd_list->command == PIPE || cmd_list->command == PIPE_PLUS)
-		{
-			pipe_ahead = 1;
-			if (io->active)
-			{
-				close(io->fd_write);
-				close(io->fd_read);
-				pipe(fds);
-				io->fd_read = fds[0];
-				io->fd_write = fds[1];
-				close(1);
-				dup(io->fd_write);
-				close(2);
-				if (pipe_plus)
-					dup(io->fd_write);
-				else
-					dup(io->ori_stderr);
-				if (io->switch_stdin)
-				{
-					close(0);
-					dup(io->fd_read);
-				}
-				io->switch_stdin = 1;
-				break ;
-			}
-			else
-			{
-                pipe(fds);
-                io->fd_read = fds[0];
-                io->fd_write = fds[1];
-                close(1);
-                dup(io->fd_write);
-                if (pipe_plus)
-				{
-					close(2);
-					dup(io->fd_write);
-				}
-                close(0);
-                dup(io->fd_read);
-                io->active = 1;
-                break ;
-            }
-		}
-        cmd_list = cmd_list->next;
+			n++;
+		cmd_list = cmd_list->next;
 	}
-	if (!pipe_ahead)
+	return (n);
+}
+
+int setup_pipes(int n_pipes, int **fds)
+{
+	int i;
+
+	*fds = malloc(sizeof(int) * (n_pipes * 2));
+	if (!(*fds))
+		return (1);
+	i = 0;
+	while (i < n_pipes)
 	{
-		if (io->active)
+		if (pipe((*fds) + i * 2) < 0)
 		{
-			close(io->fd_write);
-			close(1);
-			dup(io->ori_stdout);
-			close(2);
-			dup(io->ori_stderr);
-			io->active = 0;
-			if (io->switch_stdin)
-			{
-				close(0);
-				dup(io->fd_read);
-			}
-			io->switch_stdin = 1;
+			ft_printf("%s\n", strerror(errno));
+			free((*fds));
+			return (1);
 		}
-		else
-		{
-			close(io->fd_read);
-			close(0);
-			dup(io->ori_stdin);
-			io->switch_stdin = 0;
-		}
+		i++;
 	}
-	free (fds);
-	return (io);
+	return (0);
+}
+
+void exit_on_error(int *fds)
+{
+	if (fds)
+		free(fds);
+	ft_printf("%s\n", strerror(errno));
+	exit(1);
+}
+
+void close_fds(int n_pipes, const int *fds) 
+{
+	int i;
+
+	i = 0;
+	while (i < (2 * n_pipes))
+	{
+		close(fds[i]);
+		i++;
+	}
+}
+
+void check_type(t_node *ptr, int *type)
+{
+	while (ptr && ptr->command != PIPE && ptr->command != PIPE_PLUS
+			&& ptr->command != SEMICOLON) // Update to recognize redirections
+			ptr = ptr->next;
+	if (ptr && ptr->command == PIPE_PLUS)
+		*type = 1;
+	else
+		*type = 0;
+}
+
+void	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
+{
+	int pipe_plus;
+
+	check_type(*ptr, &pipe_plus);
+	if (cmd_index != 0)
+		if (dup2(fds[(cmd_index - 1) * 2], 0) < 0)
+			exit_on_error(fds);
+	if (cmd_index != n_pipes)
+	{
+		if (dup2(fds[cmd_index * 2 + 1], 1) < 0)
+			exit_on_error(fds);
+		if (pipe_plus)
+			if (dup2(fds[cmd_index * 2 + 1], 2) < 0)
+				exit_on_error(fds);
+	}
+	close_fds(n_pipes, fds);
+}
+
+int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds)
+{
+	int	pid;
+	int cmd_index;
+
+	cmd_index = 0;
+	while ((*ptr) && (*ptr)->command != SEMICOLON) // Update to recognize redirections
+	{
+		if ((pid = fork()) == -1)
+		{
+			ft_printf("%s\n", strerror(errno));
+			free(fds);
+			return (1);
+		}
+		else if (pid == 0)
+		{
+			child_process(cmd_index, fds, n_pipes, ptr);
+			execute_cmd(*ptr, list);
+			exit(1);
+		}
+		while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != PIPE_PLUS
+				&& (*ptr)->command != SEMICOLON)
+			*ptr = (*ptr)->next;		//update for redirections
+		if (*ptr && ((*ptr)->command == PIPE_PLUS || (*ptr)->command == PIPE))
+			*ptr = (*ptr)->next;
+		cmd_index++;
+	}
+	close_fds(n_pipes, fds);
+	while ((pid = wait(NULL)) > 0)
+		;
+	free(fds);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/18 08:10:06 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/26 21:35:34 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

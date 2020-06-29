@@ -6,7 +6,7 @@
 #    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/28 22:04:07 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/06/29 09:16:55 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS = builtins/cd.c \
 	    pipe.c \
 		redirection.c
 CC = gcc
-CFLAGS = -I. -Wall -Werror -Wextra
+CFLAGS = -I. -Wall -Werror -Wextra -g
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
