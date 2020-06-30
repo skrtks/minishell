@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 16:08:36 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/30 16:18:01 by sam           ########   odam.nl         */
+/*   Updated: 2020/06/30 16:22:22 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,6 @@ int get_len(char *str)
 	}
 	return (i);
 }
-
-// int get_ind(char *str, char c)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == c)
-// 			return (i);
-// 		i++;
-// 	}
-// 	return (i);
-// }
 
 int do_expansion(t_node *cmd_ptr, char *id_str, t_env *env_list, int id_len)
 {
