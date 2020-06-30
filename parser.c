@@ -14,6 +14,7 @@
 #include "parser.h"
 #include "lexer.h"
 #include "execute.h"
+#include "expand.h"
 #include "./libft/libft.h"
 
 static t_node	*execute_cmd(t_node *node, t_lists **list)

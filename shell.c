@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/18 13:02:10 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/27 17:00:08 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include "libft/libft.h"
 #include "utils/utils.h"
+#include "expand.h"
 
 t_lists	*get_env(char **envp)
 {
@@ -68,7 +69,8 @@ int		main(int argc, char **argv, char **envp)
 		command_list = lexer(input);
 		free(input);
 		input = NULL;
-		parse(command_list, &list);
+		if (!expand(command_list, list->env_list))
+			parse(command_list, &list);
 		free_cmdlist(&command_list);
 	}
 	(void) argc;

@@ -22,6 +22,7 @@ add_executable(minishell
         utils/linkedlist_utils.c
         utils/other_utils.c
         utils/utils.h
+        utils/export_utils.c
         check_path.c
         execute.c
         execute.h
@@ -29,6 +30,8 @@ add_executable(minishell
         lexer.h
         parser.c
         parser.h
-        shell.c)
+        shell.c
+        expand.c
+        expand.h)
 
 target_link_libraries(minishell PUBLIC libft printf)
