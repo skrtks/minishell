@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/01 13:01:25 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 15:14:34 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,20 @@ void	parse(t_node *cmd_list, t_lists **list)
 {
 	t_node	*ptr;
 	int		n_pipes;
-	// int		n_redirections;
+	int		n_redirections;
 	int		*fds;
 	int		std[3];
 
 	ptr = cmd_list;
-	// n_pipes = count_pipes(cmd_list);
-	//n_redirections = count_redirections(cmd_list);
+	n_pipes = count_pipes(cmd_list);
+	n_redirections = count_redirections(cmd_list);
 	while (ptr)
 	{
-		// if (n_redirections)
-		// {
-		// 	redirection(ptr, list, n_redirections);
-		// 	break ;
-		// }
+		if (n_redirections)
+		{
+			redirection(ptr, list, n_redirections);
+			break ;
+		}
 		if (n_pipes)
 		{
 			if (setup_pipes(n_pipes, &fds))

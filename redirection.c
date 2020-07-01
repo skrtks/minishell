@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/01 13:01:07 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 15:16:59 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,36 +40,12 @@ void	fd_error(void)
 	errno = 0;
 }
 
-// int		count_redirections(t_node *cmd_list)
-// {
-// 	t_node	*temp;
-// 	int		i;
-
-// 	i = 0;
-// 	// temp = malloc(sizeof(t_node));		dit is toch veel veiliger?
-// 	temp = cmd_list;
-// 	while (temp)
-// 	{
-// 		if (temp->type == REDIRECTION)
-// 			i++;
-// 		temp = temp->next;
-// 	}
-// 	free(temp);
-// 	return (i);
-// }
-
-int		populate_node(char *cmd, t_node *node);
-
 void	redirection(t_node *cmd_list, t_lists **list, int i)
 {
-	// int		i;
 	int		fd;
-	 t_node *node;
-	
-	//if ((i = count_redirections(cmd_list)) == 0)
-	//	return ;
-	node = NULL;
-	new_node(&node, cmd_list->data);
+	t_node	*ptr;
+
+	ptr = cmd_list;
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
 		if (cmd_list->type == REDIRECTION)
@@ -87,9 +63,11 @@ void	redirection(t_node *cmd_list, t_lists **list, int i)
 		}
 		cmd_list = cmd_list->next;
 	}
-	list = NULL;
-	execute_cmd(node, list);
-	free (node);
+	execute_cmd(ptr, list);
+	close(fd);
 	return ;
 }
-//lsof -c minishell
+
+
+// als < is ingebouwd, testen hoe hij daarna op > reageert, 
+// lijkt alsof de fd niet goed wordt terug gewisseld.
