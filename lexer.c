@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/01 15:05:19 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/01 17:09:17 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "utils/utils.h"
 
-static char		*extract_from_brackets(const char *input, int *pos)
+static char		*extract_from_brackets(const char *input, int *pos) // TODO: Implement how other spec chars are handled.
 {
 	char	b_type;
 	char	*extr;
