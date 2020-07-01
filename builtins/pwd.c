@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pwd.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:25:52 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/18 12:12:43 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/19 13:30:57 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_node	*pwd(t_node *node)
 	path = getcwd(NULL, 0);
 	ft_printf("%s\n", path);
 	free(path);
-	while (node && node->command != SEMICOLON)
+	while (node && node->type != SYMBOL)
 		node = node->next;
 	return (node);
 }

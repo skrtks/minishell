@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell.c                                            :+:    :+:            */
+/*   minishell.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/18 13:02:10 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 13:09:30 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include "libft/libft.h"
 #include "utils/utils.h"
+#include "pipe.h"
 
 t_lists	*get_env(char **envp)
 {

@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_bzero.c                                         :+:    :+:            */
+/*   pipe.h                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/10/29 10:19:23 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/20 14:42:56 by sam           ########   odam.nl         */
+/*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
+/*   Updated: 2020/06/29 09:27:34 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PIPE_H
+# define PIPE_H
+#include "lexer.h"
 
-void	ft_bzero(void *s, size_t len)
-{
-	size_t			count;
-	unsigned char	*str;
+int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds);
+int count_pipes(t_node *cmd_list);
+int setup_pipes(int n_pipes, int **fds);
 
-	str = s;
-	count = 0;
-	while (count < len)
-	{
-		str[count] = '\0';
-		count++;
-	}
-}
+#endif

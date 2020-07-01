@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/18 10:21:30 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 15:14:34 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 #include "lexer.h"
 #include "execute.h"
 #include "./libft/libft.h"
+#include "pipe.h"
 
-static t_node	*execute_cmd(t_node *node, t_lists **list)
+t_node	*execute_cmd(t_node *node, t_lists **list)
 {
 	if (node->command == ECHO)
 		node = echo(node);
@@ -47,15 +48,76 @@ static t_node	*execute_cmd(t_node *node, t_lists **list)
 	return (node);
 }
 
+void		reset_fd(int *std)
+{
+	dup2(std[0], STDIN_FILENO);		//old, new
+	dup2(std[1], STDOUT_FILENO);
+	dup2(std[2], STDERR_FILENO);
+}
+
+int		count_redirections(t_node *cmd_list)
+{
+	t_node	*temp;
+	int		i;
+
+	i = 0;
+	// temp = malloc(sizeof(t_node));		dit is toch veel veiliger?
+	temp = cmd_list;
+	while (temp)
+	{
+		if (temp->type == REDIRECTION)
+			i++;
+		temp = temp->next;
+	}
+	free(temp);
+	return (i);
+}
+
 void	parse(t_node *cmd_list, t_lists **list)
 {
-	t_node *ptr;
+	t_node	*ptr;
+	int		n_pipes;
+	int		n_redirections;
+	int		*fds;
+	int		std[3];
 
 	ptr = cmd_list;
+	n_pipes = count_pipes(cmd_list);
+	n_redirections = count_redirections(cmd_list);
 	while (ptr)
 	{
-		ptr = execute_cmd(ptr, list);
-		if (ptr && ptr->command == SEMICOLON)
+		if (n_redirections)
+		{
+			redirection(ptr, list, n_redirections);
+			break ;
+		}
+		if (n_pipes)
+		{
+			if (setup_pipes(n_pipes, &fds))
+				return ;		//error van maken
+			execute_in_pipeline(&ptr, n_pipes, list, fds); // Check error?
+		}
+		else
+			ptr = execute_cmd(ptr, list);
+		if (ptr && ptr->type == SYMBOL)
 			ptr = ptr->next;
+		n_pipes = 0;
 	}
+	reset_fd(std);
 }
+
+// void	parse(t_node *cmd_list, t_lists **list)
+// {
+// 	t_node *ptr;
+// 	int std[3];
+	
+// 	ptr = cmd_list;
+// 	while (ptr)
+// 	{
+// 		redirection(cmd_list);
+// 		ptr = execute_cmd(ptr, list);
+// 		if (ptr && ptr->type == SYMBOL)
+// 			ptr = ptr->next;
+// 	}
+// 	reset_fd(std);
+// }

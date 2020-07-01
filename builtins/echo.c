@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/17 11:59:52 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 15:15:47 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_node	*echo(t_node *node)
 		flag = 1;
 		node = node->next;
 	}
-	while (node && node->command != SEMICOLON)
+	while (node && node->type != SYMBOL && node->type != REDIRECTION)
 	{
 		ft_printf("%s ", node->data);
 		node = node->next;

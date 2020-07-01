@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/17 11:59:06 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/19 13:30:45 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_node		*cd(t_node *node, t_env *env_list)
 		ft_printf("Error: %s\n", strerror(errno));
 		errno = 0;
 	}
-	while (node && node->command != SEMICOLON)
+	while (node && node->type != SYMBOL)
 		node = node->next;
 	free(home_dir);
 	return (node);

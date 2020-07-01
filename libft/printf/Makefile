@@ -39,11 +39,12 @@ asan: $(OBJS) $(NAME)
 .PHONY: clean fclean re all test
 
 clean:
-	-rm -f $(OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
-	-rm -f $(NAME)
-	-rm -f printf
-	-rm -rf printf.dSYM/
+	rm -f *.o
+	rm -f $(NAME)
+	rm -f printf
+	rm -rf printf.dSYM/
 
 re: fclean all

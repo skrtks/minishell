@@ -1,0 +1,16 @@
+echo:
+	- bash neemt geen tabs en de onze wel
+	//misschien makkelijker om in echo in te bouwen dat hij alles weergeeft
+	//tot het einde of de semicolon ipv " in de lexer te doen
+exit:
+	- is nog niet helemaal verwerkt, vooral in Merels code niet
+
+export:
+	- export met variabel="leuk" goed doen (in export met "" en in env zonder)
+	//kan worden opgelost als " uit de lexer wordt gehaald
+
+general:
+	- lib maken voor linkedlist
+
+Bugs:
+	- Soms is last->next van de cmdlist niet NULL

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/25 15:54:17 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/30 10:39:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,23 @@ void	continue_populating(char *cmd, t_node *node)
 	if (!ft_strncmp(cmd, ";", 2))
 		set_info(SEMICOLON, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "\'", 2))
-		set_info(APOSTROPHE, SYMBOL, node);
+		set_info(APOSTROPHE, X, node);
 	else if (!ft_strncmp(cmd, "\"", 2))
-	{
-		ft_printf("doe jij dit\n");
 		set_info(QUATATION_MARK, SYMBOL, node);
-	}
 	else if (!ft_strncmp(cmd, "<", 2))
-		set_info(ARROW_LEFT, SYMBOL, node);
+		set_info(ARROW_LEFT, REDIRECTION, node);
 	else if (!ft_strncmp(cmd, ">", 2))
-		set_info(ARROW_RIGHT, SYMBOL, node);
+		set_info(ARROW_RIGHT, REDIRECTION, node);
 	else if (!ft_strncmp(cmd, ">>", 3))
-		set_info(ARROW_DOUBLE, SYMBOL, node);
+		set_info(ARROW_DOUBLE, REDIRECTION, node);
+	else if (!ft_strncmp(cmd, "|&", 3))
+		set_info(PIPE_PLUS, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "|", 2))
 		set_info(PIPE, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "$", 2))
-		set_info(DOLLAR, SYMBOL, node);
+		set_info(DOLLAR, X, node);
 	else if (!ft_strncmp(cmd, "$?", 3))
-		set_info(DOLLAR_QUESTION, SYMBOL, node);
+		set_info(DOLLAR_QUESTION, X, node);
 	else if (!ft_strncmp(cmd, "./", 2) || !ft_strncmp(cmd, "/", 1))
 		set_info(EXECUTABLE, COMMAND, node);
 	else

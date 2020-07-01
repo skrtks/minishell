@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.15.3)
 project(minishell C)
 
 set(CMAKE_C_STANDARD 11)
@@ -29,6 +29,8 @@ add_executable(minishell
         lexer.h
         parser.c
         parser.h
-        shell.c)
+        shell.c
+        pipe.c
+        pipe.h)
 
 target_link_libraries(minishell PUBLIC libft printf)

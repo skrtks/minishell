@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   env.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 14:08:49 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/17 12:00:02 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/19 13:30:51 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_node		*env(t_node *node, t_env *env_list)
 		printf("%s\n", env_list->data);
 		env_list = env_list->next;
 	}
-	while (node && node->command != SEMICOLON) {
+	while (node && node->type != SYMBOL) 
+	{
 		node = node->next;
 	}
 	return (node);
