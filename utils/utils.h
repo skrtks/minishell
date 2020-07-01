@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   utils.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/26 11:41:30 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 15:04:22 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int				input_check(char c, char *str1);
 int				populate_node(char *cmd, t_node *node);
 
 t_node			*check_input(t_node *node);
-t_node			*free_on_error(char *cmd);
+t_node			*free_on_error(char *cmd, t_node *cmd_list);
 
 void			add_to_back_env(t_env **head, t_env *node);
 void			continue_populating(char *cmd, t_node *node);

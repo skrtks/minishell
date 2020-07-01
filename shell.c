@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   shell.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/27 17:00:08 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/01 15:04:52 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int		main(int argc, char **argv, char **envp)
 			errno = 0;
 			break ;
 		}
-		command_list = lexer(input);
+		if ((command_list = lexer(input)))
+			if (!expand(command_list, list->env_list))
+				parse(command_list, &list);
 		free(input);
 		input = NULL;
-		if (!expand(command_list, list->env_list))
-			parse(command_list, &list);
 		free_cmdlist(&command_list);
 	}
 	(void) argc;
