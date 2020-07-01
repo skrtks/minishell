@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipe.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/29 09:22:57 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 15:25:50 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,6 @@
 #include "lexer.h"
 #include "pipe.h"
 #include "parser.h"
-
-int count_pipes(t_node *cmd_list)
-{
-	int n;
-
-	n = 0;
-	while (cmd_list && cmd_list->command != SEMICOLON)
-	{
-		if (cmd_list->command == PIPE || cmd_list->command == PIPE_PLUS)
-			n++;
-		cmd_list = cmd_list->next;
-	}
-	return (n);
-}
 
 int setup_pipes(int n_pipes, int **fds)
 {
@@ -50,37 +36,6 @@ int setup_pipes(int n_pipes, int **fds)
 		i++;
 	}
 	return (0);
-}
-
-void exit_on_error(int *fds)
-{
-	if (fds)
-		free(fds);
-	ft_printf("%s\n", strerror(errno));
-	exit(1);
-}
-
-void close_fds(int n_pipes, const int *fds) 
-{
-	int i;
-
-	i = 0;
-	while (i < (2 * n_pipes))
-	{
-		close(fds[i]);
-		i++;
-	}
-}
-
-void check_type(t_node *ptr, int *type)
-{
-	while (ptr && ptr->command != PIPE && ptr->command != PIPE_PLUS
-			&& ptr->command != SEMICOLON) // Update to recognize redirections
-			ptr = ptr->next;
-	if (ptr && ptr->command == PIPE_PLUS)
-		*type = 1;
-	else
-		*type = 0;
 }
 
 void	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
@@ -122,13 +77,8 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds)
 			execute_cmd(*ptr, list);
 			exit(1);
 		}
-		while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != PIPE_PLUS
-				&& (*ptr)->command != SEMICOLON)
-			*ptr = (*ptr)->next;		//update for redirections
-		if (*ptr && ((*ptr)->command == PIPE_PLUS || (*ptr)->command == PIPE))
-			*ptr = (*ptr)->next;
-		cmd_index++;
-	}
+        cmd_index = skip_to_cmd(ptr, cmd_index);
+    }
 	close_fds(n_pipes, fds);
 	while ((pid = wait(NULL)) > 0)
 		;

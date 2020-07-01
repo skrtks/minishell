@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/30 10:39:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 15:24:44 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	continue_populating(char *cmd, t_node *node)
 	else if (!ft_strncmp(cmd, "\'", 2))
 		set_info(APOSTROPHE, X, node);
 	else if (!ft_strncmp(cmd, "\"", 2))
-		set_info(QUATATION_MARK, SYMBOL, node);
+		set_info(QUATATION_MARK, X, node);
 	else if (!ft_strncmp(cmd, "<", 2))
 		set_info(ARROW_LEFT, REDIRECTION, node);
 	else if (!ft_strncmp(cmd, ">", 2))
