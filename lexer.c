@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/27 12:27:49 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 14:04:44 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

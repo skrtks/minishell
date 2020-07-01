@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parser.h                                           :+:    :+:            */
+/*   pipe.h                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/26 21:17:51 by sam           ########   odam.nl         */
+/*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
+/*   Updated: 2020/06/27 13:59:02 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef PIPE_H
+# define PIPE_H
+#include "lexer.h"
 
-# include "lexer.h"
-
-void	parse (t_node *cmd_list, t_lists **list);
-int		check_for_path(char **cmd, t_env *env_list);
-t_node	*execute_cmd(t_node *node, t_lists **list);
+int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds);
+int count_pipes(t_node *cmd_list);
+void exit_on_error(int *fds);
+void close_fds(int n_pipes, const int *fds);
+void check_type(t_node *ptr, int *type);
+int skip_to_cmd(t_node **ptr, int cmd_index);
 
 #endif

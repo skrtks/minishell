@@ -3,22 +3,22 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/26 11:34:08 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 14:04:52 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <stdlib.h>
 
 typedef struct	s_node
 {
@@ -58,18 +58,20 @@ typedef enum	e_commands
 	ARROW_RIGHT = 12,
 	ARROW_DOUBLE = 13,
 	PIPE = 14,
-	DOLLAR = 15,
-	DOLLAR_QUESTION = 16,
-	EXECUTABLE = 17,
-	OTHER = 18,
+	PIPE_PLUS = 15,
+	DOLLAR = 16,
+	DOLLAR_QUESTION = 17,
+	EXECUTABLE = 18,
+	OTHER = 19,
 }				t_commands;
 
 typedef enum	e_type
 {
 	COMMAND = 0,
-	ARGUMENT = 1,
-	FLAG = 2,
-	SYMBOL = 3,
+	FLAG = 1,
+	SYMBOL = 2,
+	ARGUMENT = 3,
+	X = 4
 }				t_type;
 
 char			**free_array(char **array);

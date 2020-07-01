@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
+#    By: skorteka <skorteka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/06/26 11:32:47 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/07/01 14:05:18 by skorteka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,15 @@ SRCS = builtins/cd.c \
 		utils/other_utils.c \
 		utils/free_utils.c \
 		utils/export_utils.c \
+		utils/pipe_utils.c \
 	    check_path.c \
 	    execute.c \
 	    lexer.c \
 	    parser.c \
-	    shell.c
+	    shell.c \
+	    pipe.c
 CC = gcc
-CFLAGS = -I. -Wall -Werror -Wextra
+CFLAGS = -I. -Wall -Werror -Wextra -g
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -38,7 +40,7 @@ $(NAME): $(OBJS)
 	cd libft && make
 	cd libft/printf && make
 	cp ./libft/printf/libftprintf.a ./libft.a
-	$(CC) -I. -g -L. -lft $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) -I. -L. -lft $(SRCS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -53,6 +55,7 @@ fclean: clean
 	cd libft && make fclean
 	cd libft/printf && make fclean
 	rm -f libft.a
-	$(RM) $(NAME)
+	rm -f *.o
+	rm -f minishell
 
 re: fclean all

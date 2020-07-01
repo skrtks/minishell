@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_bzero.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <marvin@codam.nl>                   +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/10/29 10:19:23 by skorteka      #+#    #+#                 */
-/*   Updated: 2019/10/29 10:19:24 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/06/20 14:42:56 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

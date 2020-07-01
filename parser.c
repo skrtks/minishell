@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/18 10:21:30 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/06/27 12:37:36 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 #include "lexer.h"
 #include "execute.h"
 #include "./libft/libft.h"
+#include "pipe.h"
 
-static t_node	*execute_cmd(t_node *node, t_lists **list)
+int setup_pipes(int n_pipes, int **fds);
+
+t_node	*execute_cmd(t_node *node, t_lists **list)
 {
 	if (node->command == ECHO)
 		node = echo(node);
@@ -50,12 +53,23 @@ static t_node	*execute_cmd(t_node *node, t_lists **list)
 void	parse(t_node *cmd_list, t_lists **list)
 {
 	t_node *ptr;
+	int n_pipes;
+	int *fds;
 
 	ptr = cmd_list;
+	n_pipes = count_pipes(cmd_list);
 	while (ptr)
 	{
-		ptr = execute_cmd(ptr, list);
-		if (ptr && ptr->command == SEMICOLON)
+		if (n_pipes)
+		{
+			if (setup_pipes(n_pipes, &fds))
+				return ;		//error van maken
+			execute_in_pipeline(&ptr, n_pipes, list, fds); // Check error?
+		}
+		else
+			ptr = execute_cmd(ptr, list);
+		if (ptr && ptr->type == SYMBOL)
 			ptr = ptr->next;
+		n_pipes = 0;
 	}
 }
