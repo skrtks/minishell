@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   expand.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 16:08:36 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/01 10:52:27 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/01 15:07:42 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,22 +101,22 @@ int expand(t_node *node, t_env *env_list)
 		env_list = env_head;
 		if (cmd_ptr->data[0] == '$' && cmd_ptr->data[1] == '\0')
 			return (0);
-		if (cmd_ptr->data[0] == '$' && cmd_ptr->data[1] == '{')
-		{
-			if ((id_len = check_braces(cmd_ptr->data + 2)) == -1)
-				return (1);
-			if (!(id_str = ft_strdup(cmd_ptr->data + 2)))
-				return (1);
-			free (cmd_ptr->data);
-			cmd_ptr->data = ft_strdup(id_str + id_len + 1);
-			if (do_expansion(cmd_ptr, id_str, env_list, id_len))
-			{
-				free(id_str);
-				return (1);
-			}
-			free (id_str);
-		}
-		else if (cmd_ptr->data[0] == '$')
+		// if (cmd_ptr->data[0] == '$' && cmd_ptr->data[1] == '{')
+		// {
+		// 	if ((id_len = check_braces(cmd_ptr->data + 2)) == -1)
+		// 		return (1);
+		// 	if (!(id_str = ft_strdup(cmd_ptr->data + 2)))
+		// 		return (1);
+		// 	free (cmd_ptr->data);
+		// 	cmd_ptr->data = ft_strdup(id_str + id_len + 1);
+		// 	if (do_expansion(cmd_ptr, id_str, env_list, id_len))
+		// 	{
+		// 		free(id_str);
+		// 		return (1);
+		// 	}
+		// 	free (id_str);
+		// }
+		if (cmd_ptr->data[0] == '$')
 		{
 			id_len = get_len(cmd_ptr->data + 1);
 			if (!(id_str = ft_strdup(cmd_ptr->data + 1)))
