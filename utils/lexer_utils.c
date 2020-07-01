@@ -6,11 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/06/29 09:30:22 by merelmourik   ########   odam.nl         */
-=======
-/*   Updated: 2020/06/29 12:27:16 by merelmourik   ########   odam.nl         */
->>>>>>> 394af8a1a408788eeb715604422d2fd3b0aae368
+/*   Updated: 2020/06/30 10:39:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
