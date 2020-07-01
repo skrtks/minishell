@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 16:08:36 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/30 16:22:22 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/01 10:52:27 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int check_braces(char *str)
     i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '}')
+		if (str[i] == '}' && str[i - 1] != '\\')
 			return (i);
 		if (ft_strchr("@^*+[]:,./?~ ", str[i]))
 		{
@@ -116,18 +116,20 @@ int expand(t_node *node, t_env *env_list)
 			}
 			free (id_str);
 		}
-		else
-			id_len = get_len(cmd_ptr->data + 1);
-		if (!(id_str = ft_strdup(cmd_ptr->data + 1)))
-				return (1);
-		free (cmd_ptr->data);
-		cmd_ptr->data = ft_strdup(id_str + id_len);
-		if (do_expansion(cmd_ptr, id_str, env_list, id_len))
+		else if (cmd_ptr->data[0] == '$')
 		{
-			free(id_str);
-			return (1);
+			id_len = get_len(cmd_ptr->data + 1);
+			if (!(id_str = ft_strdup(cmd_ptr->data + 1)))
+					return (1);
+			free (cmd_ptr->data);
+			cmd_ptr->data = ft_strdup(id_str + id_len);
+			if (do_expansion(cmd_ptr, id_str, env_list, id_len))
+			{
+				free(id_str);
+				return (1);
+			}
+			free (id_str);
 		}
-		free (id_str);
 		cmd_ptr = cmd_ptr->next;
 	}
 	return (0);

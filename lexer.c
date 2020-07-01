@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/06/27 12:27:49 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/01 10:52:48 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,20 @@ static char		*extract_from_brackets(const char *input, int *pos)
 	char	b_type;
 	char	*extr;
 	int		len;
-	int		i;
+	int		start;
 
-	b_type = input[*pos];
+	b_type = (input[*pos] == '{' ? '}' : input[*pos]);
+
 	*pos += 1;
+	start = *pos;
 	len = *pos;
-	while (input[len] && (input[len] != b_type || (input[len] == b_type\
-			&& input[len - 1] == '\\')))
+	while (input[len] && (input[len] != b_type || (input[len] == b_type && input[len - 1] == '\\')))
 		len++;
 	len -= *pos;
-	extr = malloc(sizeof(char) * (len + 1));
+	extr = ft_substr(input, *pos, len);
 	if (!extr)
 		return (NULL);
-	i = *pos;
-	while (input[i] && (input[i] != b_type || (input[i] == b_type\
-			&& input[i - 1] == '\\')))
-	{
-		extr[i - *pos] = input[i];
-		i++;
-	}
-	extr[i - *pos] = '\0';
-	*pos = i + 1;
+    *pos += len + 1;
 	return (extr);
 }
 
@@ -47,25 +40,18 @@ static char		*extract_word(char *input, int *pos)
 {
 	char	*extr;
 	int		len;
-	int		i;
 
-	if ((input[*pos] == '\'' || input[*pos] == '\"') && input[*pos - 1] != '\\')
+	if ((input[*pos] == '{' || input[*pos] == '\''
+		|| input[*pos] == '\"') && input[*pos - 1] != '\\')
 		return (extract_from_brackets(input, pos));
 	len = *pos;
-	while (!ft_strchr(" 	|<>;\'\"\0", input[len]))
+	while (!ft_strchr(" 	|<>{;\'\"\0", input[len]))
 		len++;
 	len -= *pos;
-	extr = malloc(sizeof(char) * (len + 1));
+	extr = ft_substr(input, *pos, len);
 	if (!extr)
 		return (NULL);
-	i = *pos;
-	while (!ft_strchr(" 	|<>;\'\"\0", input[i]))
-	{
-		extr[i - *pos] = input[i];
-		i++;
-	}
-	extr[i - *pos] = '\0';
-	*pos = i;
+	*pos += len + 1;
 	return (extr);
 }
 
