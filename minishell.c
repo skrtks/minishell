@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   minishell.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
 /*   Updated: 2020/07/01 13:09:30 by merelmourik   ########   odam.nl         */
@@ -15,6 +15,7 @@
 #include "parser.h"
 #include "libft/libft.h"
 #include "utils/utils.h"
+#include "expand.h"
 #include "pipe.h"
 
 t_lists	*get_env(char **envp)
@@ -66,10 +67,11 @@ int		main(int argc, char **argv, char **envp)
 			errno = 0;
 			break ;
 		}
-		command_list = lexer(input);
+		if ((command_list = lexer(input)))
+			if (!expand(command_list, list->env_list))
+				parse(command_list, &list);
 		free(input);
 		input = NULL;
-		parse(command_list, &list);
 		free_cmdlist(&command_list);
 	}
 	(void) argc;

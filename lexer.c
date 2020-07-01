@@ -14,32 +14,29 @@
 #include "lexer.h"
 #include "utils/utils.h"
 
-static char		*extract_from_brackets(const char *input, int *pos)
+static char		*extract_from_brackets(const char *input, int *pos) // TODO: Implement how other spec chars are handled.
 {
 	char	b_type;
 	char	*extr;
 	int		len;
-	int		i;
+	int		start;
 
 	b_type = input[*pos];
 	*pos += 1;
+	start = *pos;
 	len = *pos;
-	while (input[len] && (input[len] != b_type || (input[len] == b_type\
-			&& input[len - 1] == '\\')))
+	while (input[len] && (input[len] != b_type || (input[len] == b_type && input[len - 1] == '\\')))
 		len++;
+	if (input[len] != b_type)
+	{
+		ft_printf("Quotes not closed.\n");
+		return (NULL);
+	}
 	len -= *pos;
-	extr = malloc(sizeof(char) * (len + 1));
+	extr = ft_substr(input, *pos, len);
 	if (!extr)
 		return (NULL);
-	i = *pos;
-	while (input[i] && (input[i] != b_type || (input[i] == b_type\
-			&& input[i - 1] == '\\')))
-	{
-		extr[i - *pos] = input[i];
-		i++;
-	}
-	extr[i - *pos] = '\0';
-	*pos = i + 1;
+    *pos += len + 1;
 	return (extr);
 }
 
@@ -47,25 +44,18 @@ static char		*extract_word(char *input, int *pos)
 {
 	char	*extr;
 	int		len;
-	int		i;
 
-	if ((input[*pos] == '\'' || input[*pos] == '\"') && input[*pos - 1] != '\\')
+	if ((input[*pos] == '\''
+		|| input[*pos] == '\"') && input[*pos - 1] != '\\')
 		return (extract_from_brackets(input, pos));
 	len = *pos;
 	while (!ft_strchr(" 	|<>;\'\"\0", input[len]))
 		len++;
 	len -= *pos;
-	extr = malloc(sizeof(char) * (len + 1));
+	extr = ft_substr(input, *pos, len);
 	if (!extr)
 		return (NULL);
-	i = *pos;
-	while (!ft_strchr(" 	|<>;\'\"\0", input[i]))
-	{
-		extr[i - *pos] = input[i];
-		i++;
-	}
-	extr[i - *pos] = '\0';
-	*pos = i;
+	*pos += len;
 	return (extr);
 }
 
@@ -138,14 +128,14 @@ t_node			*lexer(char *input)
 		while (input[i] == ' ')
 			i++;
 		if (!(cmd = extract_word(input, &i)))
-			return (NULL);
+			return (free_on_error(cmd, head));
 		if (cmd[0])
 			if (new_node(&head, cmd))
-				return (free_on_error(cmd));
+				return (free_on_error(cmd, head));
 		if (check_spec_char("|<>;", input[i]))
 		{
 			if (!set_metachar(&head, input, &i))
-				return (free_on_error(cmd));
+				return (free_on_error(cmd, head));
 		}
 		free(cmd);
 	}

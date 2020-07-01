@@ -30,7 +30,9 @@ SRCS = builtins/cd.c \
 	    parser.c \
 	    minishell.c \
 	    pipe.c \
-		redirection.c
+		redirection.c \
+		shell.c \
+	    expand.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra -g
 OBJS = $(SRCS:.c=.o)

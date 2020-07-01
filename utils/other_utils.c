@@ -6,15 +6,20 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:29:29 by merelmourik   #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2020/07/01 15:24:55 by mmourik       ########   odam.nl         */
+=======
+/*   Updated: 2020/07/01 15:03:25 by skorteka      ########   odam.nl         */
+>>>>>>> expansions
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-t_node	*free_on_error(char *cmd)
+t_node	*free_on_error(char *cmd, t_node *cmd_list)
 {
 	free(cmd);
+	free_cmdlist(&cmd_list);
 	return (NULL);
 }
 
