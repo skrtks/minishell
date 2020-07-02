@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/01 15:15:47 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/02 12:31:28 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ t_node	*echo(t_node *node)
 	}
 	while (node && node->type != SYMBOL && node->type != REDIRECTION)
 	{
-		ft_printf("%s ", node->data);
+		ft_printf("%s", node->data);
+		if (node->next && node->next->type != SYMBOL && node->next->type != REDIRECTION)
+			ft_printf(" ");
 		node = node->next;
 	}
 	if (!flag)

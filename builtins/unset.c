@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   unset.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 13:21:54 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/18 16:55:10 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/02 12:13:38 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	len_and_check(char *input)
 	{
 		if (input[n] == '=')
 		{
-			ft_printf("unset: `%s': not a valid identifier\n", input);
+			ft_printf("unset: '%s': not a valid identifier\n", input);
 			return (-1);
 		}
 		n++;

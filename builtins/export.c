@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   export.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/26 11:35:15 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/02 12:11:13 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 	int		i;
 	char	*temp;
 
-	while (node->next != NULL && node->next->command != SEMICOLON)
+	while (node->next != NULL && node->type != SYMBOL && node->type != REDIRECTION) // Merel kan jij checken of dit klopt?
 	{
 		node = node->next;
 		temp = ft_strdup(node->data);
@@ -119,7 +119,7 @@ t_node			*export_cmd(t_node *node, t_lists **list)
 {
 	t_env *head;
 
-	if (node->next != NULL && node->next->command != SEMICOLON)
+	if (node->next != NULL && node->type != SYMBOL && node->type != REDIRECTION) // Merel kan jij checken of dit klopt?
 		return (extend_lists(node, list));
 	sort_list(&(*list)->export_list);
 	head = (*list)->export_list;

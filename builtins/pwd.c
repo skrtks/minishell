@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:25:52 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/06/19 13:30:57 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 12:11:32 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_node	*pwd(t_node *node)
 	path = getcwd(NULL, 0);
 	ft_printf("%s\n", path);
 	free(path);
-	while (node && node->type != SYMBOL)
+	while (node && node->type != SYMBOL && node->type != REDIRECTION)
 		node = node->next;
 	return (node);
 }
