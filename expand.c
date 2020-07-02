@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 16:08:36 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/02 15:51:45 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 15:54:15 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int expand(t_node *node, t_env *env_list)
 
 	cmd_ptr = node;
 	env_head = env_list;
-	while (cmd_ptr) // Update to support pipes etc)
+	while (cmd_ptr)
 	{
 		env_list = env_head;
 		if (cmd_ptr->data[0] == '$' && cmd_ptr->data[1] == '\0')
