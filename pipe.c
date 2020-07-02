@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipe.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/01 15:25:50 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/02 12:37:53 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

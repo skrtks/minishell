@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   redirection.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/01 15:16:59 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/02 13:01:35 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,22 @@
 #include <string.h>
 #include "parser.h"
 
-void		reset_std(void)
+int		count_redirections(t_node *cmd_list)
 {
-	int std[3];
+	t_node	*temp;
+	int		i;
 
-	dup2(std[0], STDIN_FILENO);		//old, new
-	dup2(std[1], STDOUT_FILENO);
-	dup2(std[2], STDERR_FILENO);
+	i = 0;
+	// temp = malloc(sizeof(t_node));		dit is toch veel veiliger?
+	temp = cmd_list;
+	while (temp)
+	{
+		if (temp->type == REDIRECTION)
+			i++;
+		temp = temp->next;
+	}
+	free(temp);
+	return (i);
 }
 
 int		open_file(t_node *cmd_list)
@@ -35,7 +44,6 @@ int		open_file(t_node *cmd_list)
 
 void	fd_error(void)
 {
-	reset_std();
 	ft_printf("Error: %s\n", strerror(errno));
 	errno = 0;
 }
@@ -43,10 +51,12 @@ void	fd_error(void)
 void	redirection(t_node *cmd_list, t_lists **list, int i)
 {
 	int		fd;
+	int		ori_in;
 	t_node	*ptr;
 
+	ori_in = dup(1);
 	ptr = cmd_list;
-	while (cmd_list && cmd_list->command != SEMICOLON)
+	while (cmd_list && cmd_list->command != SEMICOLON) // Stop veranderen
 	{
 		if (cmd_list->type == REDIRECTION)
 		{
@@ -65,6 +75,7 @@ void	redirection(t_node *cmd_list, t_lists **list, int i)
 	}
 	execute_cmd(ptr, list);
 	close(fd);
+	dup2(ori_in, 1);
 	return ;
 }
 
