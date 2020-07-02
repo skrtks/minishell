@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/02 13:42:49 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 13:44:18 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ void	parse(t_node *cmd_list, t_lists **list)
 	while (ptr)
 	{
 		if (n_redirections)
-		{
 			redirection(ptr, n_redirections);
-			//break ;
-		}
 		if (n_pipes)
 		{
 			if (setup_pipes(n_pipes, &fds))
