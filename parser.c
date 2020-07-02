@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/02 13:44:18 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 13:58:17 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ void	parse(t_node *cmd_list, t_lists **list)
 	int		n_pipes;
 	int		n_redirections;
 	int		*fds;
+	int		ori_out;
 	int		ori_in;
 	
-	ori_in = dup(1);
+	ori_out = dup(1);
+	ori_in = dup(0);
 	ptr = cmd_list;
 	n_pipes = count_pipes(cmd_list);
 	n_redirections = count_redirections(cmd_list);
@@ -80,5 +82,6 @@ void	parse(t_node *cmd_list, t_lists **list)
 			ptr = ptr->next;
 		n_pipes = 0;
 	}
-	dup2(ori_in, 1);
+	dup2(ori_out, 1);
+	dup2(ori_in, 0);
 }
