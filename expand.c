@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 16:08:36 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/01 15:07:42 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 15:02:07 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 
 // TODO: Bij input met ${ x} worden twee nodes aangemaakt met ${ en x}. Dat moet even anders.
 
-int check_braces(char *str)
-{
-    int i;
+// int check_braces(char *str)
+// {
+//     int i;
 
-    i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '}' && str[i - 1] != '\\')
-			return (i);
-		if (ft_strchr("@^*+[]:,./?~ ", str[i]))
-		{
-			ft_printf("minishell: ${%s: bad substitution\n", str);
-			return (-1);
-		}
-		i++;
-	}
-	ft_printf("Braces not closed\n");
-    return (-1);
-}
+//     i = 0;
+// 	while (str[i] != '\0')
+// 	{
+// 		if (str[i] == '}' && str[i - 1] != '\\')
+// 			return (i);
+// 		if (ft_strchr("@^*+[]:,./?~ ", str[i]))
+// 		{
+// 			ft_printf("minishell: ${%s: bad substitution\n", str);
+// 			return (-1);
+// 		}
+// 		i++;
+// 	}
+// 	ft_printf("Braces not closed\n");
+//     return (-1);
+// }
 
 int get_len(char *str)
 {
@@ -42,7 +42,7 @@ int get_len(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_strchr("@^*+[]:,./?~ ", str[i]))
+		if (ft_strchr("@^*+[]{}:,./?~ ", str[i]))
 			return (i);
 		i++;
 	}
@@ -87,6 +87,31 @@ int do_expansion(t_node *cmd_ptr, char *id_str, t_env *env_list, int id_len)
 	return (0);
 }
 
+void do_tilde_expansion(t_node *cmd_ptr, t_env *env_list)
+{
+	char *path;
+	char *repl_str;
+
+	if (cmd_ptr->data[1] != '\0' && ft_strchr("@^*+[]{},.?", cmd_ptr->data[1]))
+		return ;
+	path = NULL;
+	while (env_list)
+	{
+		if (!ft_strncmp("HOME=", env_list->data, 5))
+		{
+			path = ft_strdup(env_list->data + 5);
+			break ;
+		}
+		env_list = env_list->next;
+	}
+	repl_str = ft_strjoin(path, cmd_ptr->data + 1);
+	free(cmd_ptr->data);
+	cmd_ptr->data = repl_str;
+	if (path)
+		free(path);
+	// return (paths_arr);
+}
+
 int expand(t_node *node, t_env *env_list)
 {
 	int id_len;
@@ -101,22 +126,11 @@ int expand(t_node *node, t_env *env_list)
 		env_list = env_head;
 		if (cmd_ptr->data[0] == '$' && cmd_ptr->data[1] == '\0')
 			return (0);
-		// if (cmd_ptr->data[0] == '$' && cmd_ptr->data[1] == '{')
-		// {
-		// 	if ((id_len = check_braces(cmd_ptr->data + 2)) == -1)
-		// 		return (1);
-		// 	if (!(id_str = ft_strdup(cmd_ptr->data + 2)))
-		// 		return (1);
-		// 	free (cmd_ptr->data);
-		// 	cmd_ptr->data = ft_strdup(id_str + id_len + 1);
-		// 	if (do_expansion(cmd_ptr, id_str, env_list, id_len))
-		// 	{
-		// 		free(id_str);
-		// 		return (1);
-		// 	}
-		// 	free (id_str);
-		// }
-		if (cmd_ptr->data[0] == '$')
+		else if (cmd_ptr->data[0] == '~')
+		{
+			do_tilde_expansion(cmd_ptr, env_list);
+		}
+		else if (cmd_ptr->data[0] == '$')
 		{
 			id_len = get_len(cmd_ptr->data + 1);
 			if (!(id_str = ft_strdup(cmd_ptr->data + 1)))

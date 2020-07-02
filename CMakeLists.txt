@@ -10,19 +10,21 @@ add_subdirectory(libft)
 add_subdirectory(libft/printf)
 
 add_executable(minishell
-        builtins/cd.c
-        builtins/echo.c
-        builtins/env.c
-        builtins/exit.c
-        builtins/export.c
-        builtins/pwd.c
-        builtins/unset.c
-        utils/free_utils.c
-        utils/lexer_utils.c
-        utils/linkedlist_utils.c
-        utils/other_utils.c
-        utils/utils.h
-        utils/export_utils.c
+		builtins/builtins.h
+		builtins/cd.c
+		builtins/echo.c
+		builtins/env.c
+		builtins/exit.c
+		builtins/export.c
+		builtins/pwd.c
+		builtins/unset.c
+		utils/export_utils.c
+		utils/free_utils.c
+		utils/lexer_utils.c
+		utils/linkedlist_utils.c
+		utils/other_utils.c
+		utils/pipe_utils.c
+		utils/utils.h
         check_path.c
         execute.c
         execute.h
@@ -34,6 +36,7 @@ add_executable(minishell
         pipe.c
         pipe.h
 		expand.c
-		expand.h)
+		expand.h
+		redirection.c)
 
 target_link_libraries(minishell PUBLIC libft printf)

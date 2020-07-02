@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/02 12:14:22 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 13:52:23 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static char		*extract_from_brackets(const char *input, int *pos) // TODO: Implem
 	*pos += 1;
 	start = *pos;
 	len = *pos;
-	while (input[len] && (input[len] != b_type || (input[len] == b_type && input[len - 1] == '\\')))
+	while (input[len] && (input[len] != b_type
+			|| (input[len] == b_type && input[len - 1] == '\\')))
 		len++;
 	if (input[len] != b_type)
 	{
@@ -36,7 +37,7 @@ static char		*extract_from_brackets(const char *input, int *pos) // TODO: Implem
 	extr = ft_substr(input, *pos, len);
 	if (!extr)
 		return (NULL);
-    *pos += len + 1;
+	*pos += len + 1;
 	return (extr);
 }
 
