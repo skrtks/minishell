@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/02 13:27:52 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 13:42:31 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	fd_error(void)
 	errno = 0;
 }
 
-void	redirection(t_node *cmd_list, t_lists **list, int i)
+void	redirection(t_node *cmd_list, int i)
 {
 	int		fd;
 	t_node	*ptr;
@@ -72,10 +72,6 @@ void	redirection(t_node *cmd_list, t_lists **list, int i)
 		cmd_list = cmd_list->next;
 	}
 	close(fd);
-	(void)list;
-	// execute_cmd(ptr, list);
-	// close(fd);
-	// dup2(ori_in, 1);
 	return ;
 }
 
