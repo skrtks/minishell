@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/02 15:18:56 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/02 16:13:47 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int		count_redirections(t_node *cmd_list)
 	int		i;
 
 	i = 0;
-	// temp = malloc(sizeof(t_node));		dit is toch veel veiliger?
 	temp = cmd_list;
 	while (temp)
 	{
