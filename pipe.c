@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/02 12:37:53 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 13:33:36 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds)
 	int cmd_index;
 
 	cmd_index = 0;
-	while ((*ptr) && (*ptr)->command != SEMICOLON) // Update to recognize redirections
+	while ((*ptr) && (*ptr)->command != SEMICOLON && (*ptr)->command != REDIRECTION)
 	{
 		if ((pid = fork()) == -1)
 		{

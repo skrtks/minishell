@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/02 12:34:49 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 13:38:33 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	**list_to_array(t_node *node)
 
 	head = node;
 	list_len = 0;
-	while (node && node->type != SYMBOL)
+	while (node && node->type != SYMBOL && node->type != REDIRECTION)
 	{
 		node = node->next;
 		list_len++;
@@ -56,7 +56,7 @@ static char	**list_to_array(t_node *node)
 	argv[list_len] = NULL;
 	node = head;
 	list_len = 0;
-	while (node && node->type != SYMBOL)
+	while (node && node->type != SYMBOL && node->type != REDIRECTION)
 	{
 		argv[list_len] = ft_strdup(node->data);
 		if (!argv[list_len])

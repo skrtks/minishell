@@ -30,7 +30,7 @@ add_executable(minishell
         lexer.h
         parser.c
         parser.h
-        shell.c
+        minishell.c
         pipe.c
         pipe.h
 		expand.c

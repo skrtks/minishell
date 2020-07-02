@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/02 13:01:38 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/02 13:37:17 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 			write(1, "Command not recognized\n", 23);
 		}
 	}
+	if (node && node->type == REDIRECTION)
+		while (node && node->type != SYMBOL)
+			node = node->next;
 	return (node);
 }
 
@@ -55,7 +58,9 @@ void	parse(t_node *cmd_list, t_lists **list)
 	int		n_pipes;
 	int		n_redirections;
 	int		*fds;
-
+	int		ori_in;
+	
+	ori_in = dup(1);
 	ptr = cmd_list;
 	n_pipes = count_pipes(cmd_list);
 	n_redirections = count_redirections(cmd_list);
@@ -64,7 +69,7 @@ void	parse(t_node *cmd_list, t_lists **list)
 		if (n_redirections)
 		{
 			redirection(ptr, list, n_redirections);
-			break ;
+			//break ;
 		}
 		if (n_pipes)
 		{
@@ -74,24 +79,9 @@ void	parse(t_node *cmd_list, t_lists **list)
 		}
 		else
 			ptr = execute_cmd(ptr, list);
-		if (ptr && ptr->type == SYMBOL)
+		if (ptr && ptr->type == SYMBOL && ptr->type == REDIRECTION)
 			ptr = ptr->next;
 		n_pipes = 0;
 	}
+	dup2(ori_in, 1);
 }
-
-// void	parse(t_node *cmd_list, t_lists **list)
-// {
-// 	t_node *ptr;
-// 	int std[3];
-	
-// 	ptr = cmd_list;
-// 	while (ptr)
-// 	{
-// 		redirection(cmd_list);
-// 		ptr = execute_cmd(ptr, list);
-// 		if (ptr && ptr->type == SYMBOL)
-// 			ptr = ptr->next;
-// 	}
-// 	reset_fd(std);
-// }
