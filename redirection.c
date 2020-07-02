@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   redirection.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/02 16:13:47 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/02 19:45:39 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,58 +47,32 @@ void	fd_error(void)
 	errno = 0;
 }
 
-int		arrow_left(t_node *ptr)
+void	redirection(t_node *cmd_list)
 {
-	int		left;
+	int		fd_out;
+	int		fd_in;
 
-	left = 0;
-	while (ptr && ptr->command != SEMICOLON)
-	{
-		if (ptr->type == REDIRECTION)
-			left++;
-		if (ptr->command == ARROW_LEFT)
-			break ;
-		ptr = ptr->next;
-	}
-	return (left);
-}
-
-void	handle_arrow_left(char *file, int fd)
-{
-	int		fd2;
-
-	if (!(fd2 = open(file, O_RDWR)))
-		fd_error();
-	dup2(fd2, 0);
-	dup2(fd, 1);
-	return ;
-}
-
-void	redirection(t_node *cmd_list, int i)
-{
-	int		fd;
-	int		left;
-
-	left = arrow_left(cmd_list);
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
 		if (cmd_list->type == REDIRECTION)
 		{
-			i--;
 			if (cmd_list->command == ARROW_LEFT)
 			{
-				handle_arrow_left(cmd_list->next->data, fd);
-				break ;
+				if (fd_in)
+					close(fd_in);		//ook beschermen
+				if (!(fd_in = open(cmd_list->next->data, O_RDONLY)))
+					fd_error();
 			}
-			if (!(fd = open_file(cmd_list)))
-				fd_error();
-			if (i > 0 && (left > 0 && i != 1))
-				close(fd);
-			if (i == 0)
-				dup2(fd, 1);
+			else
+			{
+				if (fd_out)
+					close(fd_out);
+				if (!(fd_out = open_file(cmd_list)))
+					fd_error();
+			}
 		}
 		cmd_list = cmd_list->next;
 	}
-	close(fd);
-	return ;
+	dup2(fd_in, 0);		//zou eigenlijk met if statement moeten denk ik
+	dup2(fd_out, 1);
 }
