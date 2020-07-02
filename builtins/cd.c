@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/01 17:11:30 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/02 12:03:14 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_node		*cd(t_node *node, t_env *env_list)
 		ft_printf("Error loading home directory, try again.\n");
 		return (NULL);
 	}
-	if (node && node->next)
+	if (node && node->next && node->next->data[0] != '\0')
 	{
 		node = node->next;
 		path = node->data;
