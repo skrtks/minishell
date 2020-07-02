@@ -3,14 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/07/01 15:24:44 by mmourik       ########   odam.nl         */
-=======
-/*   Updated: 2020/06/27 16:08:11 by sam           ########   odam.nl         */
->>>>>>> expansions
+/*   Updated: 2020/07/02 11:59:11 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

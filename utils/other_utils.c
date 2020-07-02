@@ -6,11 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:29:29 by merelmourik   #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/07/01 15:24:55 by mmourik       ########   odam.nl         */
-=======
-/*   Updated: 2020/07/01 15:03:25 by skorteka      ########   odam.nl         */
->>>>>>> expansions
+/*   Updated: 2020/07/02 11:59:23 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

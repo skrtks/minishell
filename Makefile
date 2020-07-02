@@ -6,7 +6,7 @@
 #    By: skorteka <skorteka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/07/01 15:23:00 by mmourik       ########   odam.nl          #
+#    Updated: 2020/07/02 12:02:03 by skorteka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,9 @@ SRCS = builtins/cd.c \
 	    execute.c \
 	    lexer.c \
 	    parser.c \
-	    minishell.c \
 	    pipe.c \
 		redirection.c \
-		shell.c \
+		minishell.c \
 	    expand.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra -g
