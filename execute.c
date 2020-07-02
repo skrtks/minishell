@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/29 09:19:13 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/02 12:34:49 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ t_node		*execute(t_node *node, t_env *env_list)
 	do_fork(filename, argv, envp);
 	free_array(argv);
 	free_array(envp);
-	while (node && node->type != SYMBOL)
+	while (node && node->type != SYMBOL && node->type != REDIRECTION)
 		node = node->next;
 	return (node);
 }
