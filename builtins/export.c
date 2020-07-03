@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/03 15:09:44 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/03 21:59:29 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_node			*export_cmd(t_node *node, t_lists **list)
 {
 	t_env *head;
 
-	if (node->next != NULL && node->type != SYMBOL && node->type != REDIR)
+	if (node->next != NULL && node->type != SYMBOL && node->next->type != REDIR)
 		return (extend_lists(node, list));
 	sort_list(&(*list)->export_list);
 	head = (*list)->export_list;
