@@ -3,31 +3,18 @@
 /*                                                        ::::::::            */
 /*   expand.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 16:08:36 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/02 15:54:15 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 11:39:17 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "lexer.h"
+#include "utils/utils.h"
 
-int get_len(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_strchr("@^*+[]{}:,./?~ ", str[i]))
-			return (i);
-		i++;
-	}
-	return (i);
-}
-
-int clean(char *str, char *str1, char *str2, int ret_code)
+static int	clean(char *str, char *str1, char *str2, int ret_code)
 {
 	if (str)
 		free(str);
@@ -38,8 +25,7 @@ int clean(char *str, char *str1, char *str2, int ret_code)
 	return (ret_code);
 }
 
-
-int do_expansion(t_node *cmd_ptr, char *id_str, t_env *env_list, int id_len)
+static int	do_expan(t_node *cmd_ptr, char *id_str, t_env *env_list, int id_len)
 {
 	char *id;
 	char *repl_str;
@@ -68,7 +54,7 @@ int do_expansion(t_node *cmd_ptr, char *id_str, t_env *env_list, int id_len)
 	return (0);
 }
 
-int do_tilde_expansion(t_node *cmd_ptr, t_env *env_list)
+static int	do_tilde_expansion(t_node *cmd_ptr, t_env *env_list)
 {
 	char *path;
 	char *repl_str;
@@ -95,12 +81,12 @@ int do_tilde_expansion(t_node *cmd_ptr, t_env *env_list)
 	return (0);
 }
 
-int expand(t_node *node, t_env *env_list)
+int			expand(t_node *node, t_env *env_list)
 {
-	int id_len;
-	t_node *cmd_ptr;
-	t_env *env_head;
-	char *id_str;
+	int		id_len;
+	char	*id_str;
+	t_node	*cmd_ptr;
+	t_env	*env_head;
 
 	cmd_ptr = node;
 	env_head = env_list;
@@ -109,7 +95,7 @@ int expand(t_node *node, t_env *env_list)
 		env_list = env_head;
 		if (cmd_ptr->data[0] == '$' && cmd_ptr->data[1] == '\0')
 			return (0);
-		else if (cmd_ptr->data[0] == '~')
+		if (cmd_ptr->data[0] == '~')
 		{
 			if (do_tilde_expansion(cmd_ptr, env_list))
 				return (1);
@@ -118,12 +104,12 @@ int expand(t_node *node, t_env *env_list)
 		{
 			id_len = get_len(cmd_ptr->data + 1);
 			if (!(id_str = ft_strdup(cmd_ptr->data + 1)))
-					return (1);
-			free (cmd_ptr->data);
+				return (1);
+			free(cmd_ptr->data);
 			cmd_ptr->data = ft_strdup(id_str + id_len);
-			if (do_expansion(cmd_ptr, id_str, env_list, id_len))
+			if (do_expan(cmd_ptr, id_str, env_list, id_len))
 				return (clean(id_str, NULL, NULL, 1));
-			free (id_str);
+			free(id_str);
 		}
 		cmd_ptr = cmd_ptr->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipe_utils.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 13:30:21 by sam           #+#    #+#                 */
-/*   Updated: 2020/06/27 13:59:57 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/03 11:10:19 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "pipe.h"
 #include "parser.h"
 
-int count_pipes(t_node *cmd_list)
+int		count_pipes(t_node *cmd_list)
 {
 	int n;
 
@@ -31,7 +31,7 @@ int count_pipes(t_node *cmd_list)
 	return (n);
 }
 
-void exit_on_error(int *fds)
+void	exit_on_error(int *fds)
 {
 	if (fds)
 		free(fds);
@@ -39,7 +39,7 @@ void exit_on_error(int *fds)
 	exit(1);
 }
 
-void close_fds(int n_pipes, const int *fds)
+void	close_fds(int n_pipes, const int *fds)
 {
 	int i;
 
@@ -51,24 +51,24 @@ void close_fds(int n_pipes, const int *fds)
 	}
 }
 
-void check_type(t_node *ptr, int *type)
+void	check_type(t_node *ptr, int *type)
 {
-	while (ptr && ptr->command != PIPE && ptr->command != PIPE_PLUS
-			&& ptr->command != SEMICOLON) // Update to recognize redirections
-			ptr = ptr->next;
+	while (ptr && ptr->command != PIPE && ptr->command != PIPE_PLUS \
+			&& ptr->command != SEMICOLON)
+		ptr = ptr->next;
 	if (ptr && ptr->command == PIPE_PLUS)
 		*type = 1;
 	else
 		*type = 0;
 }
 
-int skip_to_cmd(t_node **ptr, int cmd_index)
+int		skip_to_cmd(t_node **ptr, int cmd_index)
 {
-    while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != PIPE_PLUS
+	while (*ptr && (*ptr)->command != PIPE && (*ptr)->command != PIPE_PLUS \
 			&& (*ptr)->command != SEMICOLON)
-        *ptr = (*ptr)->next;        //update for redirections
-    if (*ptr && ((*ptr)->command == PIPE_PLUS || (*ptr)->command == PIPE))
-        *ptr = (*ptr)->next;
-    cmd_index++;
-    return cmd_index;
+		*ptr = (*ptr)->next;
+	if (*ptr && ((*ptr)->command == PIPE_PLUS || (*ptr)->command == PIPE))
+		*ptr = (*ptr)->next;
+	cmd_index++;
+	return (cmd_index);
 }

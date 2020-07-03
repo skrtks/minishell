@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/02 13:52:23 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 11:25:48 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char		*extract_word(char *input, int *pos)
 	return (extr);
 }
 
-int		new_node(t_node **head, char *cmd)
+int				new_node(t_node **head, char *cmd)
 {
 	t_node *new_node;
 	t_node *ptr;
@@ -70,7 +70,7 @@ int		new_node(t_node **head, char *cmd)
 		return (1);
 	if (populate_node(cmd, new_node))
 	{
-		free (new_node);
+		free(new_node);
 		return (1);
 	}
 	new_node->next = NULL;
@@ -87,7 +87,7 @@ int		new_node(t_node **head, char *cmd)
 	return (0);
 }
 
-static int set_metachar(t_node **head, char *input, int *pos)
+static int		set_metachar(t_node **head, char *input, int *pos)
 {
 	int err;
 

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/03 08:51:16 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/03 11:31:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include <string.h>
 #include "parser.h"
 
-int		count_redirections(t_node *cmd_list)
+int			count_redirections(t_node *cmd_list)
 {
 	t_node	*temp;
 
 	temp = cmd_list;
 	while (temp)
 	{
-		if (temp->type == REDIRECTION)
+		if (temp->type == REDIR)
 			return (1);
 		temp = temp->next;
 	}
@@ -38,7 +38,7 @@ static int	open_file(t_node *cmd_list)
 	return (0);			//error van maken
 }
 
-void	fd_error(void)
+void		fd_error(void)
 {
 	ft_printf("Error: %s\n", strerror(errno));
 	errno = 0;
@@ -70,7 +70,7 @@ void		redirection(t_node *cmd_list)
 
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
-		if (cmd_list->type == REDIRECTION)
+		if (cmd_list->type == REDIR)
 			redirect(cmd_list, &fd_in, &fd_out);
 		cmd_list = cmd_list->next;
 	}

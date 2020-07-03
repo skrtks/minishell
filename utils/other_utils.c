@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   other_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:29:29 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/02 11:59:23 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 11:37:34 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,18 @@ char	*check_spec_char(const char *str, int c)
 		str++;
 	}
 	return (NULL);
+}
+
+int		get_len(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_strchr("@^*+[]{}:,./?~ ", str[i]))
+			return (i);
+		i++;
+	}
+	return (i);
 }

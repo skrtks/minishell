@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   pipe.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/02 13:33:36 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 11:29:56 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "pipe.h"
 #include "parser.h"
 
-int setup_pipes(int n_pipes, int **fds)
+int			setup_pipes(int n_pipes, int **fds)
 {
 	int i;
 
@@ -38,7 +38,7 @@ int setup_pipes(int n_pipes, int **fds)
 	return (0);
 }
 
-void	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
+static void	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 {
 	int pipe_plus;
 
@@ -57,13 +57,13 @@ void	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 	close_fds(n_pipes, fds);
 }
 
-int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds)
+int			execute_in_pipe(t_node **ptr, int n_pipes, t_lists **list, int *fds)
 {
 	int	pid;
 	int cmd_index;
 
 	cmd_index = 0;
-	while ((*ptr) && (*ptr)->command != SEMICOLON && (*ptr)->command != REDIRECTION)
+	while ((*ptr) && (*ptr)->command != SEMICOLON && (*ptr)->command != REDIR)
 	{
 		if ((pid = fork()) == -1)
 		{
@@ -77,8 +77,8 @@ int execute_in_pipeline(t_node **ptr, int n_pipes, t_lists **list, int *fds)
 			execute_cmd(*ptr, list);
 			exit(1);
 		}
-        cmd_index = skip_to_cmd(ptr, cmd_index);
-    }
+		cmd_index = skip_to_cmd(ptr, cmd_index);
+	}
 	close_fds(n_pipes, fds);
 	while ((pid = wait(NULL)) > 0)
 		;

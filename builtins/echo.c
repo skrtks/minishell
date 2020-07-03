@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   echo.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/02 12:31:28 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 10:54:00 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ t_node	*echo(t_node *node)
 		flag = 1;
 		node = node->next;
 	}
-	while (node && node->type != SYMBOL && node->type != REDIRECTION)
+	while (node && node->type != SYMBOL && node->type != REDIR)
 	{
 		ft_printf("%s", node->data);
-		if (node->next && node->next->type != SYMBOL && node->next->type != REDIRECTION)
+		if (node->next && node->next->type != SYMBOL && \
+			node->next->type != REDIR)
 			ft_printf(" ");
 		node = node->next;
 	}

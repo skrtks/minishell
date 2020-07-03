@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/02 11:59:11 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 12:01:10 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	continue_populating(char *cmd, t_node *node)
 	else if (!ft_strncmp(cmd, "\"", 2))
 		set_info(QUATATION_MARK, X, node);
 	else if (!ft_strncmp(cmd, "<", 2))
-		set_info(ARROW_LEFT, REDIRECTION, node);
+		set_info(ARROW_LEFT, REDIR, node);
 	else if (!ft_strncmp(cmd, ">", 2))
-		set_info(ARROW_RIGHT, REDIRECTION, node);
+		set_info(ARROW_RIGHT, REDIR, node);
 	else if (!ft_strncmp(cmd, ">>", 3))
-		set_info(ARROW_DOUBLE, REDIRECTION, node);
+		set_info(ARROW_DOUBLE, REDIR, node);
 	else if (!ft_strncmp(cmd, "|&", 3))
 		set_info(PIPE_PLUS, SYMBOL, node);
 	else if (!ft_strncmp(cmd, "|", 2))

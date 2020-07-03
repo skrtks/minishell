@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/02 12:08:42 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 10:45:45 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_node		*cd(t_node *node, t_env *env_list)
 		ft_printf("minishell: cd: %s: %s\n", node->data, strerror(errno));
 		errno = 0;
 	}
-	while (node && node->type != SYMBOL && node->type != REDIRECTION)
+	while (node && node->type != SYMBOL && node->type != REDIR)
 		node = node->next;
 	free(home_dir);
 	return (node);

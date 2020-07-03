@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/03 08:57:40 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/03 14:01:18 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 			write(1, "Command not recognized\n", 23);
 		}
 	}
-	if (node && node->type == REDIRECTION)
+	if (node && node->type == REDIR)		//is dit nodig?
 		while (node && node->type != SYMBOL)
 			node = node->next;
 	return (node);
@@ -74,11 +74,11 @@ void	parse(t_node *cmd_list, t_lists **list)
 		{
 			if (setup_pipes(n_pipes, &fds))
 				return ;		//error van maken
-			execute_in_pipeline(&ptr, n_pipes, list, fds); // Check error?
+			execute_in_pipe(&ptr, n_pipes, list, fds); // Check error?
 		}
 		else
 			ptr = execute_cmd(ptr, list);
-		if (ptr && ptr->type == SYMBOL && ptr->type == REDIRECTION)
+		if (ptr && ptr->type == SYMBOL && ptr->type == REDIR)
 			ptr = ptr->next;
 		n_pipes = 0;
 	}

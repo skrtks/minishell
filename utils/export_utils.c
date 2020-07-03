@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/26 11:27:21 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/26 11:33:50 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/03 11:07:51 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ int		check_equal_sign(const char *str)
 	return (-1);
 }
 
-int		input_check(char c, char *str1)
+int		input_check(char c, char *str1)		//in hoeverre willen we dit gaan doen?
 {
-	char	*str = "@^*+{}[]:,./?~";	//#
+	char	*str;
 	int		i;
 
 	i = 0;
+	str = "@^*+{}[]:,./?~";
 	if (str1[0] == '=' || str1[(ft_strlen(str1) - 1)] == '!')
 		return (-1);
 	while (str[i])

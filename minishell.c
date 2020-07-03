@@ -3,20 +3,17 @@
 /*                                                        ::::::::            */
 /*   minishell.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 11:23:06 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/01 13:09:30 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/03 11:27:34 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
-#include "lexer.h"
 #include "parser.h"
-#include "libft/libft.h"
 #include "utils/utils.h"
 #include "expand.h"
-#include "pipe.h"
 
 t_lists	*get_env(char **envp)
 {
@@ -37,7 +34,7 @@ t_lists	*get_env(char **envp)
 	return (list);
 }
 
-void	sig_handler()
+void	sig_handler(void)
 {
 	ft_printf("\nminishell> $ ");
 }

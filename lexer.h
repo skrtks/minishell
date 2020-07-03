@@ -3,22 +3,22 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/01 15:24:05 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/03 10:43:38 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <errno.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdlib.h>
 
 typedef struct	s_node
 {
@@ -53,7 +53,7 @@ typedef enum	e_commands
 	N = 7,
 	SEMICOLON = 8,
 	APOSTROPHE = 9,
-	QUATATION_MARK = 10,		//deze kan er uit toch?
+	QUATATION_MARK = 10,
 	ARROW_LEFT = 11,
 	ARROW_RIGHT = 12,
 	ARROW_DOUBLE = 13,
@@ -71,13 +71,11 @@ typedef enum	e_type
 	FLAG = 1,
 	SYMBOL = 2,
 	ARGUMENT = 3,
-	REDIRECTION = 4,
+	REDIR = 4,
 	X = 5
 }				t_type;
 
 char			**free_array(char **array);
 t_node			*lexer(char *input);
-
-
 
 #endif
