@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/02 11:58:57 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 12:15:03 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,9 @@ void			free_cmdlist(t_node **head);
 void			free_envlist(t_env **head);
 void			set_info(int command, int type, t_node *node);
 char			*check_spec_char(const char *str, int c);
+
+size_t			ft_strlen_lexer(const char *str);
+char			*cpy_str(char *str, const char *s, int start, int s_len);
+char			*ft_substr_lexer(char const *s, unsigned int start, size_t len);
 
 #endif

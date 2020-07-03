@@ -6,7 +6,7 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/02 13:52:23 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 12:13:34 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ static char		*extract_word(char *input, int *pos)
 		|| input[*pos] == '\"') && input[*pos - 1] != '\\')
 		return (extract_from_brackets(input, pos));
 	len = *pos;
-	while (!ft_strchr(" 	|<>;\'\"\0", input[len]))
+	while (!ft_strchr(" 	|<>;\'\"\0", input[len]) ||
+			(ft_strchr(" 	|<>;\'\"\0", input[len]) && input[len -1] == '\\'))
 		len++;
 	len -= *pos;
-	extr = ft_substr(input, *pos, len);
+	extr = ft_substr_lexer(input, *pos, len);
 	if (!extr)
 		return (NULL);
 	*pos += len;
