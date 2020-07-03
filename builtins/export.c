@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/03 11:05:05 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/03 15:09:44 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		sort_list(t_env **export_list)
 	}
 }
 
-static void		check_existence_env(char *str, t_env **list)
+void			check_existence_env(char *str, t_env **list)
 {
 	int		len;
 	t_env	*ptr;
@@ -62,6 +62,7 @@ static void		check_existence_env(char *str, t_env **list)
 		previous = ptr;
 		ptr = ptr->next;
 	}
+	return ;
 }
 
 static int		check_existence_exp(char *input, t_env **head)

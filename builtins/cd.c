@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/03 10:45:45 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/03 15:34:46 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,58 @@ static char	*get_homedir(t_env *env_list)
 	return (home_dir);
 }
 
-t_node		*cd(t_node *node, t_env *env_list)
+static void	old_pwd(t_lists **list)
+{
+	char *path;
+	char *pwd;
+
+	path = getcwd(NULL, 0);
+	pwd = ft_strjoin("OLDPWD=", path);
+	check_existence_env(pwd, &(*list)->env_list);
+	add_env_node(&(*list)->env_list, pwd);
+	free(path);
+	free(pwd);
+	return ;
+}
+
+static void	new_pwd(t_lists **list)
+{
+	char *path;
+	char *pwd;
+
+	path = getcwd(NULL, 0);
+	pwd = ft_strjoin("PWD=", path);
+	check_existence_env(pwd, &(*list)->env_list);
+	add_env_node(&(*list)->env_list, pwd);
+	free(path);
+	free(pwd);
+	return ;
+}
+
+t_node		*cd(t_node *node, t_lists **list)
 {
 	char *path;
 	char *home_dir;
 
-	home_dir = get_homedir(env_list);
-	if (!home_dir)
+	old_pwd(list);
+	if (!(home_dir = get_homedir((*list)->env_list)))
 	{
 		ft_printf("Error loading home directory, try again.\n");
 		return (NULL);
 	}
+	path = home_dir;		//niet dup voor gebruiken?
 	if (node && node->next && node->next->data[0] != '\0')
 	{
 		node = node->next;
 		path = node->data;
 	}
-	else
-		path = home_dir;
 	if (chdir(path))
 	{
 		ft_printf("minishell: cd: %s: %s\n", node->data, strerror(errno));
 		errno = 0;
 	}
-	while (node && node->type != SYMBOL && node->type != REDIR)
+	new_pwd(list);
+	while (node && node->type != SYMBOL && node->type != REDIR)		//en niet aan SEMICOLON?
 		node = node->next;
 	free(home_dir);
 	return (node);
