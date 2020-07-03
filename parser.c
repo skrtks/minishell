@@ -78,7 +78,7 @@ void	parse(t_node *cmd_list, t_lists **list)
 		}
 		else
 			ptr = execute_cmd(ptr, list);
-		if (ptr && ptr->type == SYMBOL && ptr->type == REDIR)
+		if (ptr && (ptr->type == SYMBOL || ptr->type == REDIR))
 			ptr = ptr->next;
 		n_pipes = 0;
 	}
