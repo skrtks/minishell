@@ -6,7 +6,7 @@
 #    By: skorteka <skorteka@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/07/03 12:14:25 by skorteka      ########   odam.nl          #
+#    Updated: 2020/07/03 14:32:11 by skorteka      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS = builtins/cd.c \
 	    expand.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra -g
+ASANCFLAGS = -I. -Wall -Werror -Wextra -g -fsanitize=address -O1 -fno-omit-frame-pointer
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
