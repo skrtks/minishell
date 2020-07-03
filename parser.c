@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parser.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/02 13:45:34 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 08:57:40 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,18 @@ void	parse(t_node *cmd_list, t_lists **list)
 	int		n_pipes;
 	int		n_redirections;
 	int		*fds;
+	int		ori_out;
 	int		ori_in;
-	
-	ori_in = dup(1);
+
+	ori_out = dup(1);
+	ori_in = dup(0);
 	ptr = cmd_list;
 	n_pipes = count_pipes(cmd_list);
 	n_redirections = count_redirections(cmd_list);
 	while (ptr)
 	{
 		if (n_redirections)
-			redirection(ptr, n_redirections);
+			redirection(ptr);
 		if (n_pipes)
 		{
 			if (setup_pipes(n_pipes, &fds))
@@ -80,5 +82,6 @@ void	parse(t_node *cmd_list, t_lists **list)
 			ptr = ptr->next;
 		n_pipes = 0;
 	}
-	dup2(ori_in, 1);
+	dup2(ori_out, 1);
+	dup2(ori_in, 0);
 }

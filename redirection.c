@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   redirection.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/02 13:42:31 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/03 08:51:16 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,24 @@
 int		count_redirections(t_node *cmd_list)
 {
 	t_node	*temp;
-	int		i;
 
-	i = 0;
-	// temp = malloc(sizeof(t_node));		dit is toch veel veiliger?
 	temp = cmd_list;
 	while (temp)
 	{
 		if (temp->type == REDIRECTION)
-			i++;
+			return (1);
 		temp = temp->next;
 	}
-	free(temp);
-	return (i);
+	return (0);
 }
 
-int		open_file(t_node *cmd_list)
+static int	open_file(t_node *cmd_list)
 {
 	if (cmd_list->command == ARROW_RIGHT)
 		return (open(cmd_list->next->data, O_RDWR | O_CREAT | O_TRUNC, 0644));
 	if (cmd_list->command == ARROW_DOUBLE)
 		return (open(cmd_list->next->data, O_RDWR | O_CREAT | O_APPEND, 0644));
-	return (0);
+	return (0);			//error van maken
 }
 
 void	fd_error(void)
@@ -48,33 +44,43 @@ void	fd_error(void)
 	errno = 0;
 }
 
-void	redirection(t_node *cmd_list, int i)
+static void	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 {
-	int		fd;
-	t_node	*ptr;
-
-	ptr = cmd_list;
-	while (cmd_list && cmd_list->command != SEMICOLON) // Stop veranderen
+	if (cmd_list->command == ARROW_LEFT)
 	{
-		if (cmd_list->type == REDIRECTION)
-		{
-			i--;
-			if (!(fd = open_file(cmd_list)))
-				fd_error();
-			if (i > 0)
-				close(fd);
-		}
-		if (i == 0)
-		{
-			close(1);
-			dup(fd);
-		}
-		cmd_list = cmd_list->next;
+		if (*fd_in)
+			close(*fd_in);
+		if (!(*fd_in = open(cmd_list->next->data, O_RDONLY)))
+			fd_error();
 	}
-	close(fd);
+	else
+	{
+		if (*fd_out)
+			close(*fd_out);
+		if (!(*fd_out = open_file(cmd_list)))
+			fd_error();
+	}
 	return ;
 }
 
+void		redirection(t_node *cmd_list)
+{
+	int		fd_out;
+	int		fd_in;
 
-// als < is ingebouwd, testen hoe hij daarna op > reageert, 
-// lijkt alsof de fd niet goed wordt terug gewisseld.
+	while (cmd_list && cmd_list->command != SEMICOLON)
+	{
+		if (cmd_list->type == REDIRECTION)
+			redirect(cmd_list, &fd_in, &fd_out);
+		cmd_list = cmd_list->next;
+	}
+	if (fd_in)
+		dup2(fd_in, 0);
+	if (fd_out)
+		dup2(fd_out, 1);
+}
+
+//als je dup2 en close protect, geeft hij een error melding
+//dit doe ik met if(fd), blijkbaar werkt dat niet goed
+//hoe kan je dit dan wel protecten, ook op andere plaatsen
+//in de code naar kijken.
