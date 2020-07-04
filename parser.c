@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/04 13:33:21 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/04 13:53:21 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@
 #include "expand.h"
 #include "./libft/libft.h"
 #include "pipe.h"
+#include <fcntl.h>
+#include <sys/stat.h>
 
 t_node	*execute_cmd(t_node *node, t_lists **list)
 {
+	struct stat buf;
+
 	if (node->type == REDIR)
 	{
 		if (node->next == NULL)
@@ -27,6 +31,10 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 			ft_printf("minishell: syntax error near unexpected token `newline'\n");
 			return (node);
 		}
+		if (node->command == ARROW_LEFT)
+			if (stat(node->next->data, &buf) == -1)
+				ft_printf("minishell: %s: No such file or directory\n", node->next->data);
+		return (node->next->next);
 	}
 	if (node->command == ECHO)
 		node = echo(node);
