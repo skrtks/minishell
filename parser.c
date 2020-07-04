@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/04 13:53:21 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/04 13:54:52 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 			write(1, "Command not recognized\n", 23);
 		}
 	}
+	if (node && node->type == REDIR)
+		while (node && node->type != SYMBOL)
+			node = node->next;
 	return (node);
 }
 
