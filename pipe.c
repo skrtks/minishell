@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/03 11:29:56 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/04 15:03:40 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,14 @@ int			execute_in_pipe(t_node **ptr, int n_pipes, t_lists **list, int *fds)
 	int cmd_index;
 
 	cmd_index = 0;
+	if ((*ptr)->command == PIPE || (*ptr)->command == PIPE_PLUS)
+	{
+		ft_printf("minishell: syntax error near unexpected token `|'\n");
+		while ((*ptr) && (*ptr)->command != SEMICOLON)
+			*ptr = (*ptr)->next;
+		free(fds);		
+		return (0);
+	}
 	while ((*ptr) && (*ptr)->command != SEMICOLON && (*ptr)->command != REDIR)
 	{
 		if ((pid = fork()) == -1)

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/04 13:54:52 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/04 15:03:35 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 			node = execute(node, (*list)->env_list);
 		else
 		{
-			node = node->next; // Skip to end or next semicolon
-			write(1, "Command not recognized\n", 23);
+			node = node->next;
+			write(1, "Command not found\n", 23);
 		}
 	}
 	if (node && node->type == REDIR)
@@ -101,3 +101,4 @@ void	parse(t_node *cmd_list, t_lists **list)
 	dup2(ori_out, 1);
 	dup2(ori_in, 0);
 }
+// alleen ';' geeft error
