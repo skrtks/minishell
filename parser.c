@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/03 14:40:44 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/04 13:33:21 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 
 t_node	*execute_cmd(t_node *node, t_lists **list)
 {
+	if (node->type == REDIR)
+	{
+		if (node->next == NULL)
+		{
+			ft_printf("minishell: syntax error near unexpected token `newline'\n");
+			return (node);
+		}
+	}
 	if (node->command == ECHO)
 		node = echo(node);
 	else if (node->command == CD)
@@ -46,9 +54,6 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 			write(1, "Command not recognized\n", 23);
 		}
 	}
-	if (node && node->type == REDIR)		//is dit nodig?
-		while (node && node->type != SYMBOL)
-			node = node->next;
 	return (node);
 }
 

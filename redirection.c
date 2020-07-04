@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/03 11:31:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/04 13:30:32 by mmourik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void		redirection(t_node *cmd_list)
 	int		fd_out;
 	int		fd_in;
 
+	if (cmd_list->type == REDIR)
+		return ;
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
 		if (cmd_list->type == REDIR)
