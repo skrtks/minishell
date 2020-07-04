@@ -6,15 +6,16 @@
 /*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/03 14:31:09 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/04 14:52:49 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "lexer.h"
 #include "utils/utils.h"
+#include "expand.h"
 
-static char		*extract_from_brackets(const char *input, int *pos) // TODO: Implement how other spec chars are handled.
+static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list)
 {
 	char	b_type;
 	char	*extr;
@@ -38,17 +39,19 @@ static char		*extract_from_brackets(const char *input, int *pos) // TODO: Implem
 	if (!extr)
 		return (NULL);
 	*pos += len + 1;
+    expand(&extr, env_list);
 	return (extr);
 }
 
-static char		*extract_word(char *input, int *pos)
+static char		*extract_word(char *input, int *pos,
+							t_env *env_list)
 {
 	char	*extr;
 	int		len;
 
 	if ((input[*pos] == '\''
 		|| input[*pos] == '\"') && input[*pos - 1] != '\\')
-		return (extract_from_brackets(input, pos));
+		return (extract_from_brackets(input, pos, env_list));
 	len = *pos;
 	while (!ft_strchr(" 	|<>;\'\"\0", input[len]) ||
 			(len != 0 && ft_strchr(" 	|<>;\'\"", input[len]) &&
@@ -59,6 +62,7 @@ static char		*extract_word(char *input, int *pos)
 	if (!extr)
 		return (NULL);
 	*pos += len;
+	expand(&extr, env_list);
 	return (extr);
 }
 
@@ -118,7 +122,7 @@ static int		set_metachar(t_node **head, char *input, int *pos)
 	return (0);
 }
 
-t_node			*lexer(char *input)
+t_node			*lexer(char *input, t_env *env_list)
 {
 	int		i;
 	char	*cmd;
@@ -130,7 +134,7 @@ t_node			*lexer(char *input)
 	{
 		while (input[i] == ' ')
 			i++;
-		if (!(cmd = extract_word(input, &i)))
+		if (!(cmd = extract_word(input, &i, env_list)))
 			return (free_on_error(cmd, head));
 		if (cmd[0])
 			if (new_node(&head, cmd))

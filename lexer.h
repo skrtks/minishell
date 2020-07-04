@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/03 10:43:38 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/04 13:11:40 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ typedef enum	e_type
 }				t_type;
 
 char			**free_array(char **array);
-t_node			*lexer(char *input);
+t_node			*lexer(char *input, t_env *env_list);
 
 #endif
