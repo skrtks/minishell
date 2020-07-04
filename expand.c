@@ -25,6 +25,8 @@
 // 	return (ret_code);
 // }
 
+// Implement error checking
+
 char *get_exp(char *word, int i, t_env *env_list, int *id_len)
 {
 	char *id;
@@ -35,7 +37,8 @@ char *get_exp(char *word, int i, t_env *env_list, int *id_len)
 	*id_len = 1;
 	while (ft_isalpha(word[i + *id_len]) || word[i + *id_len] == '_')
         (*id_len)++;
-	id = ft_substr(word + i, 0, *id_len);
+	id = (word[i] == '~' ? ft_strdup("$HOME") : ft_substr(word + i, 0, *id_len));
+	*id_len = (word[i] == '~' ? 5 : *id_len);
 	exp = (*id_len == 1 ? ft_strdup("$") : ft_strdup(""));
 	while (env_list)
 	{
@@ -62,6 +65,7 @@ char *do_expansion(char *word, int i, t_env *env_list)
 	int id_len;
 
 	exp = get_exp(word, i, env_list, &id_len);
+    id_len = (word[i] == '~' ? 1 : id_len);
     before_str = ft_substr(word, 0, i);
     after_str = ft_substr(word, i + id_len, (ft_strlen(word) - i));
     new_word = ft_strjoin(before_str, exp);
@@ -87,7 +91,7 @@ int			expand(char **word_in, t_env *env_list)
 		if ((i == 0 && word[i] == '$') || (i != 0 && word[i] == '$' && word[i - 1] != '\\'))
 			word = do_expansion(word, i, env_list);
 		else if ((i == 0 && word[i] == '~') || (i != 0 && word[i] == '~' && word[i - 1] != '\\'))
-			;
+            word = do_expansion(word, i, env_list);
 		if (!word)
 			return (1);
 		i++;
