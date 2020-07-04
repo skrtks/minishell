@@ -36,12 +36,15 @@ char *get_exp(char *word, int i, t_env *env_list, int *id_len)
 	while (ft_isalpha(word[i + *id_len]) || word[i + *id_len] == '_')
         (*id_len)++;
 	id = ft_substr(word + i, 0, *id_len);
+	exp = (*id_len == 1 ? ft_strdup("$") : ft_strdup(""));
 	while (env_list)
 	{
 		if (!ft_strncmp(id + 1, env_list->data, *id_len - 1) &&
 			env_list->data[*id_len - 1] == '=')
         {
+		    free(exp);
             exp = ft_strdup(env_list->data + *id_len + 1);
+            break ;
         }
 		env_list = env_list->next;
 	}
@@ -89,7 +92,6 @@ int			expand(char **word_in, t_env *env_list)
 			return (1);
 		i++;
 	}
-//	free(*word_in);
 	*word_in = word;
 	return (0);
 }
