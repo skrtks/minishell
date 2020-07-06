@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/03 14:31:09 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/06 14:46:41 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char		*extract_word(char *input, int *pos)
 	len = *pos;
 	while (!ft_strchr(" 	|<>;\'\"\0", input[len]) ||
 			(len != 0 && ft_strchr(" 	|<>;\'\"", input[len]) &&
-			input[len -1] == '\\'))
+			input[len - 1] == '\\'))
 		len++;
 	len -= *pos;
 	extr = ft_substr_lexer(input, *pos, len);
@@ -118,6 +118,26 @@ static int		set_metachar(t_node **head, char *input, int *pos)
 	return (0);
 }
 
+t_node			*invalid_input(char *str, t_node **head)
+{
+	if (str[0] == '<' && str[1] == '|' && str[2] == '|')
+		ft_printf("minishell: syntax error near unexpected token `||'\n");
+	else if ((str[0] == '|' && str[1] != '|') || \
+		(str[0] == '<' && str[1] == '|'))
+		ft_printf("minishell: syntax error near unexpected token `|'\n");
+	else if (str[0] == '|' && str[1] == '|')
+		ft_printf("minishell: syntax error near unexpected token `||'\n");
+	else if (str[0] == ';' && str[1] != ';')
+		ft_printf("minishell: syntax error near unexpected token `;'\n");
+	else if (str[0] == ';' && str[1] == ';')
+		ft_printf("minishell: syntax error near unexpected token `;;'\n");
+	else if (str[0] == '<' && str[1] == '<' && str[2] == '|' && str[3] == '|')
+		ft_printf("minishell: syntax error near unexpected token `||'\n");
+	else if (str[0] == '<' && str[1] == '<' && str[2] == '|')
+		ft_printf("minishell: syntax error near unexpected token `|'\n");
+	return (*head);
+}
+
 t_node			*lexer(char *input)
 {
 	int		i;
@@ -126,6 +146,8 @@ t_node			*lexer(char *input)
 
 	i = 0;
 	head = NULL;
+	if (input[0] == '|' || input[0] == ';' || input[0] == '<')
+		return (invalid_input(input, &head));
 	while (input[i])
 	{
 		while (input[i] == ' ')

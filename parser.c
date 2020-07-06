@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/04 15:14:32 by mmourik       ########   odam.nl         */
+/*   Updated: 2020/07/06 14:50:45 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,15 @@ void	parse(t_node *cmd_list, t_lists **list)
 	dup2(ori_out, 1);
 	dup2(ori_in, 0);
 }
-// alleen ';' geeft error
+
 //exit code 0 - 255
+
+// else if (str[0] == '>' && str[1] == '>' && str[2] == '|' && str[3] == '|')
+// 		ft_printf("minishell: syntax error near unexpected token `||'\n");
+// 	else if (str[0] == '>' && str[1] == '>' && str[2] == '|')
+// 		ft_printf("minishell: syntax error near unexpected token `|'\n");
+// 	else if (str[0] == '>' && str[1] == '|')
+		// ft_printf("minishell: syntax error near unexpected token `newline'\n");
+
+//bovenstaande kan ik wel implementeren, maar is niet echt de moeite waard denk ik
+//en het is veel moeite omdat de norme dan echt in de weg gaat zitten
