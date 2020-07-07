@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/04 14:52:49 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/07 14:19:44 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list
 	if (!extr)
 		return (NULL);
 	*pos += len + 1;
-    expand(&extr, env_list);
+    extr = expand(extr, env_list);
 	return (extr);
 }
 
@@ -62,7 +62,7 @@ static char		*extract_word(char *input, int *pos,
 	if (!extr)
 		return (NULL);
 	*pos += len;
-	expand(&extr, env_list);
+	extr = expand(extr, env_list);
 	return (extr);
 }
 
