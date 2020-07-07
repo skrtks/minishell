@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   expand.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/07 17:21:52 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 21:20:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char		*do_expansion(char *word, int i, t_env *env_list)
 
 	if (word[i + 1] == '?')
 	{
-		exp = ft_itoa(111);
+		exp = ft_itoa(g_exitcode);
 		id_len = 2;
 	}
 	else

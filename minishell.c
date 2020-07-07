@@ -65,7 +65,7 @@ int		main(int argc, char **argv, char **envp)
 			errno = 0;
 			break ;
 		}
-		if ((command_list = lexer(input)))
+		if ((command_list = lexer(input, list->env_list)))
 			parse(command_list, &list);
 			// if (!expand(command_list, list->env_list))
 		free(input);

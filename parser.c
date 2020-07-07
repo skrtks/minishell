@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 16:48:10 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 21:24:20 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 		{
 			node = node->next;		//hier kunnen we als we willen makkelijke een syntax error van maken| 
 			ft_printf("Command not found\n");
+			g_exitcode = 127;
 		}
 	}
 	if (node && node->type == REDIR)
@@ -94,6 +95,8 @@ void	parse(t_node *cmd_list, t_lists **list)
 	n_redirections = count_redirections(cmd_list);
 	while (ptr)
 	{
+		if (ptr->command != QUATATION_MARK)// && ptr->next->command != QUATATION_MARK)		//naar execute_cmd?
+			g_exitcode = 0;
 		if (n_redirections)
 			redirection(ptr);
 		if (n_pipes)
