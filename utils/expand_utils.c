@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 14:25:50 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/07 14:27:33 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 16:34:41 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "utils/utils.h"
 
-char	*clean(char *str, char *str1, char *str2)
+char		*clean(char *str, char *str1, char *str2)
 {
 	if (str)
 		free(str);
@@ -41,9 +41,9 @@ char		*get_env_string(t_env *env_list, const int *id_len, const char *id, char *
 }
 char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 {
-	char *id;
-	char *exp;
-	t_env *head;
+	char	*id;
+	char	*exp;
+	t_env	*head;
 
 	head = env_list;
 	*id_len = 1;
@@ -61,9 +61,9 @@ char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 }
 char		*update_str(char *word, int i, char *exp, int id_len)
 {
-	char *before_str;
-	char *after_str;
-	char *new_word;
+	char	*before_str;
+	char	*after_str;
+	char	*new_word;
 
 	before_str = ft_substr(word, 0, i);
 	if (!before_str)

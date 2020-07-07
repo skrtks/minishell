@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/07 16:30:54 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 16:35:30 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 char		*do_expansion(char *word, int i, t_env *env_list)
 {
-	char *exp;
-    char *new_word;
+	char	*exp;
+	char	*new_word;
 
 	int id_len;
 
@@ -37,10 +37,10 @@ char		*do_expansion(char *word, int i, t_env *env_list)
 	return (new_word);
 }
 
-int len_no_bs(const char *word)
+int			len_no_bs(const char *word)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	len = 0;
 	i = 0;
@@ -58,10 +58,10 @@ int len_no_bs(const char *word)
 	return len;
 }
 
-char *copy_no_bs(char *word, char *new_word) 
+char		*copy_no_bs(char *word, char *new_word) 
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	len = 0;
 	i = 0;
@@ -85,10 +85,10 @@ char *copy_no_bs(char *word, char *new_word)
 	return (new_word);
 }
 
-char	*remove_backslash(char *word)
+char		*remove_backslash(char *word)
 {
-	int len;
-	char *new_word;
+	int		len;
+	char	*new_word;
 
 	len = len_no_bs(word);
 	if (!(new_word = malloc(sizeof(char) * (len + 1))))
@@ -100,9 +100,9 @@ char	*remove_backslash(char *word)
 	return (new_word);
 }
 
-char			*expand(char *word, t_env *env_list)
+char		*expand(char *word, t_env *env_list)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (word[i])
