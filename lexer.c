@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 16:00:46 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 16:40:48 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list
 	start = *pos;
 	len = *pos;
 	while (input[len] && (input[len] != b_type
-			|| (input[len] == b_type && input[len - 1] == '\\')))
+			|| (b_type != '\'' && input[len] == b_type && input[len - 1] == '\\')))
 		len++;
 	if (input[len] != b_type)
 	{
@@ -39,7 +39,8 @@ static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list
 	if (!extr)
 		return (NULL);
 	*pos += len + 1;
-    extr = expand(extr, env_list);
+	if (b_type == '\"')
+	    extr = expand(extr, env_list);
 	return (extr);
 }
 
