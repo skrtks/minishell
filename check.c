@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 21:11:33 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/07 22:02:05 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 22:13:57 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int check_cmd_list(t_node *cmd_list)
 {
-	t_node *ptr;
+	t_node	*ptr;
 	int		prev_is_symbol;
 	int		prev_is_red;
 
@@ -26,15 +26,22 @@ int check_cmd_list(t_node *cmd_list)
 	prev_is_red = 0;
 	while (ptr)
 	{
-		if ((ptr->type == SYMBOL && prev_is_symbol) || (ptr->type == REDIR && prev_is_red))
+		if ((ptr->type == SYMBOL && (prev_is_symbol || prev_is_red)) ||
+			(ptr->type == REDIR && (prev_is_red || prev_is_symbol)))
 		{
 			ft_printf("minishell: syntax error near unexpected token `%s'\n", ptr->data);
 			return (1);
 		}
 		else if (ptr->type == SYMBOL)
+		{
+			prev_is_red = 0;
 			prev_is_symbol = 1;
+		}
 		else if (ptr->type == REDIR)
+		{
+			prev_is_red = 0;
 			prev_is_red = 1;
+		}
 		else
 		{
 			prev_is_symbol = 0;
