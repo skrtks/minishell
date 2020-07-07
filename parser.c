@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/06 14:50:45 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 11:44:55 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 		else
 		{
 			node = node->next;		//hier kunnen we als we willen makkelijke een syntax error van maken| 
-			write(1, "Command not found\n", 23);
+			ft_printf("Command not found\n");
 		}
 	}
 	if (node && node->type == REDIR)
