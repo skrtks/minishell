@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 11:29:47 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 12:39:35 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 t_node	*check_redir_input(t_node *node)
 {
 	struct stat buf;
+
 	if (node->next == NULL)
 	{
 		ft_printf("minishell: syntax error near unexpected token `newline'\n");
@@ -32,6 +33,11 @@ t_node	*check_redir_input(t_node *node)
 		if (stat(node->next->data, &buf) == -1)
 			ft_printf("minishell: %s: No such file or directory\n", node->next->data);
 	return (node->next->next);
+	// if (str[0] == '<' && str[1] == '|' && str[2] == '|')
+	// 	ft_printf("minishell: syntax error near unexpected token `||'\n");
+// 		ft_printf("minishell: syntax error near unexpected token `|'\n");
+// 	else if (str[0] == '>' && str[1] == '|')
+		// ft_printf("minishell: syntax error near unexpected token `newline'\n");
 }
 
 t_node	*execute_cmd(t_node *node, t_lists **list)
@@ -63,7 +69,7 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 		else
 		{
 			node = node->next;		//hier kunnen we als we willen makkelijke een syntax error van maken| 
-			write(1, "Command not found\n", 23);
+			ft_printf("Command not found\n");
 		}
 	}
 	if (node && node->type == REDIR)
@@ -105,18 +111,3 @@ void	parse(t_node *cmd_list, t_lists **list)
 	dup2(ori_out, 1);
 	dup2(ori_in, 0);
 }
-
-//exit code 0 - 255
-
-// else if (str[0] == '>' && str[1] == '>' && str[2] == '|' && str[3] == '|')
-// 		ft_printf("minishell: syntax error near unexpected token `||'\n");
-// 	else if (str[0] == '>' && str[1] == '>' && str[2] == '|')
-// 		ft_printf("minishell: syntax error near unexpected token `|'\n");
-// 	else if (str[0] == '>' && str[1] == '|')
-		// ft_printf("minishell: syntax error near unexpected token `newline'\n");
-
-//bovenstaande kan ik wel implementeren, maar is niet echt de moeite waard denk ik
-//en het is veel moeite omdat de norme dan echt in de weg gaat zitten
-
-//het probleem is als er spaties tussen zitten dat ik dan niet
-//head moet returnen

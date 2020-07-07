@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 11:20:37 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 12:37:25 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "utils/utils.h"
 
-static char		*extract_from_brackets(const char *input, int *pos) // TODO: Implement how other spec chars are handled.
+static char		*extract_from_brackets(const char *input, int *pos)
 {
 	char	b_type;
 	char	*extr;
@@ -118,7 +118,7 @@ static int		set_metachar(t_node **head, char *input, int *pos)
 	return (0);
 }
 
-t_node			*lexer(char *input)
+t_node			*lexer(char *inpt)
 {
 	int		i;
 	char	*cmd;
@@ -126,20 +126,20 @@ t_node			*lexer(char *input)
 
 	i = 0;
 	head = NULL;
-	if (input[0] == '|' || input[0] == ';'|| (input[0] == '>' && input[1] == '>'))
-		return (invalid_input(input, &head));
-	while (input[i])
+	if (inpt[0] == '|' || inpt[0] == ';' || (inpt[0] == '>' && inpt[1] == '>'))
+		return (invalid_input(inpt, &head));
+	while (inpt[i])
 	{
-		while (input[i] == ' ')
+		while (inpt[i] == ' ')
 			i++;
-		if (!(cmd = extract_word(input, &i)))
+		if (!(cmd = extract_word(inpt, &i)))
 			return (free_on_error(cmd, head));
 		if (cmd[0])
 			if (new_node(&head, cmd))
 				return (free_on_error(cmd, head));
-		if (check_spec_char("|<>;", input[i]))
+		if (check_spec_char("|<>;", inpt[i]))
 		{
-			if (!set_metachar(&head, input, &i))
+			if (!set_metachar(&head, inpt, &i))
 				return (free_on_error(cmd, head));
 		}
 		free(cmd);
