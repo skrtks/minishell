@@ -6,7 +6,7 @@
 #    By: sam <sam@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/07/07 14:28:04 by sam           ########   odam.nl          #
+#    Updated: 2020/07/07 16:03:49 by sam           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SRCS = builtins/cd.c \
 	    builtins/pwd.c \
 	    builtins/unset.c \
 	    utils/lexer_utils.c \
-	    utils/lexer_extract_utils.c \
 	    utils/linkedlist_utils.c \
 		utils/other_utils.c \
 		utils/free_utils.c \
