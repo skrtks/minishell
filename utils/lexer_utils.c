@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer_utils.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 12:38:33 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 22:01:24 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,4 @@ int		populate_node(char *cmd, t_node *node)
 	else
 		continue_populating(cmd, node);
 	return (0);
-}
-
-t_node			*invalid_input(char *str, t_node **head)
-{
-	if (str[0] == '|' && str[1] != '|')
-		ft_printf("minishell: syntax error near unexpected token `|'\n");
-	else if (str[0] == '|' && str[1] == '|')
-		ft_printf("minishell: syntax error near unexpected token `||'\n");
-	else if (str[0] == ';' && str[1] != ';')
-		ft_printf("minishell: syntax error near unexpected token `;'\n");
-	else if (str[0] == ';' && str[1] == ';')
-		ft_printf("minishell: syntax error near unexpected token `;;'\n");
-	else if (str[0] == '>' && str[1] == '>' && str[2] == '\0')
-		ft_printf("minishell: syntax error near unexpected token `newline'\n");
-	else if (str[0] == '>' && str[1] == '>' && str[2] == '|' && str[3] == '|')
-		ft_printf("minishell: syntax error near unexpected token `||'\n");
-	else if (str[0] == '>' && str[1] == '>' && str[2] == '|')
-		ft_printf("minishell: syntax error near unexpected token `|'\n");
-	return (*head);	//spaties ertussen nog toevoegen
 }

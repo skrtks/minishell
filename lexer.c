@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 20:06:58 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 22:01:32 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,6 @@ t_node			*lexer(char *inpt, t_env *env_list)
 
 	i = 0;
 	head = NULL;
-	if (inpt[0] == '|' || inpt[0] == ';' || (inpt[0] == '>' && inpt[1] == '>'))
-		return (invalid_input(inpt, &head));
 	while (inpt[i])
 	{
 		while (inpt[i] == ' ')
