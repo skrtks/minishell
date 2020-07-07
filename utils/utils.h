@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   utils.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/03 14:23:52 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 14:27:44 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,11 @@ void	extend_env_list(char *str, t_env **env_list);
 void	free_cmdlist(t_node **head);
 void	free_envlist(t_env **head);
 void	set_info(int command, int type, t_node *node);
+
+char	*clean(char *str, char *str1, char *str2);
+char	*get_env_string(t_env *env_list, const int *id_len, const char *id, 
+						char *exp);
+char	*get_exp(char *word, int i, t_env *env_list, int *id_len);
+char	*update_str(char *word, int i, char *exp, int id_len);
 
 #endif

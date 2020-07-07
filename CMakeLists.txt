@@ -21,12 +21,11 @@ add_executable(minishell
 		utils/export_utils.c
 		utils/free_utils.c
 		utils/lexer_utils.c
-		utils/lexer_extract_utils.c
 		utils/linkedlist_utils.c
-		utils/lexer_extract_utils.c
 		utils/other_utils.c
 		utils/pipe_utils.c
 		utils/utils.h
+		utils/expand_utils.c
         check_path.c
         execute.c
         execute.h

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 15:49:25 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 20:40:36 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utils/utils.h"
 #include "expand.h"
 
-static char		*extract_from_brackets(const char *input, int *pos)
+static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list)
 {
 	char	b_type;
 	char	*extr;
@@ -27,7 +27,7 @@ static char		*extract_from_brackets(const char *input, int *pos)
 	start = *pos;
 	len = *pos;
 	while (input[len] && (input[len] != b_type
-			|| (input[len] == b_type && input[len - 1] == '\\')))
+			|| (b_type != '\'' && input[len] == b_type && input[len - 1] == '\\')))
 		len++;
 	if (input[len] != b_type)
 	{
@@ -39,6 +39,8 @@ static char		*extract_from_brackets(const char *input, int *pos)
 	if (!extr)
 		return (NULL);
 	*pos += len + 1;
+	if (b_type == '\"')
+	    extr = expand(extr, env_list, 1);
 	return (extr);
 }
 
@@ -56,10 +58,11 @@ static char		*extract_word(char *input, int *pos)
 			input[len - 1] == '\\'))
 		len++;
 	len -= *pos;
-	extr = ft_substr_lexer(input, *pos, len);
+	extr = ft_substr(input, *pos, len);
 	if (!extr)
 		return (NULL);
 	*pos += len;
+	extr = expand(extr, env_list, 0);
 	return (extr);
 }
 
@@ -119,7 +122,7 @@ static int		set_metachar(t_node **head, char *input, int *pos)
 	return (0);
 }
 
-t_node			*lexer(char *inpt)
+t_node			*lexer(char *inpt, t_env *env_list)
 {
 	int		i;
 	char	*cmd;
@@ -133,7 +136,7 @@ t_node			*lexer(char *inpt)
 	{
 		while (inpt[i] == ' ')
 			i++;
-		if (!(cmd = extract_word(inpt, &i)))
+		if (!(cmd = extract_word(inpt, &i, env_list)))
 			return (free_on_error(cmd, head));
 		if (cmd[0])
 			if (new_node(&head, cmd))
