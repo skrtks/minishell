@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/07 12:09:37 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 16:56:04 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, int code)
 			{
 				ft_printf("minishell: exit: %s: numeric argument required\n",\
 				cmd_lst->next->data);
+				g_exitcode = 255;
 				break ;
 			}
 			i++;

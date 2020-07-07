@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 15:46:25 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 15:49:25 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,17 @@ static char		*extract_from_brackets(const char *input, int *pos)
 	if (!extr)
 		return (NULL);
 	*pos += len + 1;
-    expand(&extr, env_list);
 	return (extr);
 }
 
-static char		*extract_word(char *input, int *pos,
-							t_env *env_list)
+static char		*extract_word(char *input, int *pos)
 {
 	char	*extr;
 	int		len;
 
 	if ((input[*pos] == '\''
 		|| input[*pos] == '\"') && input[*pos - 1] != '\\')
-		return (extract_from_brackets(input, pos, env_list));
+		return (extract_from_brackets(input, pos));
 	len = *pos;
 	while (!ft_strchr(" 	|<>;\'\"\0", input[len]) ||
 			(len != 0 && ft_strchr(" 	|<>;\'\"", input[len]) &&
@@ -62,7 +60,6 @@ static char		*extract_word(char *input, int *pos,
 	if (!extr)
 		return (NULL);
 	*pos += len;
-	expand(&extr, env_list);
 	return (extr);
 }
 
