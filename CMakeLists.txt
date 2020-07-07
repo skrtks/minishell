@@ -27,6 +27,7 @@ add_executable(minishell
 		utils/other_utils.c
 		utils/pipe_utils.c
 		utils/utils.h
+		utils/expand_utils.c
         check_path.c
         execute.c
         execute.h

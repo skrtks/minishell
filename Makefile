@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: skorteka <skorteka@student.codam.nl>         +#+                      #
+#    By: sam <sam@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/07/03 14:32:11 by skorteka      ########   odam.nl          #
+#    Updated: 2020/07/07 14:28:04 by sam           ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = builtins/cd.c \
 		utils/free_utils.c \
 		utils/export_utils.c \
 		utils/pipe_utils.c \
+		utils/expand_utils.c \
 	    check_path.c \
 	    execute.c \
 	    lexer.c \
