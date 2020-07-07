@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/07 16:13:48 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 16:30:54 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 char		*do_expansion(char *word, int i, t_env *env_list)
 {
 	char *exp;
-	
+    char *new_word;
+
 	int id_len;
 
 	if (word[i + 1] == '?')
@@ -32,7 +33,7 @@ char		*do_expansion(char *word, int i, t_env *env_list)
 	}
 	if (!exp)
 		return (NULL);
-	char *new_word = update_str(word, i, exp, id_len);
+	new_word = update_str(word, i, exp, id_len);
 	return (new_word);
 }
 
@@ -112,9 +113,10 @@ char			*expand(char *word, t_env *env_list)
 			word = do_expansion(word, i, env_list);
 		else if ((i == 0 && word[i] == '~') || (i != 0 && word[i] == '~' && word[i - 1] != '\\'))
 			word = do_expansion(word, i, env_list);
+		else
+			i++;
 		if (!word)
 			return (NULL);
-		i++;
 	}
 	word = remove_backslash(word);
 	return (word);

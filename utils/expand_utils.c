@@ -32,7 +32,7 @@ char		*get_env_string(t_env *env_list, const int *id_len, const char *id, char *
 			env_list->data[*id_len - 1] == '=')
 		{
 			free(exp);
-			exp = ft_strdup(env_list->data + *id_len + 1);
+			exp = ft_strdup(env_list->data + *id_len);
 			break ;
 		}
 		env_list = env_list->next;
