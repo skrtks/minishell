@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/06 15:55:26 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 11:20:37 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_node			*lexer(char *input)
 
 	i = 0;
 	head = NULL;
-	if (input[0] == '|' || input[0] == ';' || input[0] == '<')
+	if (input[0] == '|' || input[0] == ';'|| (input[0] == '>' && input[1] == '>'))
 		return (invalid_input(input, &head));
 	while (input[i])
 	{

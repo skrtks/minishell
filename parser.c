@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/06 16:04:52 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 11:29:47 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,25 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-t_node	*execute_cmd(t_node *node, t_lists **list)
+t_node	*check_redir_input(t_node *node)
 {
 	struct stat buf;
-
-	if (node->type == REDIR)
+	if (node->next == NULL)
 	{
-		if (node->next == NULL)
-		{
-			ft_printf("minishell: syntax error near unexpected token `newline'\n");
-			return (node);
-		}
-		if (node->command == ARROW_LEFT)
-			if (stat(node->next->data, &buf) == -1)
-				ft_printf("minishell: %s: No such file or directory\n", node->next->data);
-		return (node->next->next);
+		ft_printf("minishell: syntax error near unexpected token `newline'\n");
+		return (node);
 	}
-	if (node->command == ECHO)
+	if (node->command == ARROW_LEFT)
+		if (stat(node->next->data, &buf) == -1)
+			ft_printf("minishell: %s: No such file or directory\n", node->next->data);
+	return (node->next->next);
+}
+
+t_node	*execute_cmd(t_node *node, t_lists **list)
+{
+	if (node->type == REDIR)
+		check_redir_input(node);
+	else if (node->command == ECHO)
 		node = echo(node);
 	else if (node->command == CD)
 		node = cd(node, list);
@@ -115,3 +117,6 @@ void	parse(t_node *cmd_list, t_lists **list)
 
 //bovenstaande kan ik wel implementeren, maar is niet echt de moeite waard denk ik
 //en het is veel moeite omdat de norme dan echt in de weg gaat zitten
+
+//het probleem is als er spaties tussen zitten dat ik dan niet
+//head moet returnen
