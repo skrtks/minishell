@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/04 13:11:40 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/07 15:23:38 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <stdlib.h>
+
+int g_exitcode;
 
 typedef struct	s_node
 {
