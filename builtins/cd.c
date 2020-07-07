@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/03 15:34:46 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/04 12:12:24 by skorteka      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_node		*cd(t_node *node, t_lists **list)
 		errno = 0;
 	}
 	new_pwd(list);
-	while (node && node->type != SYMBOL && node->type != REDIR)		//en niet aan SEMICOLON?
+	while (node && node->type != SYMBOL && node->type != REDIR)
 		node = node->next;
 	free(home_dir);
 	return (node);

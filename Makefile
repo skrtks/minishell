@@ -19,12 +19,12 @@ SRCS = builtins/cd.c \
 	    builtins/pwd.c \
 	    builtins/unset.c \
 	    utils/lexer_utils.c \
-	    utils/lexer_extract_utils.c \
 	    utils/linkedlist_utils.c \
 		utils/other_utils.c \
 		utils/free_utils.c \
 		utils/export_utils.c \
 		utils/pipe_utils.c \
+		utils/expand_utils.c \
 	    check_path.c \
 	    execute.c \
 	    lexer.c \
@@ -33,7 +33,7 @@ SRCS = builtins/cd.c \
 		redirection.c \
 		minishell.c \
 	    expand.c \
-		exit_code.c 
+		exit_code.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra -g
 ASANCFLAGS = -I. -Wall -Werror -Wextra -g -fsanitize=address -O1 -fno-omit-frame-pointer

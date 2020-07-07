@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   expand.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/27 16:08:36 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/03 11:39:17 by merelmourik   ########   odam.nl         */
+/*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
+/*   Updated: 2020/07/07 17:21:52 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,104 +14,115 @@
 #include "lexer.h"
 #include "utils/utils.h"
 
-static int	clean(char *str, char *str1, char *str2, int ret_code)
+char		*do_expansion(char *word, int i, t_env *env_list)
 {
-	if (str)
-		free(str);
-	if (str1)
-		free(str1);
-	if (str2)
-		free(str2);
-	return (ret_code);
+	char	*exp;
+	char	*new_word;
+
+	int id_len;
+
+	if (word[i + 1] == '?')
+	{
+		exp = ft_itoa(111);
+		id_len = 2;
+	}
+	else
+	{
+		exp = get_exp(word, i, env_list, &id_len);
+		id_len = (word[i] == '~' ? 1 : id_len);
+	}
+	if (!exp)
+		return (NULL);
+	new_word = update_str(word, i, exp, id_len);
+	return (new_word);
 }
 
-static int	do_expan(t_node *cmd_ptr, char *id_str, t_env *env_list, int id_len)
+int			len_no_bs(const char *word, int in_quotes)
 {
-	char *id;
-	char *repl_str;
-	char *tmp;
+	int	i;
+	int	len;
 
-	if (!(id = ft_substr(id_str, 0, id_len)))
-		return (1);
-	while (env_list)
+	len = 0;
+	i = 0;
+	while (word[i])
 	{
-		if (!ft_strncmp(env_list->data, id, id_len) &&
-			env_list->data[id_len] == '=')
+		if (word[i + 1] == '\\' && word[i] == '\\')
 		{
-			if (!(repl_str = ft_substr(env_list->data, id_len + 1,
-								ft_strlen(env_list->data + id_len + 1))))
-				return (clean(id, NULL, NULL, 1));
-			tmp = ft_strdup(cmd_ptr->data);
-			free(cmd_ptr->data);
-			if (!(cmd_ptr->data = ft_strjoin(repl_str, tmp)))
-				return (clean(id, repl_str, tmp, 1));
-			clean(repl_str, tmp, NULL, 0);
-			break ;
+			len++;
+			i++;
 		}
-		env_list = env_list->next;
+		else if (word[i] != '\\' || (in_quotes && (word[i + 1] != '$') &&
+				word[i + 1] != '\"'))
+			len++;
+		i++;
 	}
-	free(id);
-	return (0);
+	return len;
 }
 
-static int	do_tilde_expansion(t_node *cmd_ptr, t_env *env_list)
+char		*copy_no_bs(char *word, char *new_word, int in_quotes) 
 {
-	char *path;
-	char *repl_str;
+	int	i;
+	int	len;
 
-	if (cmd_ptr->data[1] != '\0' && ft_strchr("@^*+[]{},.?", cmd_ptr->data[1]))
-		return (0);
-	path = NULL;
-	while (env_list)
-	{
-		if (!ft_strncmp("HOME=", env_list->data, 5))
+	len = 0;
+	i = 0;
+	while (word[i])
+	{	
+		if (word[i + 1] == '\\' && word[i] == '\\')
 		{
-			if (!(path = ft_strdup(env_list->data + 5)))
-				return (1);
-			break ;
+			new_word[len] = word[i];
+			len++;
+			i++;
 		}
-		env_list = env_list->next;
+		else if (word[i] != '\\' || (in_quotes && (word[i + 1] != '$') &&
+				word[i + 1] != '\"'))
+		{
+			new_word[len] = word[i];
+			len++;
+		}
+		i++;
 	}
-	if (!(repl_str = ft_strjoin(path, cmd_ptr->data + 1)))
-		return (clean(path, NULL, NULL, 1));
-	free(cmd_ptr->data);
-	cmd_ptr->data = repl_str;
-	if (path)
-		free(path);
-	return (0);
+	new_word[len] = '\0';
+	free (word);
+	return (new_word);
 }
 
-int			expand(t_node *node, t_env *env_list)
+char		*remove_backslash(char *word, int in_quotes)
 {
-	int		id_len;
-	char	*id_str;
-	t_node	*cmd_ptr;
-	t_env	*env_head;
+	int		len;
+	char	*new_word;
 
-	cmd_ptr = node;
-	env_head = env_list;
-	while (cmd_ptr)
+	len = len_no_bs(word, in_quotes);
+	if (!(new_word = malloc(sizeof(char) * (len + 1))))
 	{
-		env_list = env_head;
-		if (cmd_ptr->data[0] == '$' && cmd_ptr->data[1] == '\0')
-			return (0);
-		if (cmd_ptr->data[0] == '~')
-		{
-			if (do_tilde_expansion(cmd_ptr, env_list))
-				return (1);
-		}
-		else if (cmd_ptr->data[0] == '$')
-		{
-			id_len = get_len(cmd_ptr->data + 1);
-			if (!(id_str = ft_strdup(cmd_ptr->data + 1)))
-				return (1);
-			free(cmd_ptr->data);
-			cmd_ptr->data = ft_strdup(id_str + id_len);
-			if (do_expan(cmd_ptr, id_str, env_list, id_len))
-				return (clean(id_str, NULL, NULL, 1));
-			free(id_str);
-		}
-		cmd_ptr = cmd_ptr->next;
+		free(word);
+		return (NULL);
 	}
-	return (0);
+	new_word = copy_no_bs(word, new_word, in_quotes);
+	return (new_word);
+}
+
+char		*expand(char *word, t_env *env_list, int in_quotes)
+{
+	int		i;
+
+	i = 0;
+	while (word[i])
+	{
+		if ((i == 0 && word[i] == '$') || (i != 0 && word[i] == '$' &&
+			word[i - 1] != '\\'))
+			word = do_expansion(word, i, env_list);
+		else if ((i == 0 && word[i] == '$' && word[i + 1] == '?') || (i != 0 &&
+				word[i] == '$' && word[i + 1] == '?' && word[i - 1] != '\\'))
+			word = do_expansion(word, i, env_list);
+		else if (!in_quotes && ((i == 0 && word[i] == '~') ||
+				(i != 0 && word[i] == '~' && word[i - 1] != '\\')))
+			word = do_expansion(word, i, env_list);
+		else
+			i++;
+		if (!word)
+			return (NULL);
+	}
+	word = remove_backslash(word, in_quotes);
+	return (word);
 }
