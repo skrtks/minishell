@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/06 14:50:45 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/06 16:04:52 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 		node = env(node, (*list)->env_list);
 	else if (node->command == EXECUTABLE)
 		node = execute(node, (*list)->env_list);
+	else if (node->command == DOLLAR_QUESTION)
+		node = exit_code(node);
 	else if (node->command == EXIT)
 		exit_shell(node, &(*list)->env_list, &(*list)->export_list, 0);
 	else

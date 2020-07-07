@@ -6,12 +6,14 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/03 10:43:38 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/06 15:55:19 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
+
+# define EXIT_CODE 0
 
 # include <unistd.h>
 # include <stdio.h>
@@ -19,6 +21,8 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <stdlib.h>
+
+int	g_exitcode;
 
 typedef struct	s_node
 {
@@ -76,6 +80,9 @@ typedef enum	e_type
 }				t_type;
 
 char			**free_array(char **array);
+t_node			*invalid_input(char *str, t_node **head);
 t_node			*lexer(char *input);
+
+t_node			*exit_code(t_node *node);
 
 #endif

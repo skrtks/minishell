@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/06 14:46:41 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/06 15:55:26 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,26 +116,6 @@ static int		set_metachar(t_node **head, char *input, int *pos)
 	if (!err)
 		return (1);
 	return (0);
-}
-
-t_node			*invalid_input(char *str, t_node **head)
-{
-	if (str[0] == '<' && str[1] == '|' && str[2] == '|')
-		ft_printf("minishell: syntax error near unexpected token `||'\n");
-	else if ((str[0] == '|' && str[1] != '|') || \
-		(str[0] == '<' && str[1] == '|'))
-		ft_printf("minishell: syntax error near unexpected token `|'\n");
-	else if (str[0] == '|' && str[1] == '|')
-		ft_printf("minishell: syntax error near unexpected token `||'\n");
-	else if (str[0] == ';' && str[1] != ';')
-		ft_printf("minishell: syntax error near unexpected token `;'\n");
-	else if (str[0] == ';' && str[1] == ';')
-		ft_printf("minishell: syntax error near unexpected token `;;'\n");
-	else if (str[0] == '<' && str[1] == '<' && str[2] == '|' && str[3] == '|')
-		ft_printf("minishell: syntax error near unexpected token `||'\n");
-	else if (str[0] == '<' && str[1] == '<' && str[2] == '|')
-		ft_printf("minishell: syntax error near unexpected token `|'\n");
-	return (*head);
 }
 
 t_node			*lexer(char *input)
