@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/07 17:12:40 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 17:21:52 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,14 @@ char		*expand(char *word, t_env *env_list, int in_quotes)
 	i = 0;
 	while (word[i])
 	{
-		if ((i == 0 && word[i] == '$') || (i != 0 && word[i] == '$' && word[i - 1] != '\\'))
+		if ((i == 0 && word[i] == '$') || (i != 0 && word[i] == '$' &&
+			word[i - 1] != '\\'))
 			word = do_expansion(word, i, env_list);
-		else if ((i == 0 && word[i] == '$' && word[i + 1] == '?') || (i != 0 && word[i] == '$' && word[i + 1] == '?' && word[i - 1] != '\\'))
+		else if ((i == 0 && word[i] == '$' && word[i + 1] == '?') || (i != 0 &&
+				word[i] == '$' && word[i + 1] == '?' && word[i - 1] != '\\'))
 			word = do_expansion(word, i, env_list);
-		else if (!in_quotes && ((i == 0 && word[i] == '~') || (i != 0 && word[i] == '~' && word[i - 1] != '\\')))
+		else if (!in_quotes && ((i == 0 && word[i] == '~') ||
+				(i != 0 && word[i] == '~' && word[i - 1] != '\\')))
 			word = do_expansion(word, i, env_list);
 		else
 			i++;
