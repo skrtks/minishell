@@ -47,27 +47,26 @@ int		main(int argc, char **argv, char **envp)
 	t_node	*command_list;
 	t_lists	*list;
 
-	list = get_env(envp);
+	if (!(list = get_env(envp)))
+		exit(1);
 	// signal(SIGINT, sig_handler);
 	// signal(SIGQUIT, sig_handler);
 	// signal(SIGTSTP, sig_handler);
-	if (!list)
-	{
-		printf("Error starting, env could not be loaded. \nTerminating...\n");
-		exit(1);
-	}
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
-		ret = get_next_line(0, &input);
-		if (ret == -1)
+		if (!(ret = get_next_line(0, &input)))
 		{
 			errno = 0;
 			break ;
 		}
 		if ((command_list = lexer(input, list->env_list)))
 			parse(command_list, &list);
-			// if (!expand(command_list, list->env_list))
+		else
+		{
+			errno = 0;
+			break ;
+		}
 		free(input);
 		input = NULL;
 		free_cmdlist(&command_list);

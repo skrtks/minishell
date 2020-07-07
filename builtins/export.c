@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/03 21:59:29 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 21:37:26 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 	while (node->next != NULL && node->type != SYMBOL && node->type != REDIR)
 	{
 		node = node->next;
-		temp = ft_strdup(node->data);
+		if (!(temp = ft_strdup(node->data)))
+			return (NULL);
 		i = check_existence_exp(node->data, &(*list)->export_list);
 		check_input(node);
 		if (check_equal_sign(node->data) > 0)
@@ -103,7 +104,8 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 			if (node->next != NULL)
 			{
 				free(temp);
-				temp = ft_strjoin(node->data, node->next->data);
+				if (!(temp = ft_strjoin(node->data, node->next->data)))
+					return (NULL);
 				node = node->next;
 			}
 			check_existence_env(temp, &(*list)->env_list);

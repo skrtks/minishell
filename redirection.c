@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/06 14:31:00 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 21:42:57 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ static int	open_file(t_node *cmd_list)
 		return (open(cmd_list->next->data, O_RDWR | O_CREAT | O_TRUNC, 0644));
 	if (cmd_list->command == ARROW_DOUBLE)
 		return (open(cmd_list->next->data, O_RDWR | O_CREAT | O_APPEND, 0644));
-	return (0);			//error van maken
+	return (-1);
 }
 
 void		fd_error(void)
 {
 	ft_printf("Error: %s\n", strerror(errno));
+	g_exitcode = 2;
 	errno = 0;
 }
 
@@ -77,7 +78,9 @@ void		redirection(t_node *cmd_list)
 		cmd_list = cmd_list->next;
 	}
 	if (fd_in)
-		dup2(fd_in, 0);
+		if (!(dup2(fd_in, 0)))
+			errno = 0;
 	if (fd_out)
-		dup2(fd_out, 1);
+		if (!(dup2(fd_out, 1)))
+			errno = 0;
 }
