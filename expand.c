@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/07 16:35:30 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 17:12:40 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*do_expansion(char *word, int i, t_env *env_list)
 	return (new_word);
 }
 
-int			len_no_bs(const char *word)
+int			len_no_bs(const char *word, int in_quotes)
 {
 	int	i;
 	int	len;
@@ -51,14 +51,15 @@ int			len_no_bs(const char *word)
 			len++;
 			i++;
 		}
-		else if (word[i] != '\\')
+		else if (word[i] != '\\' || (in_quotes && (word[i + 1] != '$') &&
+				word[i + 1] != '\"'))
 			len++;
 		i++;
 	}
 	return len;
 }
 
-char		*copy_no_bs(char *word, char *new_word) 
+char		*copy_no_bs(char *word, char *new_word, int in_quotes) 
 {
 	int	i;
 	int	len;
@@ -66,14 +67,15 @@ char		*copy_no_bs(char *word, char *new_word)
 	len = 0;
 	i = 0;
 	while (word[i])
-	{
+	{	
 		if (word[i + 1] == '\\' && word[i] == '\\')
 		{
 			new_word[len] = word[i];
 			len++;
 			i++;
 		}
-		else if (word[i] != '\\')
+		else if (word[i] != '\\' || (in_quotes && (word[i + 1] != '$') &&
+				word[i + 1] != '\"'))
 		{
 			new_word[len] = word[i];
 			len++;
@@ -85,22 +87,22 @@ char		*copy_no_bs(char *word, char *new_word)
 	return (new_word);
 }
 
-char		*remove_backslash(char *word)
+char		*remove_backslash(char *word, int in_quotes)
 {
 	int		len;
 	char	*new_word;
 
-	len = len_no_bs(word);
+	len = len_no_bs(word, in_quotes);
 	if (!(new_word = malloc(sizeof(char) * (len + 1))))
 	{
 		free(word);
 		return (NULL);
 	}
-	new_word = copy_no_bs(word, new_word);
+	new_word = copy_no_bs(word, new_word, in_quotes);
 	return (new_word);
 }
 
-char		*expand(char *word, t_env *env_list)
+char		*expand(char *word, t_env *env_list, int in_quotes)
 {
 	int		i;
 
@@ -111,13 +113,13 @@ char		*expand(char *word, t_env *env_list)
 			word = do_expansion(word, i, env_list);
 		else if ((i == 0 && word[i] == '$' && word[i + 1] == '?') || (i != 0 && word[i] == '$' && word[i + 1] == '?' && word[i - 1] != '\\'))
 			word = do_expansion(word, i, env_list);
-		else if ((i == 0 && word[i] == '~') || (i != 0 && word[i] == '~' && word[i - 1] != '\\'))
+		else if (!in_quotes && ((i == 0 && word[i] == '~') || (i != 0 && word[i] == '~' && word[i - 1] != '\\')))
 			word = do_expansion(word, i, env_list);
 		else
 			i++;
 		if (!word)
 			return (NULL);
 	}
-	word = remove_backslash(word);
+	word = remove_backslash(word, in_quotes);
 	return (word);
 }

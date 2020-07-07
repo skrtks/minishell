@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 16:40:48 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 17:07:59 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list
 		return (NULL);
 	*pos += len + 1;
 	if (b_type == '\"')
-	    extr = expand(extr, env_list);
+	    extr = expand(extr, env_list, 1);
 	return (extr);
 }
 
@@ -63,7 +63,7 @@ static char		*extract_word(char *input, int *pos,
 	if (!extr)
 		return (NULL);
 	*pos += len;
-	extr = expand(extr, env_list);
+	extr = expand(extr, env_list, 0);
 	return (extr);
 }
 
