@@ -6,7 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/06 15:24:02 by merelmourik   #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2020/07/07 15:23:19 by merelmourik   ########   odam.nl         */
+=======
+/*   Updated: 2020/07/07 11:54:05 by merelmourik   ########   odam.nl         */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 

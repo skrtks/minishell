@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/03 14:40:44 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 12:39:35 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,34 @@
 #include "expand.h"
 #include "./libft/libft.h"
 #include "pipe.h"
+#include <fcntl.h>
+#include <sys/stat.h>
+
+t_node	*check_redir_input(t_node *node)
+{
+	struct stat buf;
+
+	if (node->next == NULL)
+	{
+		ft_printf("minishell: syntax error near unexpected token `newline'\n");
+		return (node);
+	}
+	if (node->command == ARROW_LEFT)
+		if (stat(node->next->data, &buf) == -1)
+			ft_printf("minishell: %s: No such file or directory\n", node->next->data);
+	return (node->next->next);
+	// if (str[0] == '<' && str[1] == '|' && str[2] == '|')
+	// 	ft_printf("minishell: syntax error near unexpected token `||'\n");
+// 		ft_printf("minishell: syntax error near unexpected token `|'\n");
+// 	else if (str[0] == '>' && str[1] == '|')
+		// ft_printf("minishell: syntax error near unexpected token `newline'\n");
+}
 
 t_node	*execute_cmd(t_node *node, t_lists **list)
 {
-	if (node->command == ECHO)
+	if (node->type == REDIR)
+		check_redir_input(node);
+	else if (node->command == ECHO)
 		node = echo(node);
 	else if (node->command == CD)
 		node = cd(node, list);
@@ -34,6 +58,8 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 		node = env(node, (*list)->env_list);
 	else if (node->command == EXECUTABLE)
 		node = execute(node, (*list)->env_list);
+	else if (node->command == DOLLAR_QUESTION)
+		node = exit_code(node);
 	else if (node->command == EXIT)
 		exit_shell(node, &(*list)->env_list, &(*list)->export_list, 0);
 	else
@@ -42,11 +68,11 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 			node = execute(node, (*list)->env_list);
 		else
 		{
-			node = node->next; // Skip to end or next semicolon
-			write(1, "Command not recognized\n", 23);
+			node = node->next;		//hier kunnen we als we willen makkelijke een syntax error van maken| 
+			ft_printf("Command not found\n");
 		}
 	}
-	if (node && node->type == REDIR)		//is dit nodig?
+	if (node && node->type == REDIR)
 		while (node && node->type != SYMBOL)
 			node = node->next;
 	return (node);

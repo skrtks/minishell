@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/04 14:52:49 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/07 15:46:25 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utils/utils.h"
 #include "expand.h"
 
-static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list)
+static char		*extract_from_brackets(const char *input, int *pos)
 {
 	char	b_type;
 	char	*extr;
@@ -55,7 +55,7 @@ static char		*extract_word(char *input, int *pos,
 	len = *pos;
 	while (!ft_strchr(" 	|<>;\'\"\0", input[len]) ||
 			(len != 0 && ft_strchr(" 	|<>;\'\"", input[len]) &&
-			input[len -1] == '\\'))
+			input[len - 1] == '\\'))
 		len++;
 	len -= *pos;
 	extr = ft_substr_lexer(input, *pos, len);
@@ -122,7 +122,7 @@ static int		set_metachar(t_node **head, char *input, int *pos)
 	return (0);
 }
 
-t_node			*lexer(char *input, t_env *env_list)
+t_node			*lexer(char *inpt)
 {
 	int		i;
 	char	*cmd;
@@ -130,18 +130,20 @@ t_node			*lexer(char *input, t_env *env_list)
 
 	i = 0;
 	head = NULL;
-	while (input[i])
+	if (inpt[0] == '|' || inpt[0] == ';' || (inpt[0] == '>' && inpt[1] == '>'))
+		return (invalid_input(inpt, &head));
+	while (inpt[i])
 	{
-		while (input[i] == ' ')
+		while (inpt[i] == ' ')
 			i++;
-		if (!(cmd = extract_word(input, &i, env_list)))
+		if (!(cmd = extract_word(inpt, &i)))
 			return (free_on_error(cmd, head));
 		if (cmd[0])
 			if (new_node(&head, cmd))
 				return (free_on_error(cmd, head));
-		if (check_spec_char("|<>;", input[i]))
+		if (check_spec_char("|<>;", inpt[i]))
 		{
-			if (!set_metachar(&head, input, &i))
+			if (!set_metachar(&head, inpt, &i))
 				return (free_on_error(cmd, head));
 		}
 		free(cmd);

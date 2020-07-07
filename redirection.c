@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/03 11:31:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/06 14:31:00 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void		redirection(t_node *cmd_list)
 	int		fd_out;
 	int		fd_in;
 
+	if (cmd_list->type == REDIR && cmd_list->next == NULL)
+		return ;
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
 		if (cmd_list->type == REDIR)
@@ -79,8 +81,3 @@ void		redirection(t_node *cmd_list)
 	if (fd_out)
 		dup2(fd_out, 1);
 }
-
-//als je dup2 en close protect, geeft hij een error melding
-//dit doe ik met if(fd), blijkbaar werkt dat niet goed
-//hoe kan je dit dan wel protecten, ook op andere plaatsen
-//in de code naar kijken.
