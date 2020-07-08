@@ -6,42 +6,47 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/08 10:51:00 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 12:02:00 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "utils/utils.h"
 
-void	exit_shell(t_node *cmd_lst, t_env **env_lst, t_env **exp_lst, int code)
+static void	invalid_exit(t_node *cmd_lst)
+{
+	ft_printf("minishell: exit: %s: numeric argument required\n",\
+	cmd_lst->next->data);
+	g_exitcode = 255;
+	return ;
+}
+
+void		exit_shell(t_node *cmd, t_env **env, t_env **exp, int code)
 {
 	int i;
 
 	ft_printf("exit\n");
-	if (cmd_lst && cmd_lst->next)
+	if (cmd && cmd->next)
 	{
 		i = 0;
-		while (cmd_lst->next->data[i])
+		while (cmd->next->data[i])
 		{
-			if (!ft_isdigit(cmd_lst->next->data[i]))
+			g_exitcode = 0;
+			if (!ft_isdigit(cmd->next->data[i]))
 			{
-				ft_printf("minishell: exit: %s: numeric argument required\n",\
-				cmd_lst->next->data);
-				g_exitcode = 255;
+				invalid_exit(cmd);
 				break ;
 			}
 			i++;
 		}
-		code = ft_atoi(cmd_lst->next->data);
+		code = (ft_atoi(cmd->next->data));
 	}
-	if (env_lst)
-		free_envlist(env_lst);
-	if (exp_lst)
-		free_envlist(exp_lst);
-	if (cmd_lst)
-		free_cmdlist(&cmd_lst);
+	if (env)
+		free_envlist(env);
+	if (exp)
+		free_envlist(exp);
+	if (cmd)
+		free_cmdlist(&cmd);
 	system("leaks minishell"); // Remove before submitting
 	exit(code);
 }
-
-//255> check
