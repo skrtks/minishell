@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/07 21:21:24 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 11:11:39 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,11 @@ t_node		*cd(t_node *node, t_lists **list)
 
 	if (old_pwd(list) == -1)
 		return (NULL);
-	if (!(home_dir = get_homedir((*list)->env_list)))				//welke error code?
+	if (!(home_dir = get_homedir((*list)->env_list)))
+	{
+		g_exitcode = 12;
 		return (NULL);
+	}
 	path = home_dir;
 	if (node && node->next && node->next->data[0] != '\0')
 	{
@@ -109,4 +112,3 @@ t_node		*cd(t_node *node, t_lists **list)
 	free(home_dir);
 	return (node);
 }
-//pwd komt nu onderaan de env list te staan ipv ergens in het midden

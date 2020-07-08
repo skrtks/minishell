@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 21:55:39 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 11:33:41 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 			node = execute(node, (*list)->env_list);
 		else
 		{
-			node = node->next;		//hier kunnen we als we willen makkelijke een syntax error van maken| 
-			ft_printf("Command not found\n");
+            ft_printf("minishell: %s: Command not found\n", node->data);
+			node = node->next;
 			g_exitcode = 127;
 		}
 	}
