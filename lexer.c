@@ -20,11 +20,9 @@ static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list
 	char	b_type;
 	char	*extr;
 	int		len;
-	int		start;
 
 	b_type = input[*pos];
 	*pos += 1;
-	start = *pos;
 	len = *pos;
 	while (input[len] && (input[len] != b_type
 			|| (b_type != '\'' && input[len] == b_type && input[len - 1] == '\\')))
