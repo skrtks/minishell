@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 12:38:33 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 13:15:48 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		populate_node(char *cmd, t_node *node)
 	node->data = ft_strdup(cmd);
 	if (!node->data)
 	{
-		ft_printf("Error parsing command, try again.\n");
+		g_exitcode = 12;
 		return (1);
 	}
 	if (!ft_strncmp(cmd, "echo", 5))

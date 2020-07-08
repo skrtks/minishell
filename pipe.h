@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/03 11:30:45 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 13:28:16 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "lexer.h"
 
 int		count_pipes(t_node *cmd_list);
-int		execute_in_pipe(t_node **ptr, int n_pipes, t_lists **list, int *fds);
+t_node	*execute_in_pipe(t_node **ptr, int n_pipes, t_lists **list, int *fds);
 int		setup_pipes(int n_pipes, int **fds);
 int		skip_to_cmd(t_node **ptr, int cmd_index);
 

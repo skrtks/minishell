@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/08 13:00:05 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 14:01:01 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 		node = node->next;
 		temp = node->data;
 		i = check_existence_exp(node->data, &(*list)->export_list);
-		check_input(node);			//verplaatsen
+		check_input(node);
 		if (check_equal_sign(node->data) > 0)
 		{
 			if (node->next != NULL)
@@ -118,9 +118,8 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 			if (add_env_node(&(*list)->env_list, temp) == -1)
 				return (clean_exit_export(node, 12));
 		}
-		if (i != -1)
-			if (add_export_node(&(*list)->export_list, temp) == -1)
-				return (clean_exit_export(node, 12));
+		if (i != -1 && (add_export_node(&(*list)->export_list, temp) == -1))
+			return (clean_exit_export(node, 12));
 	}
 	return (node->next);
 }

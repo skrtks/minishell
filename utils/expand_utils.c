@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   expand_utils.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 14:25:50 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/07 16:34:41 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/08 13:14:06 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "utils/utils.h"
 
-char		*clean(char *str, char *str1, char *str2)
+char	*clean(char *str, char *str1, char *str2)
 {
 	if (str)
 		free(str);
@@ -24,7 +24,8 @@ char		*clean(char *str, char *str1, char *str2)
 		free(str2);
 	return (NULL);
 }
-char		*get_env_string(t_env *env_list, const int *id_len, const char *id, char *exp)
+
+char	*get_env_string(t_env *env_list, const int *id_len, const char *id, char *exp)
 {
 	while (env_list)
 	{
@@ -37,7 +38,7 @@ char		*get_env_string(t_env *env_list, const int *id_len, const char *id, char *
 		}
 		env_list = env_list->next;
 	}
-	return exp;
+	return (exp);
 }
 char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 {

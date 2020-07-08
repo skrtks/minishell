@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 13:30:21 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/03 11:10:19 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 14:03:20 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@ int		count_pipes(t_node *cmd_list)
 		cmd_list = cmd_list->next;
 	}
 	return (n);
-}
-
-void	exit_on_error(int *fds)
-{
-	if (fds)
-		free(fds);
-	ft_printf("%s\n", strerror(errno));
-	exit(1);
 }
 
 void	close_fds(int n_pipes, const int *fds)

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/07 10:13:56 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 13:57:56 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_node	*echo(t_node *node)
 	int flag;
 
 	flag = 0;
+	g_exitcode = 0;
 	node = node->next;
 	if (node && node->command == N)
 	{

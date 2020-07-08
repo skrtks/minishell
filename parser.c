@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/08 11:33:41 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 13:56:59 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,13 @@ void	parse(t_node *cmd_list, t_lists **list)
 	n_redirections = count_redirections(cmd_list);
 	while (ptr)
 	{
-		if (ptr->command != QUATATION_MARK)// && ptr->next->command != QUATATION_MARK)		//naar execute_cmd?
-			g_exitcode = 0;
 		if (n_redirections)
 			redirection(ptr);
 		if (n_pipes)
 		{
 			if (setup_pipes(n_pipes, &fds))
 				return ;		//error van maken
-			execute_in_pipe(&ptr, n_pipes, list, fds); // Check error?
+			ptr = execute_in_pipe(&ptr, n_pipes, list, fds);
 		}
 		else
 			ptr = execute_cmd(ptr, list);
