@@ -43,9 +43,7 @@ char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 {
 	char	*id;
 	char	*exp;
-	t_env	*head;
 
-	head = env_list;
 	*id_len = 1;
 	while (ft_isalpha(word[i + *id_len]) || word[i + *id_len] == '_')
 		(*id_len)++;
@@ -55,7 +53,6 @@ char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 	if (!id || !exp)
 		return (clean(NULL, id, exp));
 	exp = get_env_string(env_list, id_len, id, exp);
-	env_list = head;
 	free(id);
 	return (exp);
 }
