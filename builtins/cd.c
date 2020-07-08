@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/08 11:11:39 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 11:44:54 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <string.h>
 
-static char	*get_homedir(t_env *env_list)
+static char		*get_homedir(t_env *env_list)
 {
 	char	*home_dir;
 	t_env	*ptr;
@@ -31,7 +31,7 @@ static char	*get_homedir(t_env *env_list)
 	return (home_dir);
 }
 
-static int	old_pwd(t_lists **list)
+static int		old_pwd(t_lists **list)
 {
 	char *path;
 	char *pwd;
@@ -54,7 +54,7 @@ static int	old_pwd(t_lists **list)
 	return (0);
 }
 
-static int	new_pwd(t_lists **list)
+static int		new_pwd(t_lists **list)
 {
 	char *path;
 	char *pwd;
@@ -76,18 +76,31 @@ static int	new_pwd(t_lists **list)
 	return (0);
 }
 
-t_node		*cd(t_node *node, t_lists **list)
+static t_node	*clean_exit(t_node *node, int exit, char **home_dir)
+{
+	if (exit != -1)
+		g_exitcode = exit;
+	if (exit == 1)
+	{
+		errno = 2;
+		ft_printf("minishell: cd: %s: %s\n", node->data, strerror(errno));
+	}
+	if (home_dir)
+		free(*home_dir);
+	while (node && node->type != SYMBOL && node->type != REDIR)
+		node = node->next;
+	return (node);
+}
+
+t_node			*cd(t_node *node, t_lists **list)
 {
 	char *home_dir;
 	char *path;
 
 	if (old_pwd(list) == -1)
-		return (NULL);
+		return (clean_exit(node, -1, NULL));
 	if (!(home_dir = get_homedir((*list)->env_list)))
-	{
-		g_exitcode = 12;
-		return (NULL);
-	}
+		return (clean_exit(node, 12, &home_dir));
 	path = home_dir;
 	if (node && node->next && node->next->data[0] != '\0')
 	{
@@ -95,20 +108,10 @@ t_node		*cd(t_node *node, t_lists **list)
 		path = node->data;
 	}
 	if (chdir(path) == -1)
-	{
-		ft_printf("minishell: cd: %s: %s\n", node->data, strerror(errno));
-		g_exitcode = 1;
-		errno = 0;
-	}
+		return (clean_exit(node, 1, &home_dir));
 	else
 		g_exitcode = 0;
 	if (new_pwd(list) == -1)
-	{
-		free(home_dir);
-		return (NULL);
-	}
-	while (node && node->type != SYMBOL && node->type != REDIR)
-		node = node->next;
-	free(home_dir);
-	return (node);
+		return (clean_exit(node, -1, NULL));
+	return (clean_exit(node, 0, &home_dir));
 }
