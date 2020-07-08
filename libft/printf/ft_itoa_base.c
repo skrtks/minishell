@@ -93,7 +93,6 @@ char			*itoa_b_uns(unsigned long long value, int base)
 {
 	char				*set;
 	char				*ptr;
-	unsigned long long	num;
 
 	ptr = malloc((ft_length_uns(value, base) + 1) * sizeof(char));
 	if (!ptr)
@@ -101,7 +100,6 @@ char			*itoa_b_uns(unsigned long long value, int base)
 	set = "0123456789abcdef";
 	ptr += ft_length_uns(value, base);
 	*ptr = '\0';
-	num = value;
 	value *= ((value < 0 && base == 10) ? -1 : 1);
 	if (value == 0)
 	{
