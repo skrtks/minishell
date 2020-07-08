@@ -60,7 +60,6 @@ static ssize_t	scan_next_line(int fd, char **buf, char **line, char **result)
 				return (read_out < 0 ? -1 : 0);
 			}
 			nl_index = get_index(*buf, '\n');
-			b_index = 0;
 			(*buf)[read_out] = '\0';
 		}
 		b_index = join_output(result, *buf, nl_index);
