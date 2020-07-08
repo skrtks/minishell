@@ -68,8 +68,8 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 			node = execute(node, (*list)->env_list);
 		else
 		{
-			node = node->next;		//hier kunnen we als we willen makkelijke een syntax error van maken| 
-			ft_printf("Command not found\n");
+            ft_printf("minishell: %s: Command not found\n", node->data);
+			node = node->next; //hier kunnen we als we willen makkelijke een syntax error van maken;
 		}
 	}
 	if (node && node->type == REDIR)
