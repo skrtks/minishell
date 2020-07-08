@@ -67,9 +67,9 @@ void	parse(t_node *cmd_list, t_lists **list)
 	ori_out = dup(1);
 	ori_in = dup(0);
 	ptr = cmd_list;
-	n_pipes = count_pipes(cmd_list);
 	while (ptr)
 	{
+		n_pipes = count_pipes(ptr);
 		if (redirection(ptr) != 1)
 		{
 			if (n_pipes && ptr)
@@ -88,7 +88,6 @@ void	parse(t_node *cmd_list, t_lists **list)
 		}
 		if (ptr && (ptr->type == SYMBOL || ptr->type == REDIR))
 			ptr = ptr->next;
-		n_pipes = 0;
 	}
 	dup2(ori_out, 1);
 	dup2(ori_in, 0);
