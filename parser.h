@@ -18,7 +18,7 @@
 void	parse (t_node *cmd_list, t_lists **list);
 int		check_for_path(char **cmd, t_env *env_list);
 t_node	*execute_cmd(t_node *node, t_lists **list);
-void	redirection(t_node *cmd_list);
+int redirection(t_node *cmd_list);
 void	reset_fd(int *std);
 int		new_node(t_node **head, char *cmd);
 int		count_redirections(t_node *cmd_list);

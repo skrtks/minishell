@@ -42,7 +42,6 @@ static void	old_pwd(t_lists **list)
 	add_env_node(&(*list)->env_list, pwd);
 	free(path);
 	free(pwd);
-	return ;
 }
 
 static void	new_pwd(t_lists **list)
@@ -56,7 +55,6 @@ static void	new_pwd(t_lists **list)
 	add_env_node(&(*list)->env_list, pwd);
 	free(path);
 	free(pwd);
-	return ;
 }
 
 t_node		*cd(t_node *node, t_lists **list)

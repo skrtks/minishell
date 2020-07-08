@@ -13,6 +13,7 @@
 #include <fcntl.h>
 #include "libft/libft.h"
 #include <string.h>
+#include <sys/stat.h>
 #include "parser.h"
 
 int			count_redirections(t_node *cmd_list)
@@ -38,46 +39,57 @@ static int	open_file(t_node *cmd_list)
 	return (0);			//error van maken
 }
 
-void		fd_error(void)
+int		fd_error(void)
 {
 	ft_printf("Error: %s\n", strerror(errno));
 	errno = 0;
+	return (1);
 }
 
-static void	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
+static int	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 {
+	struct stat buf;
+
+	if (cmd_list->command == ARROW_LEFT)
+		if (stat(cmd_list->next->data, &buf) == -1)
+		{
+			ft_printf("minishell: %s: No such file or directory\n", cmd_list->next->data);
+			return (1); // Exit code? in bash 1 bij deze error
+		}
 	if (cmd_list->command == ARROW_LEFT)
 	{
 		if (*fd_in)
 			close(*fd_in);
 		if (!(*fd_in = open(cmd_list->next->data, O_RDONLY)))
-			fd_error();
+			return (fd_error());
 	}
 	else
 	{
 		if (*fd_out)
 			close(*fd_out);
 		if (!(*fd_out = open_file(cmd_list)))
-			fd_error();
+			return (fd_error());
 	}
-	return ;
+	return (0);
 }
 
-void		redirection(t_node *cmd_list)
+int redirection(t_node *cmd_list)
 {
 	int		fd_out;
 	int		fd_in;
 
 	if (cmd_list->type == REDIR && cmd_list->next == NULL)
-		return ;
+		return (1);
 	while (cmd_list && cmd_list->command != SEMICOLON)
 	{
 		if (cmd_list->type == REDIR)
-			redirect(cmd_list, &fd_in, &fd_out);
+			if (redirect(cmd_list, &fd_in, &fd_out) == 1)
+				return (1);
 		cmd_list = cmd_list->next;
 	}
 	if (fd_in)
 		dup2(fd_in, 0);
 	if (fd_out)
 		dup2(fd_out, 1);
+	return (0);
 }

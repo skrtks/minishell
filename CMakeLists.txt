@@ -39,6 +39,7 @@ add_executable(minishell
 		expand.c
 		expand.h
 		exit_code.c
-		redirection.c)
+		redirection.c
+		check.c)
 
 target_link_libraries(minishell PUBLIC libft printf)

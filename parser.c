@@ -20,31 +20,9 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-t_node	*check_redir_input(t_node *node)
-{
-	struct stat buf;
-
-	if (node->next == NULL)
-	{
-		ft_printf("minishell: syntax error near unexpected token `newline'\n");
-		return (node);
-	}
-	if (node->command == ARROW_LEFT)
-		if (stat(node->next->data, &buf) == -1)
-			ft_printf("minishell: %s: No such file or directory\n", node->next->data);
-	return (node->next->next);
-	// if (str[0] == '<' && str[1] == '|' && str[2] == '|')
-	// 	ft_printf("minishell: syntax error near unexpected token `||'\n");
-// 		ft_printf("minishell: syntax error near unexpected token `|'\n");
-// 	else if (str[0] == '>' && str[1] == '|')
-		// ft_printf("minishell: syntax error near unexpected token `newline'\n");
-}
-
 t_node	*execute_cmd(t_node *node, t_lists **list)
 {
-	if (node->type == REDIR)
-		check_redir_input(node);
-	else if (node->command == ECHO)
+	if (node->command == ECHO)
 		node = echo(node);
 	else if (node->command == CD)
 		node = cd(node, list);
@@ -82,7 +60,6 @@ void	parse(t_node *cmd_list, t_lists **list)
 {
 	t_node	*ptr;
 	int		n_pipes;
-	int		n_redirections;
 	int		*fds;
 	int		ori_out;
 	int		ori_in;
@@ -91,19 +68,24 @@ void	parse(t_node *cmd_list, t_lists **list)
 	ori_in = dup(0);
 	ptr = cmd_list;
 	n_pipes = count_pipes(cmd_list);
-	n_redirections = count_redirections(cmd_list);
 	while (ptr)
 	{
-		if (n_redirections)
-			redirection(ptr);
-		if (n_pipes)
+		if (redirection(ptr) != 1)
 		{
-			if (setup_pipes(n_pipes, &fds))
-				return ;		//error van maken
-			execute_in_pipe(&ptr, n_pipes, list, fds); // Check error?
+			if (n_pipes && ptr)
+			{
+				if (setup_pipes(n_pipes, &fds))
+					return ;		//error van maken
+				execute_in_pipe(&ptr, n_pipes, list, fds); // Check error?
+			}
+			else if (ptr)
+				ptr = execute_cmd(ptr, list);
 		}
 		else
-			ptr = execute_cmd(ptr, list);
+		{
+			while (ptr && ptr->command != SEMICOLON)
+				ptr = ptr->next;
+		}
 		if (ptr && (ptr->type == SYMBOL || ptr->type == REDIR))
 			ptr = ptr->next;
 		n_pipes = 0;
