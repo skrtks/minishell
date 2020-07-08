@@ -54,7 +54,7 @@ static int	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 		if (stat(cmd_list->next->data, &buf) == -1)
 		{
 			ft_printf("minishell: %s: No such file or directory\n", cmd_list->next->data);
-			return (1);
+			return (1); // Exit code? in bash 1 bij deze error
 		}
 	if (cmd_list->command == ARROW_LEFT)
 	{

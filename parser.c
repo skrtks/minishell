@@ -83,7 +83,7 @@ void	parse(t_node *cmd_list, t_lists **list)
 		}
 		else
 		{
-			while (ptr && ptr->type != SYMBOL)
+			while (ptr && ptr->command != SEMICOLON)
 				ptr = ptr->next;
 		}
 		if (ptr && (ptr->type == SYMBOL || ptr->type == REDIR))
