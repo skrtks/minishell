@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/06 14:21:27 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/07 21:57:29 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int			setup_pipes(int n_pipes, int **fds)
 {
 	int i;
 
-	*fds = malloc(sizeof(int) * (n_pipes * 2));
-	if (!(*fds))
+	if (!(*fds = malloc(sizeof(int) * (n_pipes * 2))))
 		return (1);
 	i = 0;
 	while (i < n_pipes)
@@ -69,7 +68,7 @@ int			execute_in_pipe(t_node **ptr, int n_pipes, t_lists **list, int *fds)
 		{
 			ft_printf("%s\n", strerror(errno));
 			free(fds);
-			return (1);
+			return (-1);
 		}
 		else if (pid == 0)
 		{
