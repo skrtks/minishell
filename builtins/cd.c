@@ -76,7 +76,7 @@ t_node		*cd(t_node *node, t_lists **list)
 	}
 	if (chdir(path))
 	{
-		ft_printf("minishell: cd: %s: %s\n", node->data, strerror(errno));
+		ft_printf("minishell: cd: %s: %s\n", path, strerror(errno));
 		errno = 0;
 	}
 	new_pwd(list);
