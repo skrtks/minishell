@@ -13,21 +13,27 @@
 #include "libft/libft.h"
 #include "lexer.h"
 #include "utils/utils.h"
-#include "expand.h"
 
 int check_cmd_list(t_node *cmd_list)
 {
 	t_node	*ptr;
 	int		prev_is_symbol;
 	int		prev_is_red;
+	int 	new_cmd;
 
 	ptr = cmd_list;
 	prev_is_symbol = 1;
 	prev_is_red = 0;
+	new_cmd = 1;
 	while (ptr)
 	{
+		if (ptr->type == REDIR && ptr->next == NULL)
+		{
+			ft_printf("minishell: syntax error near unexpected token `newline'\n");
+			return (1);
+		}
 		if ((ptr->type == SYMBOL && (prev_is_symbol || prev_is_red)) ||
-			(ptr->type == REDIR && (prev_is_red || prev_is_symbol)))
+			(ptr->type == REDIR && (prev_is_red || prev_is_symbol) && !new_cmd))
 		{
 			ft_printf("minishell: syntax error near unexpected token `%s'\n", ptr->data);
 			return (1);
@@ -48,6 +54,10 @@ int check_cmd_list(t_node *cmd_list)
 			prev_is_red = 0;
 		}
 		ptr = ptr->next;
+		if (ptr && ptr->command == SEMICOLON)
+			new_cmd = 1;
+		else
+			new_cmd = 0;
 	}
 	return (0);
 }
