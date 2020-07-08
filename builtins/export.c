@@ -6,12 +6,20 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/07 21:37:26 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/08 13:00:05 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "libft/libft.h"
+
+t_node			*clean_exit_export(t_node *node, int exit)
+{
+	g_exitcode = exit;
+	while (node && node->type != SYMBOL)
+		node = node->next;
+	return (node);
+}
 
 static void		sort_list(t_env **export_list)
 {
@@ -95,25 +103,24 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 	while (node->next != NULL && node->type != SYMBOL && node->type != REDIR)
 	{
 		node = node->next;
-		if (!(temp = ft_strdup(node->data)))
-			return (NULL);
+		temp = node->data;
 		i = check_existence_exp(node->data, &(*list)->export_list);
-		check_input(node);
+		check_input(node);			//verplaatsen
 		if (check_equal_sign(node->data) > 0)
 		{
 			if (node->next != NULL)
 			{
-				free(temp);
 				if (!(temp = ft_strjoin(node->data, node->next->data)))
-					return (NULL);
+					return (clean_exit_export(node, 12));
 				node = node->next;
 			}
 			check_existence_env(temp, &(*list)->env_list);
-			add_env_node(&(*list)->env_list, temp);
+			if (add_env_node(&(*list)->env_list, temp) == -1)
+				return (clean_exit_export(node, 12));
 		}
 		if (i != -1)
-			add_export_node(&(*list)->export_list, temp);
-		free(temp);
+			if (add_export_node(&(*list)->export_list, temp) == -1)
+				return (clean_exit_export(node, 12));
 	}
 	return (node->next);
 }
@@ -122,7 +129,7 @@ t_node			*export_cmd(t_node *node, t_lists **list)
 {
 	t_env *head;
 
-	if (node->next != NULL && node->type != SYMBOL && node->next->type != REDIR)
+	if (node->next != NULL && node->next->command == OTHER)
 		return (extend_lists(node, list));
 	sort_list(&(*list)->export_list);
 	head = (*list)->export_list;
