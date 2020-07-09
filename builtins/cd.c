@@ -21,6 +21,7 @@ static char		*get_homedir(t_env *env_list)
 	char	*home_dir;
 	t_env	*ptr;
 
+	home_dir = NULL;
 	ptr = env_list;
 	while (ptr)
 	{

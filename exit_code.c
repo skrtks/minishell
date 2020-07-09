@@ -11,9 +11,7 @@
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "parser.h"
 #include "libft/libft.h"
-#include <stdio.h>
 
 t_node		*exit_code(t_node *node)
 {

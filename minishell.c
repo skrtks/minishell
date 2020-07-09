@@ -14,7 +14,6 @@
 #include <signal.h>
 #include "parser.h"
 #include "utils/utils.h"
-#include "expand.h"
 
 t_lists	*get_env(char **envp)
 {
@@ -33,11 +32,6 @@ t_lists	*get_env(char **envp)
 		envp++;
 	}
 	return (list);
-}
-
-void	sig_handler(void)
-{
-	ft_printf("\nminishell> $ ");
 }
 
 int		main(int argc, char **argv, char **envp)

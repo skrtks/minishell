@@ -14,11 +14,7 @@
 #include "parser.h"
 #include "lexer.h"
 #include "execute.h"
-#include "expand.h"
-#include "./libft/libft.h"
 #include "pipe.h"
-#include <fcntl.h>
-#include <sys/stat.h>
 
 t_node	*execute_cmd(t_node *node, t_lists **list)
 {

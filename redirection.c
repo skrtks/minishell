@@ -79,6 +79,8 @@ int redirection(t_node *cmd_list)
 	int		fd_out;
 	int		fd_in;
 
+	fd_in = -1;
+	fd_out = -1;
 	if (cmd_list->type == REDIR && cmd_list->next == NULL)
 		return (1);
 	while (cmd_list && cmd_list->command != SEMICOLON)
@@ -88,10 +90,10 @@ int redirection(t_node *cmd_list)
 				return (1);
 		cmd_list = cmd_list->next;
 	}
-	if (fd_in)
+	if (fd_in != -1)
 		if (!(dup2(fd_in, 0)))
 			errno = 0; // Waarom errno op 0?
-	if (fd_out)
+	if (fd_out != -1)
 		if (!(dup2(fd_out, 1)))
 			errno = 0; // Waarom errno op 0?
 	return (0);

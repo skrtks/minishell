@@ -9,13 +9,8 @@
 /*   Updated: 2020/07/06 17:14:51 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "lexer.h"
 #include "execute.h"
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
 #include <string.h>
 #include "./libft/libft.h"
 
@@ -34,7 +29,6 @@ char		**free_array(char **array)
 		i++;
 	}
 	free(array);
-	array = NULL;
 	return (NULL);
 }
 
@@ -99,25 +93,25 @@ static char	**env_list_to_array(t_env *node)
 static void	do_fork(char *filename, char **argv, char **envp)
 {
 	pid_t	pid;
-	int		status;
+	int 	status;
 
 	pid = fork();
 	if (pid == -1)
 	{
 		ft_printf("%s\n", strerror(errno));
+		g_exitcode = 1; // Is dit correct?
 		return ;
 	}
 	if (pid == 0)
 	{
-		// signal(SIGINT, SIG_DFL);
-		// signal(SIGQUIT, SIG_DFL);
-		// signal(SIGTSTP, SIG_DFL);
 		if (execve(filename, argv, envp))
 			ft_printf("bash: %s\n", strerror(errno));
-		exit(1);
+		exit(127); // 127 omdat we hier alleen komen als execve mis gaat
 	}
 	else
 		wait(&status);
+	if (WIFEXITED(status)) // Niet zeker of die ook werkt met pipes, weet niet hoe ik dat moet testen...
+		g_exitcode = WEXITSTATUS(status);
 }
 
 t_node		*execute(t_node *node, t_env *env_list)
@@ -133,6 +127,7 @@ t_node		*execute(t_node *node, t_env *env_list)
 	{
 		free_array(argv);
 		free_array(envp);
+		g_exitcode = 12;
 		return (NULL);
 	}
 	do_fork(filename, argv, envp);
