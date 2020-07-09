@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 14:25:50 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/08 13:14:06 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/09 20:26:06 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*clean(char *str, char *str1, char *str2)
 	return (NULL);
 }
 
-char	*get_env_string(t_env *env_list, const int *id_len, const char *id, char *exp)
+char	*get_env_string(t_env *env_list, int *id_len, char *id, char *exp)
 {
 	while (env_list)
 	{
@@ -40,6 +40,7 @@ char	*get_env_string(t_env *env_list, const int *id_len, const char *id, char *e
 	}
 	return (exp);
 }
+
 char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 {
 	char	*id;
@@ -48,7 +49,8 @@ char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 	*id_len = 1;
 	while (ft_isalpha(word[i + *id_len]) || word[i + *id_len] == '_')
 		(*id_len)++;
-	id = (word[i] == '~' ? ft_strdup("$HOME") : ft_substr(word + i, 0, *id_len));
+	id = (word[i] == '~' ? ft_strdup("$HOME") : \
+	ft_substr(word + i, 0, *id_len));
 	*id_len = (word[i] == '~' ? 5 : *id_len);
 	exp = (*id_len == 1 ? ft_strdup("$") : ft_strdup(""));
 	if (!id || !exp)
@@ -57,6 +59,7 @@ char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 	free(id);
 	return (exp);
 }
+
 char		*update_str(char *word, int i, char *exp, int id_len)
 {
 	char	*before_str;

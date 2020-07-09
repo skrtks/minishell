@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/26 11:27:21 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/03 11:07:51 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/09 20:19:07 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,21 @@
 int		check_equal_sign(const char *str)
 {
 	int		i;
+	int		j;
 
 	i = 0;
 	while (str[i] && str[i] != ' ' && str[i] != '=')
 		i++;
+	j = i + 1;
+	while (str[j])
+	{
+		if (ft_isalnum(str[j]) == 0 && str[j] != '_')
+		{
+			//ft_printf("minishell: export: '%s': not a valid identifier\n", str);
+			return (-2);
+		}
+		j++;
+	}
 	if (str[i] == '=')
 		return (i);
 	return (-1);

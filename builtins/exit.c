@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/08 12:02:00 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/09 20:35:53 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	invalid_exit(t_node *cmd_lst)
 	g_exitcode = 255;
 }
 
-void free_lists(t_node *cmd, t_env *env, t_env *exp)
+void		free_lists(t_node *cmd, t_env *env, t_env *exp)
 {
 	if (env)
 		free_envlist(&env);
@@ -42,8 +42,9 @@ void		exit_shell(t_node *cmd, t_env **env, t_env **exp, int code)
 		i = 0;
 		while (cmd->next->data[i])
 		{
-			g_exitcode = 0; // Is dit nodig?
-			if (ft_isdigit(cmd->next->data[i]) || (i == 0 && (cmd->next->data[i] == '-' || cmd->next->data[i] == '+')))
+			g_exitcode = 0;		//is dit echt nodig? beetje dubbel met code?
+			if (ft_isdigit(cmd->next->data[i]) || (i == 0 && \
+			(cmd->next->data[i] == '-' || cmd->next->data[i] == '+')))
 				i++;
 			else
 			{

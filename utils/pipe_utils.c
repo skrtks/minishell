@@ -6,9 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 13:30:21 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/08 14:03:20 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/09 20:27:15 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "./libft/libft.h"
 #include "lexer.h"
 #include "pipe.h"

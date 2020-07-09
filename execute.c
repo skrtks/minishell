@@ -6,9 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/06 17:14:51 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/09 20:28:49 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "lexer.h"
 #include "execute.h"
 #include <string.h>
@@ -93,7 +94,7 @@ static char	**env_list_to_array(t_env *node)
 static void	do_fork(char *filename, char **argv, char **envp)
 {
 	pid_t	pid;
-	int 	status;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)

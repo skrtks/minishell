@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/07 21:42:57 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/09 20:34:26 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	open_file(t_node *cmd_list)
 	return (-1);
 }
 
-int		fd_error(void)
+int			fd_error(void)
 {
 	ft_printf("Error: %s\n", strerror(errno));
 	g_exitcode = 2;
@@ -74,7 +74,7 @@ static int	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 	return (0);
 }
 
-int redirection(t_node *cmd_list)
+int			redirection(t_node *cmd_list)
 {
 	int		fd_out;
 	int		fd_in;

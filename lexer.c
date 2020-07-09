@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/07 21:18:24 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/09 20:31:20 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utils/utils.h"
 #include "expand.h"
 
-static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list)
+static char		*extract_from_brackets(char *input, int *pos, t_env *env_list)
 {
 	char	b_type;
 	char	*extr;
@@ -24,8 +24,8 @@ static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list
 	b_type = input[*pos];
 	*pos += 1;
 	len = *pos;
-	while (input[len] && (input[len] != b_type
-			|| (b_type != '\'' && input[len] == b_type && input[len - 1] == '\\')))
+	while (input[len] && (input[len] != b_type || (b_type != '\'' && \
+		input[len] == b_type && input[len - 1] == '\\')))
 		len++;
 	if (input[len] != b_type)
 	{
@@ -38,12 +38,11 @@ static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list
 		return (NULL);
 	*pos += len + 1;
 	if (b_type == '\"')
-	    extr = expand(extr, env_list, 1);
+		extr = expand(extr, env_list, 1);
 	return (extr);
 }
 
-static char		*extract_word(char *input, int *pos,
-							t_env *env_list)
+static char		*extract_word(char *input, int *pos, t_env *env_list)
 {
 	char	*extr;
 	int		len;

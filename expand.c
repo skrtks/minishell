@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/07 21:20:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/09 20:29:59 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ char		*do_expansion(char *word, int i, t_env *env_list)
 {
 	char	*exp;
 	char	*new_word;
-
-	int id_len;
+	int		id_len;
 
 	if (word[i + 1] == '?')
 	{
@@ -59,7 +58,7 @@ int			len_no_bs(const char *word, int in_quotes)
 	return len;
 }
 
-char		*copy_no_bs(char *word, char *new_word, int in_quotes) 
+char		*copy_no_bs(char *word, char *new_word, int in_quotes)
 {
 	int	i;
 	int	len;
@@ -67,7 +66,7 @@ char		*copy_no_bs(char *word, char *new_word, int in_quotes)
 	len = 0;
 	i = 0;
 	while (word[i])
-	{	
+	{
 		if (word[i + 1] == '\\' && word[i] == '\\')
 		{
 			new_word[len] = word[i];
@@ -83,7 +82,7 @@ char		*copy_no_bs(char *word, char *new_word, int in_quotes)
 		i++;
 	}
 	new_word[len] = '\0';
-	free (word);
+	free(word);
 	return (new_word);
 }
 

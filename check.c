@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   check.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 21:11:33 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/07 22:13:57 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/09 20:27:57 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_redir(const t_node *ptr)
 	{
 		ft_printf("minishell: syntax error near unexpected ");
 		ft_printf("token `newline'\n");
-			return (1);
+		return (1);
 	}
 	return (0);
 }
@@ -58,7 +58,7 @@ int	check_cmd_list(t_node *cmd_list)
 	t_node	*ptr;
 	int		prev_is_symbol;
 	int		prev_is_red;
-	int 	new_cmd;
+	int		new_cmd;
 
 	ptr = cmd_list;
 	prev_is_symbol = 1;

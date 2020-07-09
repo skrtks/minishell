@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/08 14:01:01 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/09 20:15:12 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static int		check_existence_exp(char *input, t_env **head)
 static t_node	*extend_lists(t_node *node, t_lists **list)
 {
 	int		i;
+	int		j;
 	char	*temp;
 
 	while (node->next != NULL && node->type != SYMBOL && node->type != REDIR)
@@ -104,8 +105,8 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 		node = node->next;
 		temp = node->data;
 		i = check_existence_exp(node->data, &(*list)->export_list);
-		check_input(node);
-		if (check_equal_sign(node->data) > 0)
+		j = check_equal_sign(node->data);
+		if (j > 0)
 		{
 			if (node->next != NULL)
 			{
@@ -117,6 +118,8 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 			if (add_env_node(&(*list)->env_list, temp) == -1)
 				return (clean_exit_export(node, 12));
 		}
+		else if (j == -2)
+			break ;
 		if (i != -1 && (add_export_node(&(*list)->export_list, temp) == -1))
 			return (clean_exit_export(node, 12));
 	}
