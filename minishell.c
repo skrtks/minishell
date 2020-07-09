@@ -35,11 +35,6 @@ t_lists	*get_env(char **envp)
 	return (list);
 }
 
-void	sig_handler(void)
-{
-	ft_printf("\nminishell> $ ");
-}
-
 int		main(int argc, char **argv, char **envp)
 {
 	char	*input;
