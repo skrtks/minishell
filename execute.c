@@ -14,6 +14,7 @@
 #include "execute.h"
 #include <string.h>
 #include "./libft/libft.h"
+#include "sys/wait.h"
 
 char		**free_array(char **array)
 {
@@ -95,7 +96,7 @@ static char	**env_list_to_array(t_env *node)
 static void	do_fork(char *filename, char **argv, char **envp)
 {
 	pid_t	pid;
-	int		status;
+	int 	status;
 
 	pid = fork();
 	if (pid == -1)
@@ -116,7 +117,7 @@ static void	do_fork(char *filename, char **argv, char **envp)
 	else
 		wait(&status);
 	if (WIFEXITED(status)) // Niet zeker of die ook werkt met pipes, weet niet hoe ik dat moet testen...
-		g_exitcode = WIFEXITED(status);
+		g_exitcode = WEXITSTATUS(status);
 }
 
 t_node		*execute(t_node *node, t_env *env_list)
