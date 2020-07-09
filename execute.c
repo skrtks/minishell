@@ -105,6 +105,7 @@ static void	do_fork(char *filename, char **argv, char **envp)
 	if (pid == -1)
 	{
 		ft_printf("%s\n", strerror(errno));
+		g_exitcode = 1; // Is dit correct?
 		return ;
 	}
 	if (pid == 0)
@@ -114,10 +115,12 @@ static void	do_fork(char *filename, char **argv, char **envp)
 		// signal(SIGTSTP, SIG_DFL);
 		if (execve(filename, argv, envp))
 			ft_printf("bash: %s\n", strerror(errno));
-		exit(1);
+		exit(127); // 127 omdat we hier alleen komen als execve mis gaat
 	}
 	else
 		wait(&status);
+	if (WIFEXITED(status)) // Niet zeker of die ook werkt met pipes, weet niet hoe ik dat moet testen...
+		g_exitcode = WIFEXITED(status);
 }
 
 t_node		*execute(t_node *node, t_env *env_list)
@@ -133,6 +136,7 @@ t_node		*execute(t_node *node, t_env *env_list)
 	{
 		free_array(argv);
 		free_array(envp);
+		g_exitcode = 12;
 		return (NULL);
 	}
 	do_fork(filename, argv, envp);
