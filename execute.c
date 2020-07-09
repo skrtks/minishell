@@ -14,7 +14,6 @@
 #include "execute.h"
 #include <string.h>
 #include "./libft/libft.h"
-#include "sys/wait.h"
 
 char		**free_array(char **array)
 {
@@ -31,7 +30,6 @@ char		**free_array(char **array)
 		i++;
 	}
 	free(array);
-	array = NULL;
 	return (NULL);
 }
 
@@ -107,9 +105,6 @@ static void	do_fork(char *filename, char **argv, char **envp)
 	}
 	if (pid == 0)
 	{
-		// signal(SIGINT, SIG_DFL);
-		// signal(SIGQUIT, SIG_DFL);
-		// signal(SIGTSTP, SIG_DFL);
 		if (execve(filename, argv, envp))
 			ft_printf("bash: %s\n", strerror(errno));
 		exit(127); // 127 omdat we hier alleen komen als execve mis gaat
