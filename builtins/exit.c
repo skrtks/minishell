@@ -18,7 +18,16 @@ static void	invalid_exit(t_node *cmd_lst)
 	ft_printf("minishell: exit: %s: numeric argument required\n",\
 	cmd_lst->next->data);
 	g_exitcode = 255;
-	return ;
+}
+
+void free_lists(t_node *cmd, t_env *env, t_env *exp)
+{
+	if (env)
+		free_envlist(&env);
+	if (exp)
+		free_envlist(&exp);
+	if (cmd)
+		free_cmdlist(&cmd);
 }
 
 void		exit_shell(t_node *cmd, t_env **env, t_env **exp, int code)
@@ -39,14 +48,10 @@ void		exit_shell(t_node *cmd, t_env **env, t_env **exp, int code)
 			}
 			i++;
 		}
-		code = (ft_atoi(cmd->next->data));
+		code = ft_atoi(cmd->next->data);
+		code = (code >= 0 && code <= 255 ? code : 255);
 	}
-	if (env)
-		free_envlist(env);
-	if (exp)
-		free_envlist(exp);
-	if (cmd)
-		free_cmdlist(&cmd);
+	free_lists(cmd, *env, *exp);
 	system("leaks minishell"); // Remove before submitting
 	exit(code);
 }
