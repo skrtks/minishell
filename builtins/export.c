@@ -70,7 +70,6 @@ void			check_existence_env(char *str, t_env **list)
 		previous = ptr;
 		ptr = ptr->next;
 	}
-	return ;
 }
 
 static int		check_existence_exp(char *input, t_env **head)
