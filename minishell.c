@@ -42,7 +42,6 @@ void	sig_handler(void)
 
 int		main(int argc, char **argv, char **envp)
 {
-	int		ret;
 	char	*input;
 	t_node	*command_list;
 	t_lists	*list;
@@ -55,18 +54,10 @@ int		main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
-		if (!(ret = get_next_line(0, &input)))
-		{
-			errno = 0;
+		if (get_next_line(0, &input) == -1)
 			break ;
-		}
 		if ((command_list = lexer(input, list->env_list)))
 			parse(command_list, &list);
-		else
-		{
-			errno = 0;
-			break ;
-		}
 		free(input);
 		input = NULL;
 		free_cmdlist(&command_list);
