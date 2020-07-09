@@ -57,7 +57,8 @@ int		main(int argc, char **argv, char **envp)
 		if (get_next_line(0, &input) == -1)
 			break ;
 		if ((command_list = lexer(input, list->env_list)))
-			parse(command_list, &list);
+			if (!check_cmd_list(command_list))
+				parse(command_list, &list);
 		free(input);
 		input = NULL;
 		free_cmdlist(&command_list);

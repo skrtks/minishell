@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/07 14:27:44 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/07 21:20:01 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ char	*get_env_string(t_env *env_list, const int *id_len, const char *id,
 						char *exp);
 char	*get_exp(char *word, int i, t_env *env_list, int *id_len);
 char	*update_str(char *word, int i, char *exp, int id_len);
+
+int check_cmd_list(t_node *cmd_list); // weg?
 
 #endif

@@ -20,11 +20,9 @@ static char		*extract_from_brackets(const char *input, int *pos, t_env *env_list
 	char	b_type;
 	char	*extr;
 	int		len;
-	int		start;
 
 	b_type = input[*pos];
 	*pos += 1;
-	start = *pos;
 	len = *pos;
 	while (input[len] && (input[len] != b_type
 			|| (b_type != '\'' && input[len] == b_type && input[len - 1] == '\\')))
@@ -131,8 +129,6 @@ t_node			*lexer(char *inpt, t_env *env_list)
 
 	i = 0;
 	head = NULL;
-	if (inpt[0] == '|' || inpt[0] == ';' || (inpt[0] == '>' && inpt[1] == '>'))
-		return (invalid_input(inpt, &head));
 	while (inpt[i])
 	{
 		while (inpt[i] == ' ')

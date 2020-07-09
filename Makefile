@@ -3,7 +3,7 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
+#    By: sam <sam@student.codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
 #    Updated: 2020/07/07 15:47:24 by merelmourik   ########   odam.nl          #
@@ -33,7 +33,8 @@ SRCS = builtins/cd.c \
 		redirection.c \
 		minishell.c \
 	    expand.c \
-		exit_code.c
+		exit_code.c \
+		check.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra -g
 ASANCFLAGS = -I. -Wall -Werror -Wextra -g -fsanitize=address -O1 -fno-omit-frame-pointer

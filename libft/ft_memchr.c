@@ -15,10 +15,8 @@
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	unsigned char		*src;
-	unsigned char		needle;
 	size_t				count;
 
-	needle = (unsigned char)c;
 	count = 0;
 	src = (unsigned char *)s;
 	while (count < n)
