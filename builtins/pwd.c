@@ -17,7 +17,7 @@ t_node	*pwd(t_node *node)
 {
 	char	*path;
 
-	g_exitcode = 0;
+	g_exitcode = 0; // Is deze nog nodig?
 	if (!(path = getcwd(NULL, 0)))
 	{
 		g_exitcode = 2;
