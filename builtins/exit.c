@@ -35,21 +35,23 @@ void		exit_shell(t_node *cmd, t_env **env, t_env **exp, int code)
 	int i;
 
 	ft_printf("exit\n");
-	if (cmd && cmd->next)
+	if (cmd->next)
 	{
+		code = ft_atoi(cmd->next->data);
+		code = (code >= 0 && code <= 255 ? code : 255);
 		i = 0;
 		while (cmd->next->data[i])
 		{
-			g_exitcode = 0;
-			if (!ft_isdigit(cmd->next->data[i]))
+			g_exitcode = 0; // Is dit nodig?
+			if (ft_isdigit(cmd->next->data[i]) || (i == 0 && (cmd->next->data[i] == '-' || cmd->next->data[i] == '+')))
+				i++;
+			else
 			{
 				invalid_exit(cmd);
+				code = 255;
 				break ;
 			}
-			i++;
 		}
-		code = ft_atoi(cmd->next->data);
-		code = (code >= 0 && code <= 255 ? code : 255);
 	}
 	free_lists(cmd, *env, *exp);
 	system("leaks minishell"); // Remove before submitting
