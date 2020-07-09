@@ -9,13 +9,9 @@
 /*   Updated: 2020/07/08 14:03:20 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <string.h>
-#include <sys/wait.h>
 #include "./libft/libft.h"
 #include "lexer.h"
 #include "pipe.h"
-#include "parser.h"
 
 int		count_pipes(t_node *cmd_list)
 {

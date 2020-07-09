@@ -14,7 +14,6 @@
 #include <signal.h>
 #include "parser.h"
 #include "utils/utils.h"
-#include "expand.h"
 
 t_lists	*get_env(char **envp)
 {
