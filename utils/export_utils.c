@@ -17,11 +17,29 @@ int		check_equal_sign(const char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '=')
+	while (str[i] && str[i] != '=')
 		i++;
 	if (str[i] == '=')
 		return (i);
 	return (-1);
+}
+
+int check_invalid_id(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalpha(str[i]) && str[i] != '_')
+		{
+			ft_printf("minishell: export: `%s': not a valid identifier\n"
+					, str);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
 int		compare_exp(const char *input, const char *in_list)

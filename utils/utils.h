@@ -42,5 +42,6 @@ char	*update_str(char *word, int i, char *exp, int id_len);
 
 int check_cmd_list(t_node *cmd_list); // weg?
 char *clean_and_free(char *s1, char *s2, char *s3);
+int check_invalid_id(char *str);
 
 #endif

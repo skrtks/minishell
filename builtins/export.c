@@ -105,6 +105,8 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 	{
 		node = node->next;
 		temp = node->data;
+		if (check_invalid_id(node->data))
+			return (clean_exit_export(node, 1, NULL));
 		i = check_existence_exp(node->data, &(*list)->export_list);
 		if (check_equal_sign(node->data) > 0)
 		{
