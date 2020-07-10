@@ -101,9 +101,9 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 	int		i;
 	char	*temp;
 
-	while (node->next != NULL && node->type != SYMBOL && node->type != REDIR)
+	node = node->next;
+	while (node && node->type != SYMBOL && node->type != REDIR)
 	{
-		node = node->next;
 		temp = node->data;
 		if (check_invalid_id(node->data))
 			return (clean_exit_export(node, 1, NULL));
@@ -116,8 +116,9 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 		}
 		if (i != -1 && (add_export_node(&(*list)->export_list, temp) == -1))
 			return (clean_exit_export(node, 12, temp));
+		node = node->next;
 	}
-	return (node->next);
+	return (node);
 }
 
 t_node			*export_cmd(t_node *node, t_lists **list)
