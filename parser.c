@@ -16,7 +16,20 @@
 #include "execute.h"
 #include "pipe.h"
 
-t_node	*execute_cmd(t_node *node, t_lists **list)
+t_node	*check_path(t_node *node, t_lists **list)
+{
+	if (check_for_path(&(node)->data, (*list)->env_list))
+		node = execute(node, (*list)->env_list);
+	else
+	{
+		ft_printf("minishell: %s: Command not found\n", node->data);
+		node = node->next;
+		g_exitcode = 127;
+	}
+	return (node);
+}
+
+t_node	*select_and_execute(t_node *node, t_lists **list)
 {
 	if (node->command == ECHO)
 		node = echo(node);
@@ -37,23 +50,20 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 	else if (node->command == EXIT)
 		exit_shell(node, &(*list)->env_list, &(*list)->export_list, 0);
 	else
-	{
-		if (check_for_path(&(node)->data, (*list)->env_list))
-			node = execute(node, (*list)->env_list);
-		else
-		{
-            ft_printf("minishell: %s: Command not found\n", node->data);
-			node = node->next;
-			g_exitcode = 127;
-		}
-	}
+		node = check_path(node, list);
+	return (node);
+}
+
+t_node	*execute_cmd(t_node *node, t_lists **list)
+{
+	node = select_and_execute(node, list);
 	if (node && node->type == REDIR)
 		while (node && node->type != SYMBOL)
 			node = node->next;
 	return (node);
 }
 
-t_node *prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
+t_node	*prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
 {
 	int		n_pipes;
 
