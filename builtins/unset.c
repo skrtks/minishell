@@ -34,7 +34,7 @@ static int	len_and_check(char *input)
 	{
 		if (input[n] == '=')
 		{
-			ft_printf("unset: '%s': not a valid identifier\n", input);
+			ft_printf("minishell: unset: '%s': not a valid identifier\n", input);
 			return (-1);
 		}
 		n++;
@@ -58,16 +58,12 @@ int			compare(const char *input, const char *in_list, int n)
 	return (0);
 }
 
-static void	remove_env_var(char *data, t_env **list)
+static void	remove_env_var(char *data, t_env **list, int len)
 {
-	int		len;
 	t_env	*ptr;
 	t_env	*previous;
 
 	ptr = *list;
-	len = len_and_check(data);
-	if (len == -1)
-		return ;
 	previous = NULL;
 	while (ptr)
 	{
@@ -83,14 +79,20 @@ static void	remove_env_var(char *data, t_env **list)
 
 t_node		*unset(t_node *node, t_lists **list)
 {
+	int len;
+
 	if (node->next)
 		node = node->next;
 	else
 		return (NULL);
 	while (node)
 	{
-		remove_env_var(node->data, &(*list)->export_list);
-		remove_env_var(node->data, &(*list)->env_list);
+		len = len_and_check(node->data);
+		if (len != -1)
+		{
+			remove_env_var(node->data, &(*list)->export_list, len);
+			remove_env_var(node->data, &(*list)->env_list, len);
+		}
 		node = node->next;
 	}
 	return (node);
