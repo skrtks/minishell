@@ -108,12 +108,6 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 		i = check_existence_exp(node->data, &(*list)->export_list);
 		if (check_equal_sign(node->data) > 0)
 		{
-			if (node->next != NULL)
-			{
-				if (!(temp = ft_strjoin(node->data, node->next->data)))
-					return (clean_exit_export(node, 12, NULL));
-				node = node->next;
-			}
 			check_existence_env(temp, &(*list)->env_list);
 			if (add_env_node(&(*list)->env_list, temp) == -1)
 				return (clean_exit_export(node, 12, NULL));
