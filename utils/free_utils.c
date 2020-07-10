@@ -12,7 +12,7 @@
 
 #include "utils.h"
 
-char *clean_exit_extract_word(char *s1, char *s2, char *s3)
+char *clean_and_free(char *s1, char *s2, char *s3)
 {
 	if (s1)
 		free(s1);

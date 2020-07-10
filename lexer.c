@@ -76,16 +76,13 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 			 || input[*pos] == '\"') && input[*pos - 1] != '\\')
 		{
 			if (!(extr = extract_from_brackets(input, pos, env_list)))
-				return (clean_exit_extract_word(tmp, result, extr));
+				return (clean_and_free(tmp, result, extr));
 		}
 		else
-		{
 			if (!(extr = extract(input, pos, env_list, extr)))
-				return (clean_exit_extract_word(tmp, result, extr));
-		}
+				return (clean_and_free(tmp, result, extr));
 		tmp = ft_strjoin(result, extr);
-		free(result);
-		free(extr);
+		clean_and_free(result, extr, NULL);
 		result = tmp;
 	}
 	return (result);
