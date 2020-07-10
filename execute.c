@@ -88,9 +88,8 @@ static int	do_fork(char *filename, char **argv, char **envp)
 	if (pid == 0)
 	{
 		if (execve(filename, argv, envp))
-			ft_printf("bash: %s\n", strerror(errno));
+			ft_printf("minishell: %s: %s\n", filename, strerror(errno));
 		exit(127);
-		return (-1);
 	}
 	else
 		wait(&status);
