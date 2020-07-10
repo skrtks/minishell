@@ -6,15 +6,17 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/09 20:15:12 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 11:27:14 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "libft/libft.h"
 
-t_node			*clean_exit_export(t_node *node, int exit)
+t_node			*clean_exit_export(t_node *node, int exit, char *str)
 {
+	if (str)
+		free(str);
 	g_exitcode = exit;
 	while (node && node->type != SYMBOL)
 		node = node->next;
@@ -97,7 +99,6 @@ static int		check_existence_exp(char *input, t_env **head)
 static t_node	*extend_lists(t_node *node, t_lists **list)
 {
 	int		i;
-	int		j;
 	char	*temp;
 
 	while (node->next != NULL && node->type != SYMBOL && node->type != REDIR)
@@ -105,23 +106,20 @@ static t_node	*extend_lists(t_node *node, t_lists **list)
 		node = node->next;
 		temp = node->data;
 		i = check_existence_exp(node->data, &(*list)->export_list);
-		j = check_equal_sign(node->data);
-		if (j > 0)
+		if (check_equal_sign(node->data) > 0)
 		{
 			if (node->next != NULL)
 			{
 				if (!(temp = ft_strjoin(node->data, node->next->data)))
-					return (clean_exit_export(node, 12));
+					return (clean_exit_export(node, 12, NULL));
 				node = node->next;
 			}
 			check_existence_env(temp, &(*list)->env_list);
 			if (add_env_node(&(*list)->env_list, temp) == -1)
-				return (clean_exit_export(node, 12));
+				return (clean_exit_export(node, 12, NULL));
 		}
-		else if (j == -2)
-			break ;
 		if (i != -1 && (add_export_node(&(*list)->export_list, temp) == -1))
-			return (clean_exit_export(node, 12));
+			return (clean_exit_export(node, 12, temp));
 	}
 	return (node->next);
 }

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/26 11:27:21 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/09 20:19:07 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 11:21:33 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,73 +15,13 @@
 int		check_equal_sign(const char *str)
 {
 	int		i;
-	int		j;
 
 	i = 0;
 	while (str[i] && str[i] != ' ' && str[i] != '=')
 		i++;
-	j = i + 1;
-	while (str[j])
-	{
-		if (ft_isalnum(str[j]) == 0 && str[j] != '_')
-		{
-			//ft_printf("minishell: export: '%s': not a valid identifier\n", str);
-			return (-2);
-		}
-		j++;
-	}
 	if (str[i] == '=')
 		return (i);
 	return (-1);
-}
-
-int		input_check(char c, char *str1)		//in hoeverre willen we dit gaan doen?
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	str = "@^*+{}[]:,./?~";
-	if (str1[0] == '=' || str1[(ft_strlen(str1) - 1)] == '!')
-		return (-1);
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (-1);
-		i++;
-	}
-	return (0);
-}
-
-t_node	*check_input(t_node *node)		//selfcalling functie van maken
-{
-	int i;
-
-	i = 0;
-	while (node->data[i])
-	{
-		if (node->data[i] == ')' || node->data[i] == '(')
-		{
-			ft_printf("minishell: syntax error near unexpected token %s\n",\
-			node->data);
-			return (node);
-		}
-		i++;
-	}
-	i = 0;
-	while (node->data[i])
-	{
-		if (input_check(node->data[i], node->data) == -1)
-		{
-			ft_printf("minishell: export: '%s': not a valid identifier\n",\
-			node->data);
-			return (node);
-		}
-		i++;
-	}
-	if (node->data[0] == '!' || node->data[0] == '|')
-		ft_printf("minishell: %s: event not found\n", node->data);
-	return (node);
 }
 
 int		compare_exp(const char *input, const char *in_list)
