@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/08 13:56:59 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 11:15:31 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	parse(t_node *cmd_list, t_lists **list)
 			if (n_pipes && ptr)
 			{
 				if (setup_pipes(n_pipes, &fds))
-					return ;		//error van maken
-				execute_in_pipe(&ptr, n_pipes, list, fds); // Check error?
+					return ;
+				execute_in_pipe(&ptr, n_pipes, list, fds);
 			}
 			else if (ptr)
 				ptr = execute_cmd(ptr, list);

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/08 15:19:56 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 11:13:22 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_node		*execute_in_pipe(t_node **ptr, int npipe, t_lists **list, int *fds)
 		cmd_index = skip_to_cmd(ptr, cmd_index);
 	}
 	close_fds(npipe, fds);
-	while ((pid = wait(NULL)) > 0)			//wait protecten
+	while ((pid = wait(NULL)) > 0)
 		;
 	return (clean_exit_pipe(ptr, 0, fds));
 }
