@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.15.3)
 project(minishell C)
 
 set(CMAKE_C_STANDARD 11)
+#SET(CMAKE_C_FLAGS "-g -fprofile-instr-generate -fcoverage-mapping")
 
 include_directories(.)
 include_directories(libft)
