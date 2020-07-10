@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 20:32:18 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/09 20:32:20 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 12:37:39 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parser.h"
 #include "utils/utils.h"
 
-t_lists	*get_env(char **envp)
+static t_lists	*get_env(char **envp)
 {
 	t_lists	*list;
 
@@ -33,7 +33,7 @@ t_lists	*get_env(char **envp)
 	return (list);
 }
 
-int		main(int argc, char **argv, char **envp)
+int				main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_node	*command_list;
@@ -56,7 +56,7 @@ int		main(int argc, char **argv, char **envp)
 		input = NULL;
 		free_cmdlist(&command_list);
 	}
-	(void) argc;
-	(void) argv;
+	(void)argc;
+	(void)argv;
 	return (0);
 }

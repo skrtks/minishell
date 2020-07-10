@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/09 20:28:49 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 12:26:24 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,28 +91,29 @@ static char	**env_list_to_array(t_env *node)
 	return (envp);
 }
 
-static void	do_fork(char *filename, char **argv, char **envp)
+static int	do_fork(char *filename, char **argv, char **envp)
 {
 	pid_t	pid;
 	int		status;
 
-	pid = fork();
-	if (pid == -1)
+	if ((pid = fork()) == -1)
 	{
 		ft_printf("%s\n", strerror(errno));
-		g_exitcode = 1; // Is dit correct?
-		return ;
+		g_exitcode = 10;
+		return (-1);
 	}
 	if (pid == 0)
 	{
 		if (execve(filename, argv, envp))
 			ft_printf("bash: %s\n", strerror(errno));
-		exit(127); // 127 omdat we hier alleen komen als execve mis gaat
+		exit(127);
+		return (-1);
 	}
 	else
 		wait(&status);
-	if (WIFEXITED(status)) // Niet zeker of die ook werkt met pipes, weet niet hoe ik dat moet testen...
+	if (WIFEXITED(status))
 		g_exitcode = WEXITSTATUS(status);
+	return (0);
 }
 
 t_node		*execute(t_node *node, t_env *env_list)
@@ -131,7 +132,8 @@ t_node		*execute(t_node *node, t_env *env_list)
 		g_exitcode = 12;
 		return (NULL);
 	}
-	do_fork(filename, argv, envp);
+	if (do_fork(filename, argv, envp) == -1)
+		return (NULL);
 	free_array(argv);
 	free_array(envp);
 	while (node && node->type != SYMBOL && node->type != REDIR)

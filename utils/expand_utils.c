@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 14:25:50 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/09 20:26:06 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 12:14:14 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "utils/utils.h"
 
-char	*clean(char *str, char *str1, char *str2)
+char	*clean_exit(char *str, char *str1, char *str2)
 {
 	if (str)
 		free(str);
@@ -54,7 +54,7 @@ char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 	*id_len = (word[i] == '~' ? 5 : *id_len);
 	exp = (*id_len == 1 ? ft_strdup("$") : ft_strdup(""));
 	if (!id || !exp)
-		return (clean(NULL, id, exp));
+		return (clean_exit(NULL, id, exp));
 	exp = get_env_string(env_list, id_len, id, exp);
 	free(id);
 	return (exp);
@@ -71,14 +71,14 @@ char		*update_str(char *word, int i, char *exp, int id_len)
 		return (NULL);
 	after_str = ft_substr(word, i + id_len, (ft_strlen(word) - i));
 	if (!after_str)
-		return (clean(NULL, NULL, before_str));
+		return (clean_exit(NULL, NULL, before_str));
 	new_word = ft_strjoin(before_str, exp);
 	if (!new_word)
-		return (clean(NULL, before_str, after_str));
+		return (clean_exit(NULL, before_str, after_str));
 	free(before_str);
 	before_str = ft_strjoin(new_word, after_str);
 	if (!before_str)
-		return (clean(NULL, after_str, new_word));
+		return (clean_exit(NULL, after_str, new_word));
 	free(new_word);
 	free(after_str);
 	free(word);

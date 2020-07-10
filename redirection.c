@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/10 12:12:02 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 12:30:48 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,13 @@ int			count_redirections(t_node *cmd_list)
 	return (0);
 }
 
-static int	clean_exit(int exit, int error, int fd_in, int fd_out)
+static int	clean_exit(int exit, int fd_in, int fd_out)
 {
 	g_exitcode = exit;
 	if (fd_in)
 		close(fd_in);
 	if (fd_out)
 		close(fd_out);
-	errno = error;
 	ft_printf("Error: %s\n", strerror(errno));
 	return (1);
 }
@@ -60,21 +59,21 @@ static int	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 		{
 			ft_printf("minishell: %s: No such file or directory\n", \
 			cmd_list->next->data);
-			return (clean_exit(1, 2, *fd_in, *fd_out));
+			return (clean_exit(1, *fd_in, *fd_out));
 		}
 	if (cmd_list->command == ARROW_LEFT)
 	{
 		if (*fd_in)
 			close(*fd_in);
 		if (!(*fd_in = open(cmd_list->next->data, O_RDONLY)))
-			return (clean_exit(1, 2, *fd_in, *fd_out));
+			return (clean_exit(1, *fd_in, *fd_out));
 	}
 	else
 	{
 		if (*fd_out)
 			close(*fd_out);
 		if (!(*fd_out = open_file(cmd_list)))
-			return (clean_exit(1, 2, *fd_in, *fd_out));
+			return (clean_exit(1, *fd_in, *fd_out));
 	}
 	return (0);
 }
@@ -97,10 +96,11 @@ int			redirection(t_node *cmd_list)
 	}
 	if (fd_in != -1)
 		if (!(dup2(fd_in, 0)))
-			return (clean_exit(9, 9, fd_in, fd_out));
+			return (clean_exit(9, fd_in, fd_out));
 	if (fd_out != -1)
 		if (!(dup2(fd_out, 1)))
-			return (clean_exit(9, 9, fd_in, fd_out));
+			return (clean_exit(9, fd_in, fd_out));
+	g_exitcode = 0;
 	return (0);
 }
 

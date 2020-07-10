@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/09 20:29:59 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 12:35:35 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			len_no_bs(const char *word, int in_quotes)
 			len++;
 		i++;
 	}
-	return len;
+	return (len);
 }
 
 char		*copy_no_bs(char *word, char *new_word, int in_quotes)
