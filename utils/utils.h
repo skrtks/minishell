@@ -41,5 +41,6 @@ char	*get_exp(char *word, int i, t_env *env_list, int *id_len);
 char	*update_str(char *word, int i, char *exp, int id_len);
 
 int check_cmd_list(t_node *cmd_list); // weg?
+char *clean_exit_extract_word(char *s1, char *s2, char *s3);
 
 #endif

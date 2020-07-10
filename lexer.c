@@ -42,34 +42,53 @@ static char		*extract_from_brackets(char *input, int *pos, t_env *env_list)
 	return (extr);
 }
 
-static char		*extract_word(char *input, int *pos, t_env *env_list)
+char *extract(char *input, int *pos, t_env *env_list, char *extr)
 {
-	char	*extr;
-	char 	*extr_from_brack;
-	char	*tmp;
-	int		len;
+	int len;
 
 	len = *pos;
 	while (!ft_strchr(" 	|<>;\'\"\0", input[len]) ||
-			(len != 0 && ft_strchr(" 	|<>;\'\"", input[len]) &&
+		   (len != 0 && ft_strchr(" 	|<>;\'\"", input[len]) &&
 			input[len - 1] == '\\'))
 		len++;
 	len -= *pos;
-	extr = ft_substr(input, *pos, len);
-	if (!extr)
+	if (!(extr = ft_substr(input, *pos, len)))
 		return (NULL);
 	*pos += len;
-	if ((input[*pos] == '\''
-		|| input[*pos] == '\"') && input[*pos - 1] != '\\')
-	{
-		extr_from_brack = extract_from_brackets(input, pos, env_list);
-		tmp = ft_strjoin(extr, extr_from_brack);
-		free(extr);
-		free(extr_from_brack);
-		extr = tmp;
-	}
-	extr = expand(extr, env_list, 0);
+	if(!(extr = expand(extr, env_list, 0)))
+		return (NULL);
 	return (extr);
+}
+
+static char		*extract_word(char *input, int *pos, t_env *env_list)
+{
+	char	*result;
+	char 	*extr;
+	char	*tmp;
+
+	if (!(result = ft_strdup("")))
+		return (NULL);
+	while ((!ft_strchr(" 	|<>;\0", input[*pos]) ||
+			(*pos != 0 && ft_strchr(" 	|<>;\'\"", input[*pos]) &&
+			 input[*pos - 1] == '\\')))
+	{
+		if ((input[*pos] == '\''
+			 || input[*pos] == '\"') && input[*pos - 1] != '\\')
+		{
+			if (!(extr = extract_from_brackets(input, pos, env_list)))
+				return (clean_exit_extract_word(tmp, result, extr));
+		}
+		else
+		{
+			if (!(extr = extract(input, pos, env_list, extr)))
+				return (clean_exit_extract_word(tmp, result, extr));
+		}
+		tmp = ft_strjoin(result, extr);
+		free(result);
+		free(extr);
+		result = tmp;
+	}
+	return (result);
 }
 
 int				new_node(t_node **head, char *cmd)
