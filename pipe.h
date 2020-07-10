@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/09 20:33:38 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 11:45:37 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ t_node	*execute_in_pipe(t_node **ptr, int n_pipes, t_lists **list, int *fds);
 
 void	check_type(t_node *ptr, int *type);
 void	close_fds(int n_pipes, const int *fds);
-void	exit_on_error(int *fds);
 
 #endif

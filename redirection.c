@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/09 20:34:26 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 12:12:02 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ int			count_redirections(t_node *cmd_list)
 	return (0);
 }
 
+static int	clean_exit(int exit, int error, int fd_in, int fd_out)
+{
+	g_exitcode = exit;
+	if (fd_in)
+		close(fd_in);
+	if (fd_out)
+		close(fd_out);
+	errno = error;
+	ft_printf("Error: %s\n", strerror(errno));
+	return (1);
+}
+
 static int	open_file(t_node *cmd_list)
 {
 	if (cmd_list->command == ARROW_RIGHT)
@@ -39,14 +51,6 @@ static int	open_file(t_node *cmd_list)
 	return (-1);
 }
 
-int			fd_error(void)
-{
-	ft_printf("Error: %s\n", strerror(errno));
-	g_exitcode = 2;
-	errno = 0;
-	return (1);
-}
-
 static int	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 {
 	struct stat buf;
@@ -54,22 +58,23 @@ static int	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 	if (cmd_list->command == ARROW_LEFT)
 		if (stat(cmd_list->next->data, &buf) == -1)
 		{
-			ft_printf("minishell: %s: No such file or directory\n", cmd_list->next->data);
-			return (1); // Exit code? in bash 1 bij deze error
+			ft_printf("minishell: %s: No such file or directory\n", \
+			cmd_list->next->data);
+			return (clean_exit(1, 2, *fd_in, *fd_out));
 		}
 	if (cmd_list->command == ARROW_LEFT)
 	{
 		if (*fd_in)
 			close(*fd_in);
 		if (!(*fd_in = open(cmd_list->next->data, O_RDONLY)))
-			return (fd_error());
+			return (clean_exit(1, 2, *fd_in, *fd_out));
 	}
 	else
 	{
 		if (*fd_out)
 			close(*fd_out);
 		if (!(*fd_out = open_file(cmd_list)))
-			return (fd_error());
+			return (clean_exit(1, 2, *fd_in, *fd_out));
 	}
 	return (0);
 }
@@ -92,9 +97,11 @@ int			redirection(t_node *cmd_list)
 	}
 	if (fd_in != -1)
 		if (!(dup2(fd_in, 0)))
-			errno = 0; // Waarom errno op 0?
+			return (clean_exit(9, 9, fd_in, fd_out));
 	if (fd_out != -1)
 		if (!(dup2(fd_out, 1)))
-			errno = 0; // Waarom errno op 0?
+			return (clean_exit(9, 9, fd_in, fd_out));
 	return (0);
 }
+
+//met 2 returnen om een error door te geven?

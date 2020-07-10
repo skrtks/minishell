@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/10 11:15:31 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 11:52:44 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ void	parse(t_node *cmd_list, t_lists **list)
 				ptr = execute_cmd(ptr, list);
 		}
 		else
-		{
 			while (ptr && ptr->command != SEMICOLON)
 				ptr = ptr->next;
-		}
 		if (ptr && (ptr->type == SYMBOL || ptr->type == REDIR))
 			ptr = ptr->next;
 	}
