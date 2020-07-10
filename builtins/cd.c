@@ -103,7 +103,8 @@ t_node			*cd(t_node *node, t_lists **list)
 	if (!(home_dir = get_homedir((*list)->env_list)))
 		return (clean_exit(node, 12, &home_dir));
 	path = home_dir;
-	if (node && node->next && node->next->data[0] != '\0')
+	if (node && node->next && node->next->data[0] != '\0' &&
+		node->next->type != SYMBOL && node->next->type != REDIR)
 	{
 		node = node->next;
 		path = node->data;
