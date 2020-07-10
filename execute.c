@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 12:26:24 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 13:43:06 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,7 @@
 #include "execute.h"
 #include <string.h>
 #include "./libft/libft.h"
-
-char		**free_array(char **array)
-{
-	int i;
-
-	if (!array)
-		return (NULL);
-	i = 0;
-	while (array[i])
-	{
-		if (array[i])
-			free(array[i]);
-		array[i] = NULL;
-		i++;
-	}
-	free(array);
-	return (NULL);
-}
+#include "utils/utils.h"
 
 static char	**list_to_array(t_node *node)
 {

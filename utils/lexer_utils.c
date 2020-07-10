@@ -6,19 +6,19 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/08 13:15:48 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 13:37:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	set_info(int command, int type, t_node *node)
+static void	set_info(int command, int type, t_node *node)
 {
 	node->command = command;
 	node->type = type;
 }
 
-void	continue_populating(char *cmd, t_node *node)
+static void	continue_populating(char *cmd, t_node *node)
 {
 	if (!ft_strncmp(cmd, ";", 2))
 		set_info(SEMICOLON, SYMBOL, node);
@@ -46,7 +46,7 @@ void	continue_populating(char *cmd, t_node *node)
 		set_info(OTHER, ARGUMENT, node);
 }
 
-int		populate_node(char *cmd, t_node *node)
+int			populate_node(char *cmd, t_node *node)
 {
 	node->data = ft_strdup(cmd);
 	if (!node->data)

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:26:48 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/06/17 11:53:44 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 13:42:20 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,22 @@ void	free_cmdlist(t_node **head_origin)
 		head = tmp;
 	}
 	*head_origin = NULL;
+}
+
+char		**free_array(char **array)
+{
+	int i;
+
+	if (!array)
+		return (NULL);
+	i = 0;
+	while (array[i])
+	{
+		if (array[i])
+			free(array[i]);
+		array[i] = NULL;
+		i++;
+	}
+	free(array);
+	return (NULL);
 }

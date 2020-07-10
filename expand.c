@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/10 12:35:35 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 13:44:46 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "lexer.h"
 #include "utils/utils.h"
 
-char		*do_expansion(char *word, int i, t_env *env_list)
+static char	*do_expansion(char *word, int i, t_env *env_list)
 {
 	char	*exp;
 	char	*new_word;
@@ -36,7 +36,7 @@ char		*do_expansion(char *word, int i, t_env *env_list)
 	return (new_word);
 }
 
-int			len_no_bs(const char *word, int in_quotes)
+static int	len_no_bs(const char *word, int in_quotes)
 {
 	int	i;
 	int	len;
@@ -58,7 +58,7 @@ int			len_no_bs(const char *word, int in_quotes)
 	return (len);
 }
 
-char		*copy_no_bs(char *word, char *new_word, int in_quotes)
+static char	*copy_no_bs(char *word, char *new_word, int in_quotes)
 {
 	int	i;
 	int	len;
@@ -86,7 +86,7 @@ char		*copy_no_bs(char *word, char *new_word, int in_quotes)
 	return (new_word);
 }
 
-char		*remove_backslash(char *word, int in_quotes)
+static char	*remove_backslash(char *word, int in_quotes)
 {
 	int		len;
 	char	*new_word;

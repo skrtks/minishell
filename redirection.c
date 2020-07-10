@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/10 12:30:48 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 13:46:45 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,4 @@ int			redirection(t_node *cmd_list)
 			return (clean_exit(9, fd_in, fd_out));
 	g_exitcode = 0;
 	return (0);
-}
-
-//met 2 returnen om een error door te geven?
+}		//met return 2 een error teruggeven?

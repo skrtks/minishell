@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 21:11:33 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 12:34:57 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/10 13:39:57 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	check_current(const t_node *ptr, int *prev_is_symbol, int *prev_is_red,
 	{
 		ft_printf("minishell: syntax error near unexpected token `%s'\n",
 				ptr->data);
-			g_exitcode = 2;
-			return (1);
+		g_exitcode = 2;
+		return (1);
 	}
 	else if (ptr->type == SYMBOL)
 	{
