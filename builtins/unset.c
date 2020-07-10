@@ -32,9 +32,10 @@ static int	len_and_check(char *input)
 	n = 0;
 	while (input[n])
 	{
-		if (input[n] == '=')
+		if (!ft_isalpha(input[n]) && input[n] != '_')
 		{
-			ft_printf("minishell: unset: '%s': not a valid identifier\n", input);
+			ft_printf("minishell: unset: '%s': not a valid identifier\n",
+					input);
 			return (-1);
 		}
 		n++;
@@ -85,7 +86,7 @@ t_node		*unset(t_node *node, t_lists **list)
 		node = node->next;
 	else
 		return (NULL);
-	while (node)
+	while (node && node->type != SYMBOL && node->type != REDIR)
 	{
 		len = len_and_check(node->data);
 		if (len != -1)
