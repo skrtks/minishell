@@ -53,10 +53,31 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 	return (node);
 }
 
+t_node *prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
+{
+	int		n_pipes;
+
+	n_pipes = count_pipes(ptr);
+	if (redirection(ptr) != 1)
+	{
+		if (n_pipes && ptr)
+		{
+			if (setup_pipes(n_pipes, fds))
+					return (NULL);
+			execute_in_pipe(&ptr, n_pipes, list, *fds);
+		}
+		else if (ptr)
+			ptr = execute_cmd(ptr, list);
+	}
+	else
+		while (ptr && ptr->command != SEMICOLON)
+			ptr = ptr->next;
+	return (ptr);
+}
+
 void	parse(t_node *cmd_list, t_lists **list)
 {
 	t_node	*ptr;
-	int		n_pipes;
 	int		*fds;
 	int		ori_out;
 	int		ori_in;
@@ -66,21 +87,7 @@ void	parse(t_node *cmd_list, t_lists **list)
 	ptr = cmd_list;
 	while (ptr)
 	{
-		n_pipes = count_pipes(ptr);
-		if (redirection(ptr) != 1)
-		{
-			if (n_pipes && ptr)
-			{
-				if (setup_pipes(n_pipes, &fds))
-					return ;
-				execute_in_pipe(&ptr, n_pipes, list, fds);
-			}
-			else if (ptr)
-				ptr = execute_cmd(ptr, list);
-		}
-		else
-			while (ptr && ptr->command != SEMICOLON)
-				ptr = ptr->next;
+		ptr = prepare_and_execute(list, ptr, &fds);
 		if (ptr && (ptr->type == SYMBOL || ptr->type == REDIR))
 			ptr = ptr->next;
 	}
