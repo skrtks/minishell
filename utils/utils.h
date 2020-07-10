@@ -40,4 +40,8 @@ char	*get_exp(char *word, int i, t_env *env_list, int *id_len);
 char	*update_str(char *word, int i, char *exp, int id_len);
 char	**free_array(char **array);
 
+int check_cmd_list(t_node *cmd_list); // weg?
+char *clean_and_free(char *s1, char *s2, char *s3);
+int check_invalid_id(char *str);
+
 #endif
