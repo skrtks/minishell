@@ -96,6 +96,11 @@ void	parse(t_node *cmd_list, t_lists **list)
 	while (ptr)
 	{
 		ptr = prepare_and_execute(list, ptr, &fds);
+		if (ptr && ptr->command == SEMICOLON)
+		{
+			dup2(ori_out, 1);
+			dup2(ori_in, 0);
+		}
 		if (ptr && (ptr->type == SYMBOL || ptr->type == REDIR))
 			ptr = ptr->next;
 	}
