@@ -29,19 +29,19 @@ NAME = libft.a
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	echo "Creating libft.a"
-	ar rc $@ $^
+	@ar rc $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean fclean re all
 
 clean:
-	-rm -f $(OBJS)
+	@-rm -f $(OBJS)
 
 fclean: clean
-	rm -f *.o
-	rm -f $(NAME)
+	@rm -f libft.a
+	@rm -f *.o
+	@rm -f $(NAME)
 
 re: fclean all

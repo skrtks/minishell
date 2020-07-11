@@ -20,12 +20,12 @@ OBJS := $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	cp ../libft.a ./$(NAME)
-	ar rc $@ $^
-	cp libftprintf.a ../../libft.a
+	@cp ../libft.a ./$(NAME)
+	@ar rc $@ $^
+	@cp libftprintf.a ../../libft.a
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 bonus: $(NAME)
 
@@ -39,12 +39,12 @@ asan: $(OBJS) $(NAME)
 .PHONY: clean fclean re all test
 
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -f *.o
-	rm -f $(NAME)
-	rm -f printf
-	rm -rf printf.dSYM/
+	@rm -f *.o
+	@rm -f $(NAME)
+	@rm -f printf
+	@rm -rf printf.dSYM/
 
 re: fclean all
