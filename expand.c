@@ -117,8 +117,7 @@ char		*expand(char *word, t_env *env_list, int in_quotes)
 		else if (!in_quotes && ((i == 0 && word[i] == '~') ||
 				(i != 0 && word[i] == '~' && word[i - 1] != '\\')))
 			word = do_expansion(word, i, env_list);
-		else
-			i++;
+		i++;
 		if (!word)
 			return (NULL);
 	}
