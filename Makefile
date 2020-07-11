@@ -33,7 +33,6 @@ SRCS = builtins/cd.c \
 		redirection.c \
 		minishell.c \
 	    expand.c \
-		exit_code.c \
 		check.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra -g

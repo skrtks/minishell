@@ -48,7 +48,7 @@ char *extract(char *input, int *pos, t_env *env_list, char *extr)
 
 	len = *pos;
 	while (!ft_strchr(" 	|<>;\'\"\0", input[len]) ||
-		   (len != 0 && ft_strchr(" 	|<>;\'\"", input[len]) &&
+		   (input[len] && len != 0 && ft_strchr(" 	|<>;\'\"", input[len]) &&
 			input[len - 1] == '\\'))
 		len++;
 	len -= *pos;
@@ -69,7 +69,7 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 	if (!(result = ft_strdup("")))
 		return (NULL);
 	while ((!ft_strchr(" 	|<>;\0", input[*pos]) ||
-			(*pos != 0 && ft_strchr(" 	|<>;\'\"", input[*pos]) &&
+			(input[*pos] && *pos != 0 && ft_strchr(" 	|<>;\'\"", input[*pos]) &&
 			 input[*pos - 1] == '\\')))
 	{
 		if ((input[*pos] == '\''

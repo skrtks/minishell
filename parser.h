@@ -16,7 +16,6 @@
 # include "lexer.h"
 
 int		check_for_path(char **cmd, t_env *env_list);
-int		count_redirections(t_node *cmd_list);
 int		redirection(t_node *cmd_list);
 
 t_node	*execute_cmd(t_node *node, t_lists **list);

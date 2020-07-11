@@ -16,28 +16,15 @@
 #include <sys/stat.h>
 #include "parser.h"
 
-int			count_redirections(t_node *cmd_list)
-{
-	t_node	*temp;
-
-	temp = cmd_list;
-	while (temp)
-	{
-		if (temp->type == REDIR)
-			return (1);
-		temp = temp->next;
-	}
-	return (0);
-}
-
-static int	clean_exit(int exit, int fd_in, int fd_out)
+static int clean_exit(int exit, int fd_in, int fd_out, int show_err)
 {
 	g_exitcode = exit;
 	if (fd_in)
 		close(fd_in);
 	if (fd_out)
 		close(fd_out);
-	ft_printf("Error: %s\n", strerror(errno));
+	if (show_err)
+		ft_printf("Error: %s\n", strerror(errno));
 	return (1);
 }
 
@@ -59,21 +46,21 @@ static int	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 		{
 			ft_printf("minishell: %s: No such file or directory\n", \
 			cmd_list->next->data);
-			return (clean_exit(1, *fd_in, *fd_out));
+			return (clean_exit(1, *fd_in, *fd_out, 0));
 		}
 	if (cmd_list->command == ARROW_LEFT)
 	{
 		if (*fd_in)
 			close(*fd_in);
 		if (!(*fd_in = open(cmd_list->next->data, O_RDONLY)))
-			return (clean_exit(1, *fd_in, *fd_out));
+			return (clean_exit(1, *fd_in, *fd_out, 1));
 	}
 	else
 	{
 		if (*fd_out)
 			close(*fd_out);
 		if (!(*fd_out = open_file(cmd_list)))
-			return (clean_exit(1, *fd_in, *fd_out));
+			return (clean_exit(1, *fd_in, *fd_out, 1));
 	}
 	return (0);
 }
@@ -95,11 +82,11 @@ int			redirection(t_node *cmd_list)
 		cmd_list = cmd_list->next;
 	}
 	if (fd_in != -1)
-		if (!(dup2(fd_in, 0)))
-			return (clean_exit(9, fd_in, fd_out));
+		if ((dup2(fd_in, 0)) < 0)
+			return (clean_exit(9, fd_in, fd_out, 1));
 	if (fd_out != -1)
-		if (!(dup2(fd_out, 1)))
-			return (clean_exit(9, fd_in, fd_out));
+		if ((dup2(fd_out, 1)) < 0)
+			return (clean_exit(9, fd_in, fd_out, 1));
 	g_exitcode = 0;
 	return (0);
 }		//met return 2 een error teruggeven?

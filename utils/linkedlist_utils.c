@@ -40,6 +40,8 @@ static char	*export_data(char *str)
 		i++;
 	}
 	new[i] = str[i];
+	if (str[i] == '\0')
+		return (new);
 	new[i + 1] = '\"';
 	i += 2;
 	while (str[i - 1])

@@ -35,17 +35,3 @@ char	*check_spec_char(const char *str, int c)
 	}
 	return (NULL);
 }
-
-int		get_len(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_strchr("@^*+[]{}:,./?~ ", str[i]))
-			return (i);
-		i++;
-	}
-	return (i);
-}
