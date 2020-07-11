@@ -79,9 +79,6 @@ typedef enum	e_type
 	X = 5
 }				t_type;
 
-t_node			*invalid_input(char *str, t_node **head);
 t_node			*lexer(char *input, t_env *env_list);
-
-t_node			*exit_code(t_node *node);
 
 #endif

@@ -22,7 +22,7 @@ t_node	*check_path(t_node *node, t_lists **list)
 		node = execute(node, (*list)->env_list);
 	else
 	{
-		ft_printf("minishell: %s: Command not found\n", node->data);
+		ft_printf("minishell: %s: command not found\n", node->data);
 		node = node->next;
 		g_exitcode = 127;
 	}
@@ -45,8 +45,6 @@ t_node	*select_and_execute(t_node *node, t_lists **list)
 		node = env(node, (*list)->env_list);
 	else if (node->command == EXECUTABLE)
 		node = execute(node, (*list)->env_list);
-	else if (node->command == DOLLAR_QUESTION)
-		node = exit_code(node);
 	else if (node->command == EXIT)
 		exit_shell(node, &(*list)->env_list, &(*list)->export_list, 0);
 	else

@@ -38,9 +38,7 @@ add_executable(minishell
         pipe.c
         pipe.h
 		expand.c
-		exit_code.c
 		expand.h
-		exit_code.c
 		redirection.c
 		check.c)
 
