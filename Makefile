@@ -36,31 +36,38 @@ SRCS = builtins/cd.c \
 		check.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra -g
-ASANCFLAGS = -I. -Wall -Werror -Wextra -g -fsanitize=address -O1 -fno-omit-frame-pointer
+AS = -I. -Wall -Werror -Wextra -g -fsanitize=address -O1 -fno-omit-frame-pointer
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	cd libft && make
-	cd libft/printf && make
-	cp ./libft/printf/libftprintf.a ./libft.a
-	$(CC) $(CFLAGS) -I. -L. -lft $(SRCS) -o $(NAME)
+	@echo "start..."
+	@echo ">> compiling libft"
+	@cd libft && make
+	@echo ">> compiling printf"
+	@cd libft/printf && make
+	@cp ./libft/printf/libftprintf.a ./libft.a
+	@echo "+ linking"
+	@$(CC) $(CFLAGS) -I. -L. -lft $(SRCS) -o $(NAME)
+	@echo "Done"
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean fclean re all
 
 clean:
-	cd libft && make clean
-	$(RM) $(OBJS)
+	@echo ">> Cleaning..."
+	@cd libft && make clean
+	@cd libft/printf && make clean
+	@$(RM) $(OBJS)
 
 fclean: clean
-	cd libft && make fclean
-	cd libft/printf && make fclean
-	rm -f libft.a
-	rm -f *.o
-	rm -f minishell
+	@cd libft && make fclean
+	@cd libft/printf && make fclean
+	@rm -f libft.a
+	@rm -f *.o
+	@rm -f minishell
 
 re: fclean all
