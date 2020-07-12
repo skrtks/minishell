@@ -6,13 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 10:44:00 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:12:24 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <sys/wait.h>
-#include "./libft/libft.h"
 #include "minishell.h"
 #include "utils/utils.h"
 
@@ -59,7 +56,7 @@ static int	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 t_node			*clean_exit_pipe(t_node **ptr, int exit_code, int *fds)
 {
 	if (exit_code != 0)
-		ft_printf("%s\n", strerror(errno));
+		error_message();
 	g_exitcode = exit_code;
 	free(fds);
 	while (*ptr && (*ptr)->command != SEMICOLON)

@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   lexer.h                                            :+:    :+:            */
+/*   minishell.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/11 13:01:16 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:11:15 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# define EXIT_CODE 0
-
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <stdlib.h>
+# include "libft/libft.h"
 
 int	g_exitcode;
 
@@ -81,5 +74,12 @@ typedef enum	e_type
 
 t_node			*lexer(char *input, t_env *env_list);
 int				new_node(t_node **head, char *cmd);
+t_node	*execute_in_pipe(t_node **ptr, int n_pipes, t_lists **list, int *fds);
+int		setup_pipes(int n_pipes, int **fds);
+t_node	*execute_cmd(t_node *node, t_lists **list);
+void	parse (t_node *cmd_list, t_lists **list);
+
+int		check_for_path(char **cmd, t_env *env_list);
+int		redirection(t_node *cmd_list);
 
 #endif

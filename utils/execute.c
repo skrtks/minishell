@@ -6,15 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 10:03:22 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:01:41 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "execute.h"
 #include <string.h>
-#include "./libft/libft.h"
-#include "utils/utils.h"
+#include "utils.h"
 
 static char	**list_to_array(t_node *node)
 {
@@ -80,7 +77,6 @@ static int	do_fork(char *filename, char **argv, char **envp)
 	int		status;
 
 	pid = -1;
-	argv = NULL;
 	if ((pid = fork()) == -1)
 	{
 		error_message();

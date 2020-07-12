@@ -6,13 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 21:11:33 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 13:39:57 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:59:52 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "lexer.h"
-#include "utils/utils.h"
+#include "utils.h"
 
 int	check_redir(const t_node *ptr)
 {

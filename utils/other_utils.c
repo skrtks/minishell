@@ -6,12 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:29:29 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 10:18:55 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:10:40 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include <string.h>
+#include <errno.h>
 
 t_node	*free_on_error(char *cmd, t_node *cmd_list)
 {
