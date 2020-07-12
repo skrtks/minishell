@@ -6,16 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/12 10:05:43 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:19:50 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "libft/libft.h"
-#include "errno.h"
-#include <unistd.h>
-#include <string.h>
-#include "utils/utils.h"
 
 static char		*get_homedir(t_env *env_list)
 {

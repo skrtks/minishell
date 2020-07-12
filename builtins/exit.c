@@ -6,12 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 10:41:38 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:18:51 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "utils/utils.h"
+#include "builtins.h"
 
 static void	invalid_exit(t_node *cmd_lst)
 {

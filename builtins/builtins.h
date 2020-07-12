@@ -6,15 +6,16 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 10:31:41 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 10:40:51 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:18:27 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include "../minishell.h"
+# include "minishell.h"
 # include "utils/utils.h"
+# include "libft/libft.h"
 
 int		compare(const char *input, const char *in_list, int n);
 

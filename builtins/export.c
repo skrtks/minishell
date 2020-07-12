@@ -6,13 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/12 10:46:49 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:18:55 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "utils/utils.h"
-#include "libft/libft.h"
 
 static void		sort_list(t_env **export_list)
 {
