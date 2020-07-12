@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/10 13:42:17 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:04:00 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int		check_equal_sign(const char *str);
 int		compare_data(const char *str1, const char *str2);
 int		compare_exp(const char *input, const char *in_list);
 int		populate_node(char *cmd, t_node *node);
+int		set_metachar(t_node **head, char *input, int *pos);
 
+void	error_message(void);
 t_node	*free_on_error(char *cmd, t_node *cmd_list);
 
 void	add_to_back_env(t_env **head, t_env *node);

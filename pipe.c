@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 12:36:54 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:04:40 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "lexer.h"
 #include "pipe.h"
 #include "parser.h"
+#include "utils/utils.h"
 
 int			setup_pipes(int n_pipes, int **fds)
 {
@@ -28,7 +29,7 @@ int			setup_pipes(int n_pipes, int **fds)
 	{
 		if (pipe((*fds) + i * 2) < 0)
 		{
-			ft_printf("%s\n", strerror(errno));
+			error_message();
 			free((*fds));
 			return (1);
 		}

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/10 13:45:42 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/11 13:05:29 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,19 @@ static char		*extract_from_brackets(char *input, int *pos, t_env *env_list)
 	return (extr);
 }
 
-char *extract(char *input, int *pos, t_env *env_list, char *extr)
+static char		*extract(char *input, int *pos, t_env *env_list, char *extr)
 {
 	int len;
 
 	len = *pos;
-	while (!ft_strchr(" 	|<>;\'\"\0", input[len]) ||
-		   (input[len] && len != 0 && ft_strchr(" 	|<>;\'\"", input[len]) &&
-			input[len - 1] == '\\'))
+	while (!ft_strchr(" 	|<>;\'\"\0", input[len]) || (input[len] && len \
+	!= 0 && ft_strchr(" 	|<>;\'\"", input[len]) && input[len - 1] == '\\'))
 		len++;
 	len -= *pos;
 	if (!(extr = ft_substr(input, *pos, len)))
 		return (NULL);
 	*pos += len;
-	if(!(extr = expand(extr, env_list, 0)))
+	if (!(extr = expand(extr, env_list, 0)))
 		return (NULL);
 	return (extr);
 }
@@ -63,24 +62,23 @@ char *extract(char *input, int *pos, t_env *env_list, char *extr)
 static char		*extract_word(char *input, int *pos, t_env *env_list)
 {
 	char	*result;
-	char 	*extr;
+	char	*extr;
 	char	*tmp;
 
 	if (!(result = ft_strdup("")))
 		return (NULL);
-	while ((!ft_strchr(" 	|<>;\0", input[*pos]) ||
-			(input[*pos] && *pos != 0 && ft_strchr(" 	|<>;\'\"", input[*pos]) &&
-			 input[*pos - 1] == '\\')))
+	while ((!ft_strchr(" 	|<>;\0", input[*pos]) || (input[*pos] && \
+	*pos != 0 && ft_strchr(" 	|<>;\'\"", input[*pos]) && \
+	input[*pos - 1] == '\\')))
 	{
-		if ((input[*pos] == '\''
-			 || input[*pos] == '\"') && input[*pos - 1] != '\\')
+		if ((input[*pos] == '\'' || input[*pos] == '\"') && \
+		input[*pos - 1] != '\\')
 		{
 			if (!(extr = extract_from_brackets(input, pos, env_list)))
 				return (clean_and_free(tmp, result, extr));
 		}
-		else
-			if (!(extr = extract(input, pos, env_list, extr)))
-				return (clean_and_free(tmp, result, extr));
+		else if (!(extr = extract(input, pos, env_list, extr)))
+			return (clean_and_free(tmp, result, extr));
 		tmp = ft_strjoin(result, extr);
 		clean_and_free(result, extr, NULL);
 		result = tmp;
@@ -88,7 +86,7 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 	return (result);
 }
 
-static	int		new_node(t_node **head, char *cmd)
+int				new_node(t_node **head, char *cmd)
 {
 	t_node *new_node;
 	t_node *ptr;
@@ -112,35 +110,6 @@ static	int		new_node(t_node **head, char *cmd)
 		ptr = ptr->next;
 	ptr->next = new_node;
 	new_node->previous = ptr;
-	return (0);
-}
-
-static int		set_metachar(t_node **head, char *input, int *pos)
-{
-	int err;
-
-	err = 0;
-	if (!ft_strncmp(input + *pos, "|&", 2))
-	{
-		err = new_node(head, "|&");
-		(*pos)++;
-	}
-	else if (!ft_strncmp(input + *pos, "|", 1))
-		err = new_node(head, "|");
-	else if (!ft_strncmp(input + *pos, ">>", 2))
-	{
-		err = new_node(head, ">>");
-		(*pos)++;
-	}
-	else if (!ft_strncmp(input + *pos, ">", 1))
-		err = new_node(head, ">");
-	else if (!ft_strncmp(input + *pos, "<", 1))
-		err = new_node(head, "<");
-	else if (!ft_strncmp(input + *pos, ";", 1))
-		err = new_node(head, ";");
-	(*pos)++;
-	if (!err)
-		return (1);
 	return (0);
 }
 

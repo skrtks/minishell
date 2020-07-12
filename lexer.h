@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/10 13:41:56 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/11 13:01:16 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ typedef enum	e_type
 }				t_type;
 
 t_node			*lexer(char *input, t_env *env_list);
+int				new_node(t_node **head, char *cmd);
 
 #endif

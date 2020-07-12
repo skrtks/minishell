@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/10 13:46:45 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:06:10 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 #include <string.h>
 #include <sys/stat.h>
 #include "parser.h"
+#include "utils/utils.h"
 
-static int clean_exit(int exit, int fd_in, int fd_out, int show_err)
+static int	clean_exit(int exit, int fd_in, int fd_out, int show_err)
 {
 	g_exitcode = exit;
 	if (fd_in)
@@ -24,7 +25,7 @@ static int clean_exit(int exit, int fd_in, int fd_out, int show_err)
 	if (fd_out)
 		close(fd_out);
 	if (show_err)
-		ft_printf("Error: %s\n", strerror(errno));
+		error_message();
 	return (1);
 }
 

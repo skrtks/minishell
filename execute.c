@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 13:43:06 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:03:22 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,18 @@ static int	do_fork(char *filename, char **argv, char **envp)
 	pid_t	pid;
 	int		status;
 
+	pid = -1;
+	argv = NULL;
 	if ((pid = fork()) == -1)
 	{
-		ft_printf("%s\n", strerror(errno));
+		error_message();
 		g_exitcode = 10;
 		return (-1);
 	}
 	if (pid == 0)
 	{
 		if (execve(filename, argv, envp))
-			ft_printf("minishell: %s: %s\n", filename, strerror(errno));
+			error_message();
 		exit(127);
 	}
 	else

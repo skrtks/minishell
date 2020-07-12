@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/10 11:52:44 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/11 13:46:13 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "execute.h"
 #include "pipe.h"
 
-t_node	*check_path(t_node *node, t_lists **list)
+static t_node	*check_path(t_node *node, t_lists **list)
 {
 	if (check_for_path(&(node)->data, (*list)->env_list))
 		node = execute(node, (*list)->env_list);
@@ -29,7 +29,7 @@ t_node	*check_path(t_node *node, t_lists **list)
 	return (node);
 }
 
-t_node	*select_and_execute(t_node *node, t_lists **list)
+static t_node	*select_and_execute(t_node *node, t_lists **list)
 {
 	if (node->command == ECHO)
 		node = echo(node);
@@ -52,7 +52,7 @@ t_node	*select_and_execute(t_node *node, t_lists **list)
 	return (node);
 }
 
-t_node	*execute_cmd(t_node *node, t_lists **list)
+t_node			*execute_cmd(t_node *node, t_lists **list)
 {
 	node = select_and_execute(node, list);
 	if (node && node->type == REDIR)
@@ -61,7 +61,7 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 	return (node);
 }
 
-t_node	*prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
+static t_node	*prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
 {
 	int		n_pipes;
 
@@ -71,7 +71,7 @@ t_node	*prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
 		if (n_pipes && ptr)
 		{
 			if (setup_pipes(n_pipes, fds))
-					return (NULL);
+				return (NULL);
 			execute_in_pipe(&ptr, n_pipes, list, *fds);
 		}
 		else if (ptr)
@@ -83,7 +83,7 @@ t_node	*prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
 	return (ptr);
 }
 
-void	parse(t_node *cmd_list, t_lists **list)
+void			parse(t_node *cmd_list, t_lists **list)
 {
 	t_node	*ptr;
 	int		*fds;

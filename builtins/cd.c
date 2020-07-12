@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/10 12:31:37 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:05:43 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "errno.h"
 #include <unistd.h>
 #include <string.h>
+#include "utils/utils.h"
 
 static char		*get_homedir(t_env *env_list)
 {
@@ -82,7 +83,8 @@ static t_node	*clean_exit(t_node *node, int exit, char **home_dir)
 	if (exit != -1)
 		g_exitcode = exit;
 	if (exit != 0)
-		ft_printf("minishell: cd: %s: %s\n", node->data, strerror(errno));
+		error_message();
+//		ft_printf("minishell: cd: %s: %s\n", node->data, strerror(errno));
 	if (home_dir)
 		free(*home_dir);
 	while (node && node->type != SYMBOL && node->type != REDIR)
