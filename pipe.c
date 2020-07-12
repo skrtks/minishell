@@ -6,11 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 12:12:24 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:21:57 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "utils/utils.h"
 
 int			setup_pipes(int n_pipes, int **fds)

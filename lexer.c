@@ -6,11 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/12 12:07:33 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:23:59 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "utils/utils.h"
 
 static char		*extract_from_brackets(char *input, int *pos, t_env *env_list)

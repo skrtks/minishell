@@ -6,12 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:10:54 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/12 12:11:15 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:24:38 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "libft/libft.h"
 

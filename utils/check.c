@@ -6,13 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 21:11:33 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 11:59:52 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:18:12 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int	check_redir(const t_node *ptr)
+static int	check_redir(const t_node *ptr)
 {
 	if (ptr->type == REDIR && ptr->next == NULL)
 	{
@@ -24,8 +24,8 @@ int	check_redir(const t_node *ptr)
 	return (0);
 }
 
-int	check_current(const t_node *ptr, int *prev_is_symbol, int *prev_is_red,
-				const int *new_cmd)
+static int	check_current(const t_node *ptr, int *prev_is_symbol, \
+			int *prev_is_red, const int *new_cmd)
 {
 	if ((ptr->type == SYMBOL && (*prev_is_symbol || *prev_is_red)) ||
 	(ptr->type == REDIR && (*prev_is_red) && !*new_cmd))
@@ -53,7 +53,7 @@ int	check_current(const t_node *ptr, int *prev_is_symbol, int *prev_is_red,
 	return (0);
 }
 
-int	check_cmd_list(t_node *cmd_list)
+int			check_cmd_list(t_node *cmd_list)
 {
 	t_node	*ptr;
 	int		prev_is_symbol;

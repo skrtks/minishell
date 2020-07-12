@@ -6,12 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 09:26:09 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 11:59:59 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:18:47 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/stat.h>
 #include "utils.h"
+#include <sys/stat.h>
 
 static int	clean_exit(char *path, char *cur_dir, char **paths_arr, int ret_val)
 {

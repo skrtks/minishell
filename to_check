@@ -1,0 +1,1 @@
+echo hoi | cat -e ; cd libft ' pwd

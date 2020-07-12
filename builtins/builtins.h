@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 10:31:41 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 12:13:44 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:24:22 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "minishell.h"
 # include "utils/utils.h"
-# include "libft/libft.h"
 
 int		compare(const char *input, const char *in_list, int n);
 
