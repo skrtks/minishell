@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/12 12:22:20 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 15:06:43 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_node	*select_and_execute(t_node *node, t_lists **list)
 	else if (node->command == EXECUTABLE)
 		node = execute(node, (*list)->env_list);
 	else if (node->command == EXIT)
-		exit_shell(node, &(*list)->env_list, &(*list)->export_list, 0);
+		exit_minishell(node, &(*list)->env_list, &(*list)->export_list, 0);
 	else
 		node = check_path(node, list);
 	return (node);

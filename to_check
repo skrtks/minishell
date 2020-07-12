@@ -1,1 +1,3 @@
 echo hoi | cat -e ; cd libft ' pwd
+minishell.h heb ik gekozen om geen uitgebreide indeling te maken aangzien het maar weinig functies zijn
+error_message compleet genoeg?

@@ -6,11 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 12:18:21 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 14:59:22 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "utils.h"
 
 static char	**list_to_array(t_node *node)
