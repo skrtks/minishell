@@ -6,11 +6,10 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/12 10:43:55 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:23:25 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./builtins/builtins.h"
 #include "minishell.h"
 
 static t_node	*check_path(t_node *node, t_lists **list)

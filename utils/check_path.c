@@ -6,14 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/16 09:26:09 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 13:43:26 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:14:10 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
 #include <sys/stat.h>
-#include "./libft/libft.h"
-#include "execute.h"
-#include "utils/utils.h"
 
 static int	clean_exit(char *path, char *cur_dir, char **paths_arr, int ret_val)
 {

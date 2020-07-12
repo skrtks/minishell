@@ -6,15 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 10:44:00 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:23:21 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <sys/wait.h>
-#include "./libft/libft.h"
 #include "minishell.h"
-#include "utils/utils.h"
 
 int			setup_pipes(int n_pipes, int **fds)
 {

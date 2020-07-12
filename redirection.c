@@ -6,15 +6,14 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 10:44:07 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:24:32 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include <fcntl.h>
-#include "libft/libft.h"
 #include <string.h>
 #include <sys/stat.h>
-#include "utils/utils.h"
 
 static int	clean_exit(int exit, int fd_in, int fd_out, int show_err)
 {

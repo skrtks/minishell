@@ -6,12 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 20:32:18 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 10:43:47 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:23:01 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include <signal.h>
-#include "utils/utils.h"
 
 static t_lists	*get_env(char **envp)
 {
