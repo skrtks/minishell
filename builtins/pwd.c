@@ -6,11 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:25:52 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/10 13:36:06 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:41:49 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "minishell.h"
 #include "libft/libft.h"
 
 t_node	*pwd(t_node *node)

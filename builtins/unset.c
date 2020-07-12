@@ -6,12 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 13:21:54 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/03 11:06:46 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:41:57 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-#include "lexer.h"
+#include "minishell.h"
 #include "libft/libft.h"
 
 void		remove_node(t_env **node_cur, t_env **node_prev, t_env **head)

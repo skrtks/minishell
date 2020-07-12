@@ -6,13 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 11:45:37 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:42:10 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPE_H
 # define PIPE_H
-# include "lexer.h"
+# include "minishell.h"
 
 int		count_pipes(t_node *cmd_list);
 int		setup_pipes(int n_pipes, int **fds);

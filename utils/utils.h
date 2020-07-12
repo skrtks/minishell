@@ -6,15 +6,28 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 10:04:00 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:39:18 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "../lexer.h"
+# include "../minishell.h"
 # include "libft/libft.h"
+# include "builtins/builtins.h"
+
+/* check.c */
+int		check_cmd_list(t_node *cmd_list);
+
+/* execute.c */
+t_node	*execute(t_node *node, t_env *env_list);
+
+/* check_path.c */
+int		check_for_path(char **cmd, t_env *env_list);
+
+/* expand.c */
+char	*expand(char *word, t_env *envlist, int in_quotes);
 
 char	*check_spec_char(const char *str, int c);
 
@@ -44,3 +57,6 @@ char *clean_and_free(char *s1, char *s2, char *s3);
 int check_invalid_id(char *str);
 
 #endif
+
+
+//echo hoi | cat -e ; cd libft ' pwd

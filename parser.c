@@ -6,14 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/11 13:46:13 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:42:10 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./builtins/builtins.h"
 #include "parser.h"
-#include "lexer.h"
-#include "execute.h"
+#include "minishell.h"
 #include "pipe.h"
 
 static t_node	*check_path(t_node *node, t_lists **list)

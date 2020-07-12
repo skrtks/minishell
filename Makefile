@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: sam <sam@student.codam.nl>                   +#+                      #
+#    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/07/07 15:47:24 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/07/12 10:36:56 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,22 +18,22 @@ SRCS = builtins/cd.c \
 	    builtins/export.c \
 	    builtins/pwd.c \
 	    builtins/unset.c \
+		utils/check.c \
+	    utils/check_path.c \
+	    utils/execute.c \
+	    utils/expand.c \
 	    utils/lexer_utils.c \
+		utils/expand_utils.c \
+		utils/export_utils.c \
+		utils/free_utils.c \
 	    utils/linkedlist_utils.c \
 		utils/other_utils.c \
-		utils/free_utils.c \
-		utils/export_utils.c \
 		utils/pipe_utils.c \
-		utils/expand_utils.c \
-	    check_path.c \
-	    execute.c \
 	    lexer.c \
 	    parser.c \
 	    pipe.c \
 		redirection.c \
-		minishell.c \
-	    expand.c \
-		check.c
+		minishell.c 
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra -g
 AS = -I. -Wall -Werror -Wextra -g -fsanitize=address -O1 -fno-omit-frame-pointer

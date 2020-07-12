@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/26 11:27:21 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/10 11:21:33 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:33:42 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		check_equal_sign(const char *str)
 	return (-1);
 }
 
-int check_invalid_id(char *str)
+int		check_invalid_id(char *str)
 {
 	int		i;
 

@@ -6,12 +6,12 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 14:25:50 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 12:14:14 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:42:10 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "lexer.h"
+#include "minishell.h"
 #include "utils/utils.h"
 
 char	*clean_exit(char *str, char *str1, char *str2)

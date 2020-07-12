@@ -6,15 +6,15 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 10:31:41 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/03 15:09:35 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:40:51 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include "../lexer.h"
-# include "../utils/utils.h"
+# include "../minishell.h"
+# include "utils/utils.h"
 
 int		compare(const char *input, const char *in_list, int n);
 

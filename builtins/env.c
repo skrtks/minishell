@@ -6,11 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 14:08:49 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/08 13:58:11 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:41:30 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "minishell.h"
 #include "libft/libft.h"
 
 t_node		*env(t_node *node, t_env *env_list)

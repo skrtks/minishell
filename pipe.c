@@ -6,14 +6,14 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 10:04:40 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:42:10 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <sys/wait.h>
 #include "./libft/libft.h"
-#include "lexer.h"
+#include "minishell.h"
 #include "pipe.h"
 #include "parser.h"
 #include "utils/utils.h"

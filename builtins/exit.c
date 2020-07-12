@@ -6,11 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 13:35:29 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:41:38 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "minishell.h"
 #include "utils/utils.h"
 
 static void	invalid_exit(t_node *cmd_lst)
