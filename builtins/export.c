@@ -6,23 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 15:41:37 by mmourik       #+#    #+#                 */
-/*   Updated: 2020/07/12 10:35:15 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 10:46:49 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "utils/utils.h"
 #include "libft/libft.h"
-
-t_node			*clean_exit_export(t_node *node, int exit, char *str)
-{
-	if (str)
-		free(str);
-	g_exitcode = exit;
-	while (node && node->type != SYMBOL)
-		node = node->next;
-	return (node);
-}
 
 static void		sort_list(t_env **export_list)
 {

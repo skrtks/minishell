@@ -33,10 +33,8 @@ add_executable(minishell
         lexer.c
         minishell.h
         parser.c
-        parser.h
         minishell.c
         pipe.c
-        pipe.h
 		expand.c
 		expand.h
 		redirection.c

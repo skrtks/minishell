@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/26 11:27:21 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 10:33:42 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:00:21 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,14 @@ int		compare_data(const char *str1, const char *str2)
 	if (str2[i] == '\0')
 		return (1);
 	return (0);
+}
+
+t_node	*clean_exit_export(t_node *node, int exit, char *str)
+{
+	if (str)
+		free(str);
+	g_exitcode = exit;
+	while (node && node->type != SYMBOL)
+		node = node->next;
+	return (node);
 }

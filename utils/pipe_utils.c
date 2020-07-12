@@ -6,13 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/27 13:30:21 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 10:42:10 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:14:53 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
-#include "minishell.h"
-#include "pipe.h"
+#include "utils.h"
 
 int		count_pipes(t_node *cmd_list)
 {
