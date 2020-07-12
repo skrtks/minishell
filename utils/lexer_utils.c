@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/10 13:37:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:07:19 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,34 @@ int			populate_node(char *cmd, t_node *node)
 		set_info(N, FLAG, node);
 	else
 		continue_populating(cmd, node);
+	return (0);
+}
+
+int		set_metachar(t_node **head, char *input, int *pos)
+{
+	int err;
+
+	err = 0;
+	if (!ft_strncmp(input + *pos, "|&", 2))
+	{
+		err = new_node(head, "|&");
+		(*pos)++;
+	}
+	else if (!ft_strncmp(input + *pos, "|", 1))
+		err = new_node(head, "|");
+	else if (!ft_strncmp(input + *pos, ">>", 2))
+	{
+		err = new_node(head, ">>");
+		(*pos)++;
+	}
+	else if (!ft_strncmp(input + *pos, ">", 1))
+		err = new_node(head, ">");
+	else if (!ft_strncmp(input + *pos, "<", 1))
+		err = new_node(head, "<");
+	else if (!ft_strncmp(input + *pos, ";", 1))
+		err = new_node(head, ";");
+	(*pos)++;
+	if (!err)
+		return (1);
 	return (0);
 }

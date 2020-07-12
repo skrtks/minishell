@@ -6,12 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 13:35:29 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 15:05:45 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "utils/utils.h"
+#include "builtins.h"
 
 static void	invalid_exit(t_node *cmd_lst)
 {
@@ -30,7 +29,7 @@ void		free_lists(t_node *cmd, t_env *env, t_env *exp)
 		free_cmdlist(&cmd);
 }
 
-void		exit_shell(t_node *cmd, t_env **env, t_env **exp, int code)
+void		exit_minishell(t_node *cmd, t_env **env, t_env **exp, int code)
 {
 	int i;
 

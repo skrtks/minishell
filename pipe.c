@@ -6,16 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/10 12:36:54 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:21:57 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <sys/wait.h>
-#include "./libft/libft.h"
-#include "lexer.h"
-#include "pipe.h"
-#include "parser.h"
+#include "utils/utils.h"
 
 int			setup_pipes(int n_pipes, int **fds)
 {
@@ -28,7 +23,7 @@ int			setup_pipes(int n_pipes, int **fds)
 	{
 		if (pipe((*fds) + i * 2) < 0)
 		{
-			ft_printf("%s\n", strerror(errno));
+			error_message();
 			free((*fds));
 			return (1);
 		}
@@ -60,7 +55,7 @@ static int	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 t_node			*clean_exit_pipe(t_node **ptr, int exit_code, int *fds)
 {
 	if (exit_code != 0)
-		ft_printf("%s\n", strerror(errno));
+		error_message();
 	g_exitcode = exit_code;
 	free(fds);
 	while (*ptr && (*ptr)->command != SEMICOLON)

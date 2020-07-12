@@ -6,13 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/10 13:44:46 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 12:18:54 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "lexer.h"
-#include "utils/utils.h"
+#include "utils.h"
 
 static char	*do_expansion(char *word, int i, t_env *env_list)
 {

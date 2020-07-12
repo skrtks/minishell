@@ -6,12 +6,11 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 15:03:35 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/08 13:57:56 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:18:17 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "libft/libft.h"
+#include "builtins.h"
 
 t_node	*echo(t_node *node)
 {

@@ -6,17 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/10 11:52:44 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 15:06:43 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./builtins/builtins.h"
-#include "parser.h"
-#include "lexer.h"
-#include "execute.h"
-#include "pipe.h"
+#include "utils/utils.h"
 
-t_node	*check_path(t_node *node, t_lists **list)
+static t_node	*check_path(t_node *node, t_lists **list)
 {
 	if (check_for_path(&(node)->data, (*list)->env_list))
 		node = execute(node, (*list)->env_list);
@@ -29,7 +25,7 @@ t_node	*check_path(t_node *node, t_lists **list)
 	return (node);
 }
 
-t_node	*select_and_execute(t_node *node, t_lists **list)
+static t_node	*select_and_execute(t_node *node, t_lists **list)
 {
 	if (node->command == ECHO)
 		node = echo(node);
@@ -46,13 +42,13 @@ t_node	*select_and_execute(t_node *node, t_lists **list)
 	else if (node->command == EXECUTABLE)
 		node = execute(node, (*list)->env_list);
 	else if (node->command == EXIT)
-		exit_shell(node, &(*list)->env_list, &(*list)->export_list, 0);
+		exit_minishell(node, &(*list)->env_list, &(*list)->export_list, 0);
 	else
 		node = check_path(node, list);
 	return (node);
 }
 
-t_node	*execute_cmd(t_node *node, t_lists **list)
+t_node			*execute_cmd(t_node *node, t_lists **list)
 {
 	node = select_and_execute(node, list);
 	if (node && node->type == REDIR)
@@ -61,7 +57,7 @@ t_node	*execute_cmd(t_node *node, t_lists **list)
 	return (node);
 }
 
-t_node	*prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
+static t_node	*prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
 {
 	int		n_pipes;
 
@@ -71,7 +67,7 @@ t_node	*prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
 		if (n_pipes && ptr)
 		{
 			if (setup_pipes(n_pipes, fds))
-					return (NULL);
+				return (NULL);
 			execute_in_pipe(&ptr, n_pipes, list, *fds);
 		}
 		else if (ptr)
@@ -83,7 +79,7 @@ t_node	*prepare_and_execute(t_lists **list, t_node *ptr, int **fds)
 	return (ptr);
 }
 
-void	parse(t_node *cmd_list, t_lists **list)
+void			parse(t_node *cmd_list, t_lists **list)
 {
 	t_node	*ptr;
 	int		*fds;

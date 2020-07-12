@@ -6,13 +6,13 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:26:48 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/10 13:42:20 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/12 11:08:26 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char *clean_and_free(char *s1, char *s2, char *s3)
+char	*clean_and_free(char *s1, char *s2, char *s3)
 {
 	if (s1)
 		free(s1);
@@ -57,7 +57,7 @@ void	free_cmdlist(t_node **head_origin)
 	*head_origin = NULL;
 }
 
-char		**free_array(char **array)
+char	**free_array(char **array)
 {
 	int i;
 
