@@ -1,3 +1,15 @@
-echo hoi | cat -e ; cd libft ' pwd
-minishell.h heb ik gekozen om geen uitgebreide indeling te maken aangzien het maar weinig functies zijn
-error_message compleet genoeg?
+de input die niet goed gaat:
+	cd libft ' pwd
+	$>foo
+	$>/bin/ls
+		"$>" ervoor vindt hij gewoon niet leuk, maar twijfel of dat wel moet
+	een command die uit spaties en tabs bestaat
+	een command die uit spaties en tabs bestaat, en waar ook een command tussenstaat
+		bij deze twee blijft hij hangen op de tab, spaties doet hij prima
+		//tab in ascii is 9 dus misschien herkent hij het dan wel
+
+Bij minishell.h heb ik gekozen om geen uitgebreide indeling te maken aangzien het maar weinig functies zijn.
+
+Is error_message compleet genoeg?
+
+Bij $> moet hij geen map gaan aanmaken
