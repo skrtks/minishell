@@ -124,9 +124,9 @@ t_node			*lexer(char *inpt, t_env *env_list)
 	{
 		while (inpt[i] == ' ')
 			i++;
-		if (!(cmd = extract_word(inpt, &i, env_list)))
+		if (inpt[i] && !(cmd = extract_word(inpt, &i, env_list)))
 			return (free_on_error(cmd, head));
-		if (cmd[0])
+		if (cmd)
 			if (new_node(&head, cmd))
 				return (free_on_error(cmd, head));
 		if (check_spec_char("|<>;", inpt[i]))
@@ -135,6 +135,7 @@ t_node			*lexer(char *inpt, t_env *env_list)
 				return (free_on_error(cmd, head));
 		}
 		free(cmd);
+		cmd = NULL;
 	}
 	return (head);
 }
