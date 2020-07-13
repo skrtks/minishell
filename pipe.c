@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 12:21:57 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/13 10:23:30 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 	return (0);
 }
 
-t_node			*clean_exit_pipe(t_node **ptr, int exit_code, int *fds)
+t_node		*clean_exit_pipe(t_node **ptr, int exit_code, int *fds)
 {
 	if (exit_code != 0)
 		err_message(NULL, NULL, strerror(errno));

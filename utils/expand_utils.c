@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 14:25:50 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 11:14:21 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/13 10:25:16 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_env_string(t_env *env_list, int *id_len, char *id, char *exp)
 	return (exp);
 }
 
-char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
+char	*get_exp(char *word, int i, t_env *env_list, int *id_len)
 {
 	char	*id;
 	char	*exp;
@@ -58,7 +58,7 @@ char		*get_exp(char *word, int i, t_env *env_list, int *id_len)
 	return (exp);
 }
 
-char		*update_str(char *word, int i, char *exp, int id_len)
+char	*update_str(char *word, int i, char *exp, int id_len)
 {
 	char	*before_str;
 	char	*after_str;
