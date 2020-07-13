@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 20:32:18 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 12:17:08 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/13 16:09:50 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static t_lists	*get_env(char **envp)
 	return (list);
 }
 
-void	sig_handler_inp()
+void			sig_handler_inp(void)
 {
 	ft_printf("\nminishell> $ ");
 	return ;
 }
 
-void	sig_handler()
+void			sig_handler(void)
 {
 	ft_printf("\n");
 	return ;
