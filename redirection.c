@@ -13,6 +13,8 @@
 #include "utils/utils.h"
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <string.h>
+#include <errno.h>
 
 static int	clean_exit(int exit, int fd_in, int fd_out, int show_err)
 {
@@ -22,7 +24,7 @@ static int	clean_exit(int exit, int fd_in, int fd_out, int show_err)
 	if (fd_out)
 		close(fd_out);
 	if (show_err)
-		err_message(NULL, NULL, NULL);
+		err_message(NULL, NULL, strerror(errno));
 	return (1);
 }
 
@@ -42,8 +44,8 @@ static int	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 	if (cmd_list->command == ARROW_LEFT)
 		if (stat(cmd_list->next->data, &buf) == -1)
 		{
-			ft_printf("minishell: %s: No such file or directory\n", \
-			cmd_list->next->data);
+			err_message(NULL, cmd_list->next->data,
+					"No such file or directory");
 			return (clean_exit(1, *fd_in, *fd_out, 0));
 		}
 	if (cmd_list->command == ARROW_LEFT)

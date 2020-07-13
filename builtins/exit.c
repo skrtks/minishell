@@ -14,8 +14,8 @@
 
 static void	invalid_exit(t_node *cmd_lst)
 {
-	ft_printf("minishell: exit: %s: numeric argument required\n",\
-	cmd_lst->next->data);
+	err_message("exit", cmd_lst->next->data,
+				"numeric argument required");
 	g_exitcode = 255;
 }
 
