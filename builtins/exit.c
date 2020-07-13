@@ -33,7 +33,7 @@ void		exit_minishell(t_node *cmd, t_env **env, t_env **exp, int code)
 {
 	int i;
 
-	ft_printf("exit\n");
+	write(2, "exit\n", 5);
 	g_exitcode = 0;
 	if (cmd->next)
 	{

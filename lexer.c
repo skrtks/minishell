@@ -26,7 +26,7 @@ static char		*extract_from_brackets(char *input, int *pos, t_env *env_list)
 		len++;
 	if (input[len] != b_type)
 	{
-		ft_printf("Quotes not closed.\n");
+		err_message(NULL, NULL, "Quotes not closed.");
 		return (NULL);
 	}
 	len -= *pos;
