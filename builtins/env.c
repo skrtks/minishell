@@ -17,7 +17,8 @@ t_node		*env(t_node *node, t_env *env_list)
 	g_exitcode = 0;
 	if (node->next != NULL && node->next->command != SEMICOLON)
 	{
-		ft_printf("env: %s: No such file or directory\n", node->next->data);
+		err_message("env", node->next->data,
+				"No such file or directory");
 		g_exitcode = 2;
 	}
 	else

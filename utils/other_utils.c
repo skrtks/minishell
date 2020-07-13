@@ -38,10 +38,23 @@ char	*check_spec_char(const char *str, int c)
 	return (NULL);
 }
 
-void	error_message(void)
+void err_message(char *cmd, char *input, char *message)
 {
 	write(2, "minishell: ", 11);
-	write(2, strerror(errno), ft_strlen(strerror(errno)));
-	write(2, "\n", 2);
+	if (cmd)
+	{
+		write(2, cmd, ft_strlen(cmd));
+		write(2, ": ", 2);
+	}
+	if (input)
+	{
+		write(2, input, ft_strlen(input));
+		write(2, ": ", 2);
+	}
+	if (message)
+	{
+		write(2, message, ft_strlen(message));
+		write(2, "\n", 2);
+	}
 	return ;
 }

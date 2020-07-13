@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "utils/utils.h"
+#include <string.h>
+#include <sys/errno.h>
 
 static char		*get_homedir(t_env *env_list)
 {
@@ -78,8 +81,7 @@ static t_node	*clean_exit(t_node *node, int exit, char **home_dir)
 	if (exit != -1)
 		g_exitcode = exit;
 	if (exit != 0)
-		error_message();
-//		ft_printf("minishell: cd: %s: %s\n", node->data, strerror(errno));
+		err_message("cd", node->data, strerror(errno));
 	if (home_dir)
 		free(*home_dir);
 	while (node && node->type != SYMBOL && node->type != REDIR)

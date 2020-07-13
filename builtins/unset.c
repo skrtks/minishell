@@ -32,8 +32,8 @@ static int	len_and_check(char *input)
 	{
 		if (!ft_isalpha(input[n]) && input[n] != '_')
 		{
-			ft_printf("minishell: unset: '%s': not a valid identifier\n",
-					input);
+			err_message("unset", input,
+					"not a valid identifier");
 			return (-1);
 		}
 		n++;

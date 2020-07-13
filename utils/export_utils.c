@@ -33,8 +33,7 @@ int		check_invalid_id(char *str)
 	{
 		if (!ft_isalpha(str[i]) && str[i] != '_')
 		{
-			ft_printf("minishell: export: `%s': not a valid identifier\n"
-					, str);
+			err_message("export", str, "not a valid identifier");
 			return (1);
 		}
 		i++;

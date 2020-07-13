@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "utils.h"
+#include <string.h>
+#include <errno.h>
 
 static char	**list_to_array(t_node *node)
 {
@@ -78,14 +80,14 @@ static int	do_fork(char *filename, char **argv, char **envp)
 	pid = -1;
 	if ((pid = fork()) == -1)
 	{
-		error_message();
+		err_message(NULL, NULL, strerror(errno));
 		g_exitcode = 10;
 		return (-1);
 	}
 	if (pid == 0)
 	{
 		if (execve(filename, argv, envp))
-			error_message();
+			err_message(NULL, NULL, strerror(errno));
 		exit(127);
 	}
 	else

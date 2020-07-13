@@ -18,7 +18,7 @@ static t_node	*check_path(t_node *node, t_lists **list)
 		node = execute(node, (*list)->env_list);
 	else
 	{
-		ft_printf("minishell: %s: command not found\n", node->data);
+		err_message(NULL, node->data, "command not found");
 		node = node->next;
 		g_exitcode = 127;
 	}

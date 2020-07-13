@@ -16,8 +16,8 @@ static int	check_redir(const t_node *ptr)
 {
 	if (ptr->type == REDIR && ptr->next == NULL)
 	{
-		ft_printf("minishell: syntax error near unexpected ");
-		ft_printf("token `newline'\n");
+		err_message(NULL, NULL,
+				"syntax error near unexpected token `newline'");
 		g_exitcode = 2;
 		return (1);
 	}
@@ -30,8 +30,9 @@ static int	check_current(const t_node *ptr, int *prev_is_symbol, \
 	if ((ptr->type == SYMBOL && (*prev_is_symbol || *prev_is_red)) ||
 	(ptr->type == REDIR && (*prev_is_red) && !*new_cmd))
 	{
-		ft_printf("minishell: syntax error near unexpected token `%s'\n",
-				ptr->data);
+		write(2, "minishell: syntax error near unexpected token `", 47);
+		write(2,	ptr->data, ft_strlen(ptr->data));
+		write(2, "'\n", 2);
 		g_exitcode = 2;
 		return (1);
 	}

@@ -26,7 +26,7 @@ static char		*extract_from_brackets(char *input, int *pos, t_env *env_list)
 		len++;
 	if (input[len] != b_type)
 	{
-		ft_printf("Quotes not closed.\n");
+		err_message(NULL, NULL, "Quotes not closed.");
 		return (NULL);
 	}
 	len -= *pos;
@@ -62,6 +62,7 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 	char	*extr;
 	char	*tmp;
 
+	tmp = NULL;
 	if (!(result = ft_strdup("")))
 		return (NULL);
 	while ((!ft_strchr(" 	|<>;\0", input[*pos]) || (input[*pos] && \
@@ -79,6 +80,7 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 		tmp = ft_strjoin(result, extr);
 		clean_and_free(result, extr, NULL);
 		result = tmp;
+		tmp = NULL;
 	}
 	return (result);
 }

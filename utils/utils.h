@@ -78,7 +78,7 @@ void	add_to_back_env(t_env **head, t_env *node);
 */
 char	*check_spec_char(const char *str, int c);
 t_node	*free_on_error(char *cmd, t_node *cmd_list);
-void	error_message(void);
+void err_message(char *cmd, char *input, char *message);
 
 /*
 ** pipe_utils.c
