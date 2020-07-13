@@ -25,7 +25,7 @@ int			setup_pipes(int n_pipes, int **fds)
 	{
 		if (pipe((*fds) + i * 2) < 0)
 		{
-			err_message(NULL, NULL, NULL);
+			err_message(NULL, NULL, strerror(errno));
 			free((*fds));
 			return (1);
 		}
