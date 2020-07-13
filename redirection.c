@@ -22,7 +22,7 @@ static int	clean_exit(int exit, int fd_in, int fd_out, int show_err)
 	if (fd_out)
 		close(fd_out);
 	if (show_err)
-		error_message();
+		err_message(NULL, NULL, NULL);
 	return (1);
 }
 

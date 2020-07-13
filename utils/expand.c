@@ -105,7 +105,6 @@ static char	*remove_backslash(char *word, int in_quotes)
 char		*expand(char *word, t_env *env_list, int in_quotes)
 {
 	int		i;
-	int		word_len;
 
 	i = 0;
 	while (word[i])

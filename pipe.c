@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "utils/utils.h"
+#include <string.h>
+#include <errno.h>
 
 int			setup_pipes(int n_pipes, int **fds)
 {
@@ -23,7 +25,7 @@ int			setup_pipes(int n_pipes, int **fds)
 	{
 		if (pipe((*fds) + i * 2) < 0)
 		{
-			error_message();
+			err_message(NULL, NULL, NULL);
 			free((*fds));
 			return (1);
 		}
@@ -55,7 +57,7 @@ static int	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 t_node			*clean_exit_pipe(t_node **ptr, int exit_code, int *fds)
 {
 	if (exit_code != 0)
-		error_message();
+		err_message(NULL, NULL, strerror(errno));
 	g_exitcode = exit_code;
 	free(fds);
 	while (*ptr && (*ptr)->command != SEMICOLON)
