@@ -12,25 +12,28 @@
 
 #include "utils.h"
 
-static char	*do_expansion(char *word, int i, t_env *env_list)
+static char	*do_expansion(char *word, int *i, t_env *env_list)
 {
 	char	*exp;
+	int 	exp_len;
 	char	*new_word;
 	int		id_len;
 
-	if (word[i + 1] == '?')
+	if (word[*i + 1] == '?')
 	{
 		exp = ft_itoa(g_exitcode);
 		id_len = 2;
 	}
 	else
 	{
-		exp = get_exp(word, i, env_list, &id_len);
-		id_len = (word[i] == '~' ? 1 : id_len);
+		exp = get_exp(word, *i, env_list, &id_len);
+		id_len = (word[*i] == '~' ? 1 : id_len);
 	}
 	if (!exp)
 		return (NULL);
-	new_word = update_str(word, i, exp, id_len);
+	exp_len = ft_strlen(exp);
+	new_word = update_str(word, *i, exp, id_len);
+	*i += exp_len;
 	return (new_word);
 }
 
@@ -102,20 +105,22 @@ static char	*remove_backslash(char *word, int in_quotes)
 char		*expand(char *word, t_env *env_list, int in_quotes)
 {
 	int		i;
+	int		word_len;
 
 	i = 0;
 	while (word[i])
 	{
 		if ((i == 0 && word[i] == '$') || (i != 0 && word[i] == '$' &&
 			word[i - 1] != '\\'))
-			word = do_expansion(word, i, env_list);
+			word = do_expansion(word, &i, env_list);
 		else if ((i == 0 && word[i] == '$' && word[i + 1] == '?') || (i != 0 &&
 				word[i] == '$' && word[i + 1] == '?' && word[i - 1] != '\\'))
-			word = do_expansion(word, i, env_list);
+			word = do_expansion(word, &i, env_list);
 		else if (!in_quotes && ((i == 0 && word[i] == '~') ||
 				(i != 0 && word[i] == '~' && word[i - 1] != '\\')))
-			word = do_expansion(word, i, env_list);
-		i++;
+			word = do_expansion(word, &i, env_list);
+		else
+			i++;
 		if (!word)
 			return (NULL);
 	}

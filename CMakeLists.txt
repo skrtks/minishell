@@ -3,6 +3,7 @@ project(minishell C)
 
 set(CMAKE_C_STANDARD 11)
 #SET(CMAKE_C_FLAGS "-g -fprofile-instr-generate -fcoverage-mapping")
+#set(CMAKE_C_FLAGS "-g -fsanitize=address -O1 -fno-omit-frame-pointer")
 
 include_directories(.)
 include_directories(libft)
@@ -27,17 +28,15 @@ add_executable(minishell
 		utils/pipe_utils.c
 		utils/utils.h
 		utils/expand_utils.c
-        check_path.c
-        execute.c
-        execute.h
+        utils/check_path.c
+        utils/execute.c
         lexer.c
         minishell.h
         parser.c
         minishell.c
         pipe.c
-		expand.c
-		expand.h
+		utils/expand.c
 		redirection.c
-		check.c)
+		utils/check.c)
 
 target_link_libraries(minishell PUBLIC libft printf)
