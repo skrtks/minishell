@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/12 12:18:54 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/13 13:01:16 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ static char	*remove_backslash(char *word, int in_quotes)
 char		*expand(char *word, t_env *env_list, int in_quotes)
 {
 	int		i;
-	int		word_len;
 
 	i = 0;
 	while (word[i])
