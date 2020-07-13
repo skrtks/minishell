@@ -32,9 +32,15 @@ static t_lists	*get_env(char **envp)
 	return (list);
 }
 
-void	sig_handler()
+void	sig_handler_inp()
 {
 	ft_printf("\nminishell> $ ");
+	return ;
+}
+
+void	sig_handler()
+{
+	ft_printf("\n");
 	return ;
 }
 
@@ -46,14 +52,17 @@ int				main(int argc, char **argv, char **envp)
 
 	if (!(list = get_env(envp)))
 		exit(1);
-	 signal(SIGINT, sig_handler);
-	 signal(SIGQUIT, sig_handler);
-	 signal(SIGTSTP, sig_handler);
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
+		signal(SIGINT, sig_handler_inp);
+		signal(SIGQUIT, sig_handler_inp);
+		signal(SIGTSTP, sig_handler_inp);
 		if (get_next_line(0, &input) == -1)
 			break ;
+		signal(SIGINT, sig_handler);
+		signal(SIGQUIT, sig_handler);
+		signal(SIGTSTP, sig_handler);
 		if ((command_list = lexer(input, list->env_list)))
 			if (!check_cmd_list(command_list))
 				parse(command_list, &list);

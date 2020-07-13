@@ -86,6 +86,9 @@ static int	do_fork(char *filename, char **argv, char **envp)
 	}
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGTSTP, SIG_DFL);
 		if (execve(filename, argv, envp))
 			err_message(NULL, NULL, strerror(errno));
 		exit(127);
