@@ -18,9 +18,10 @@ static void	set_info(int command, int type, t_node *node)
 	node->type = type;
 }
 
-char		*extract_result(char *result, int from_bracket)
+char *extract_result(char *result, int from_bracket, char cur_c)
 {
-	if (!result[0] && !from_bracket)
+	if ((!result[0] && !from_bracket) || (cur_c != '\0' &&
+		ft_strchr("|<>;", cur_c)))
 	{
 		free(result);
 		return (NULL);

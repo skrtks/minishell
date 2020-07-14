@@ -63,7 +63,7 @@ void	free_envlist(t_env **head);
 /*
 ** lexer_utils.c
 */
-char	*extract_result(char *result, int from_bracket);
+char *extract_result(char *result, int from_bracket, char cur_c);
 int		populate_node(char *cmd, t_node *node);
 int		set_metachar(t_node **head, char *input, int *pos);
 

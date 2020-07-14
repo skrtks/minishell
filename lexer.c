@@ -82,7 +82,7 @@ static char		*extract_word(char *inp, int *pos, t_env *env_list)
 		clean_and_free(result, extr);
 		result = tmp;
 	}
-	return (extract_result(result, from_bracket));
+	return (extract_result(result, from_bracket, inp[*pos]));
 }
 
 int				new_node(t_node **head, char *cmd)
