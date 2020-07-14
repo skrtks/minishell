@@ -1,3 +1,4 @@
+#include <limits.h>
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
@@ -32,37 +33,42 @@ static t_lists	*get_env(char **envp)
 	return (list);
 }
 
-void			sig_handler_inp(void)
+void			sig_handler_inp(int _)
 {
+	(void)_;
 	ft_printf("\nminishell> $ ");
 	return ;
 }
 
-void			sig_handler(void)
+void			sig_handler(int _)
 {
+	(void)_;
 	ft_printf("\n");
 	return ;
 }
 
-int				main(int argc, char **argv, char **envp)
+int				main(__unused int argc, __unused char **argv, char **envp)
 {
 	char	*input;
 	t_node	*command_list;
 	t_lists	*list;
+	int ret;
 
+	signal(SIGQUIT, SIG_IGN); /* ignore ctrl-\ */ //
 	if (!(list = get_env(envp)))
 		exit(1);
 	while (1)
 	{
 		write(1, "minishell> $ ", 13);
-		signal(SIGINT, sig_handler_inp);
-		signal(SIGQUIT, sig_handler_inp);
-		signal(SIGTSTP, sig_handler_inp);
-		if (get_next_line(0, &input) == -1)
+		signal(SIGINT, sig_handler_inp); // ignore ctr-c en print nieuwe cmd promt
+		signal(SIGSTOP, sig_handler_inp); // ignore ctr-d en print nieuwe cmd promt
+		ret = get_next_line(0, &input);
+		if (ret == -1)
 			break ;
-		signal(SIGINT, sig_handler);
-		signal(SIGQUIT, sig_handler);
-		signal(SIGTSTP, sig_handler);
+		else if (ret == 0 && (!input || !input[0])) // Als input leeg is exit minishell
+			exit_minishell(NULL, &list->env_list, &list->export_list, 0);
+		signal(SIGINT, sig_handler); // ignore ctr-c en print alleen nieuwe regel, geen promt
+		signal(SIGSTOP, sig_handler); // ignore ctr-d en print alleen nieuwe regel, geen promt
 		if ((command_list = lexer(input, list->env_list)))
 			if (!check_cmd_list(command_list))
 				parse(command_list, &list);
@@ -70,7 +76,5 @@ int				main(int argc, char **argv, char **envp)
 		input = NULL;
 		free_cmdlist(&command_list);
 	}
-	(void)argc;
-	(void)argv;
 	return (0);
 }
