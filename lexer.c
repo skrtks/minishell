@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 14:02:24 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,15 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 	char	*result;
 	char	*extr;
 	char	*tmp;
-	int 	from_bracket;
+	int		from_bracket;
 
 	tmp = NULL;
 	from_bracket = 0;
-	if (!(result = ft_strdup("")))
+	result = ft_strdup("");
+	if (result == NULL)
 		return (NULL);
-	while ((!ft_strchr(" 	|<>;\0", input[*pos]) || (input[*pos] && \
-	*pos != 0 && ft_strchr(" 	|<>;\'\"", input[*pos]) && \
-	input[*pos - 1] == '\\')))
+	while ((!ft_strchr(" 	|<>;\0", input[*pos]) || (input[*pos] && *pos != 0 \
+	&& ft_strchr(" 	|<>;\'\"", input[*pos]) && input[*pos - 1] == '\\')))
 	{
 		from_bracket = 0;
 		if ((input[*pos] == '\'' || input[*pos] == '\"') && \
