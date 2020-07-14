@@ -5,24 +5,23 @@
 /*                                                     +:+                    */
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/07/09 20:32:18 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/13 16:09:50 by merelmourik   ########   odam.nl         */
+/*   Created: 2020/07/14 10:49:38 by merelmourik   #+#    #+#                 */
+/*   Updated: 2020/07/14 11:06:45 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/utils.h"
-#include <signal.h>
 
-void	sig_handler_inp(int _)
+void	sig_handler_inp(int i)
 {
-	(void)_;
+	(void)i;
 	ft_printf("\nminishell> $ ");
 	return ;
 }
 
-void	sig_handler(int _)
+void	sig_handler(int i)
 {
-	(void)_;
+	(void)i;
 	ft_printf("\n");
 	return ;
 }

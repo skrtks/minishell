@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/13 13:01:16 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 11:02:00 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static char	*do_expansion(char *word, int *i, t_env *env_list)
 {
-	char	*exp;
-	int 	exp_len;
-	char	*new_word;
+	int		exp_len;
 	int		id_len;
+	char	*exp;
+	char	*new_word;
 
 	if (word[*i + 1] == '?')
 	{

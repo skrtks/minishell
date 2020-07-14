@@ -6,12 +6,31 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 20:32:18 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/13 16:09:50 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 11:06:06 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/utils.h"
-#include <signal.h>
+
+static void		new_line_and_free(char **input)
+{
+	ft_printf("\n");
+	free(*input);
+	*input = NULL;
+}
+
+static void		process_input(t_node **cmd_list, char **input, t_lists **list)
+{
+	signal(SIGQUIT, sig_handler);
+	signal(SIGINT, sig_handler);
+	signal(SIGSTOP, sig_handler);
+	if (((*cmd_list) = lexer((*input), (*list)->env_list)))
+		if (!check_cmd_list((*cmd_list)))
+			parse((*cmd_list), list);
+	free((*input));
+	(*input) = NULL;
+	free_cmdlist(cmd_list);
+}
 
 static t_lists	*get_env(char **envp)
 {
@@ -32,25 +51,12 @@ static t_lists	*get_env(char **envp)
 	return (list);
 }
 
-void process_input(t_node **command_list, char **input, t_lists **list)
+int				main(int argc, char **argv, char **envp)
 {
-	signal(SIGQUIT, sig_handler);
-	signal(SIGINT, sig_handler);
-	signal(SIGSTOP, sig_handler);
-	if (((*command_list) = lexer((*input), (*list)->env_list)))
-		if (!check_cmd_list((*command_list)))
-			parse((*command_list), list);
-	free((*input));
-	(*input) = NULL;
-	free_cmdlist(command_list);
-}
-
-int				main(__unused int argc, __unused char **argv, char **envp)
-{
+	int		ret;
 	char	*input;
 	t_node	*command_list;
 	t_lists	*list;
-	int ret;
 
 	if (!(list = get_env(envp)))
 		exit(1);
@@ -65,11 +71,9 @@ int				main(__unused int argc, __unused char **argv, char **envp)
 		else if (ret != 0)
 			process_input(&command_list, &input, &list);
 		else
-		{
-			ft_printf("\n");
-			free(input);
-			input = NULL;
-		}
+			new_line_and_free(&input);
 	}
+	(void)argc;
+	(void)argv;
 	return (0);
 }

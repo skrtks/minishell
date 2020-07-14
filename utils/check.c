@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 21:11:33 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 12:18:12 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 11:01:17 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	check_current(const t_node *ptr, int *prev_is_symbol, \
 	(ptr->type == REDIR && (*prev_is_red) && !*new_cmd))
 	{
 		write(2, "minishell: syntax error near unexpected token `", 47);
-		write(2,	ptr->data, ft_strlen(ptr->data));
+		write(2, ptr->data, ft_strlen(ptr->data));
 		write(2, "'\n", 2);
 		g_exitcode = 2;
 		return (1);
