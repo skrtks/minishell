@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/04 13:58:41 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/14 11:02:00 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:50:56 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ static char	*remove_backslash(char *word, int in_quotes)
 	char	*new_word;
 
 	len = len_no_bs(word, in_quotes);
-	if (!(new_word = malloc(sizeof(char) * (len + 1))))
+	new_word = malloc(sizeof(char) * (len + 1));
+	if (new_word == NULL)
 	{
 		free(word);
 		return (NULL);

@@ -10,7 +10,7 @@ de input die niet goed gaat:
 
 Bij minishell.h heb ik gekozen om geen uitgebreide indeling te maken aangzien het maar weinig functies zijn.
 
-err_message compleet maken (sam)
+err_msg compleet maken (sam)
 
 Bij $> moet hij geen map gaan aanmaken
 

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 14:33:37 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/12 15:06:43 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_node	*check_path(t_node *node, t_lists **list)
 		node = execute(node, (*list)->env_list);
 	else
 	{
-		err_message(NULL, node->data, "command not found");
+		err_msg(NULL, node->data, "command not found");
 		node = node->next;
 		g_exitcode = 127;
 	}

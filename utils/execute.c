@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/14 13:22:09 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	do_fork(char *filename, char **argv, char **envp)
 	pid = fork();
 	if (pid == -1)
 	{
-		err_message(NULL, NULL, strerror(errno));
+		err_msg(NULL, NULL, strerror(errno));
 		g_exitcode = 10;
 		return (-1);
 	}
@@ -96,7 +96,7 @@ static int	do_fork(char *filename, char **argv, char **envp)
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGTSTP, SIG_DFL);
 		if (execve(filename, argv, envp))
-			err_message(NULL, NULL, strerror(errno));
+			err_msg(NULL, NULL, strerror(errno));
 		exit(127);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 13:21:54 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/12 11:19:10 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	len_and_check(char *input)
 	{
 		if (!ft_isalpha(input[n]) && input[n] != '_')
 		{
-			err_message("unset", input,
+			err_msg("unset", input,
 					"not a valid identifier");
 			return (-1);
 		}

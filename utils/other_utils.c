@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:29:29 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/14 11:03:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*check_spec_char(const char *str, int c)
 	return (NULL);
 }
 
-void	err_message(char *cmd, char *input, char *message)
+void	err_msg(char *cmd, char *input, char *message)
 {
 	write(2, "minishell: ", 11);
 	if (cmd)

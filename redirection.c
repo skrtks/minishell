@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/19 13:15:53 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 15:09:30 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	clean_exit(int exit, int fd_in, int fd_out, int show_err)
 	if (fd_out)
 		close(fd_out);
 	if (show_err)
-		err_message(NULL, NULL, strerror(errno));
+		err_msg(NULL, NULL, strerror(errno));
 	return (1);
 }
 
@@ -44,22 +44,23 @@ static int	redirect(t_node *cmd_list, int *fd_in, int *fd_out)
 	if (cmd_list->command == ARROW_LEFT)
 		if (stat(cmd_list->next->data, &buf) == -1)
 		{
-			err_message(NULL, cmd_list->next->data,
-					"No such file or directory");
+			err_msg(NULL, cmd_list->next->data, "No such file or directory");
 			return (clean_exit(1, *fd_in, *fd_out, 0));
 		}
 	if (cmd_list->command == ARROW_LEFT)
 	{
 		if (*fd_in)
 			close(*fd_in);
-		if (!(*fd_in = open(cmd_list->next->data, O_RDONLY)))
+		*fd_in = open(cmd_list->next->data, O_RDONLY);
+		if (!(*fd_in))
 			return (clean_exit(1, *fd_in, *fd_out, 1));
 	}
 	else
 	{
 		if (*fd_out)
 			close(*fd_out);
-		if (!(*fd_out = open_file(cmd_list)))
+		*fd_out = open_file(cmd_list);
+		if (!(*fd_out))
 			return (clean_exit(1, *fd_in, *fd_out, 1));
 	}
 	return (0);

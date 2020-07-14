@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/18 16:52:43 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/13 10:23:30 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ int			setup_pipes(int n_pipes, int **fds)
 {
 	int i;
 
-	if (!(*fds = malloc(sizeof(int) * (n_pipes * 2))))
+	*fds = malloc(sizeof(int) * (n_pipes * 2));
+	if (!(*fds))
 		return (1);
 	i = 0;
 	while (i < n_pipes)
 	{
 		if (pipe((*fds) + i * 2) < 0)
 		{
-			err_message(NULL, NULL, strerror(errno));
+			err_msg(NULL, NULL, strerror(errno));
 			free((*fds));
 			return (1);
 		}
@@ -57,7 +58,7 @@ static int	child_process(int cmd_index, int *fds, int n_pipes, t_node **ptr)
 t_node		*clean_exit_pipe(t_node **ptr, int exit_code, int *fds)
 {
 	if (exit_code != 0)
-		err_message(NULL, NULL, strerror(errno));
+		err_msg(NULL, NULL, strerror(errno));
 	g_exitcode = exit_code;
 	free(fds);
 	while (*ptr && (*ptr)->command != SEMICOLON)
@@ -73,7 +74,8 @@ t_node		*execute_in_pipe(t_node **ptr, int npipe, t_lists **list, int *fds)
 	cmd_index = 0;
 	while (*ptr && (*ptr)->command != SEMICOLON && (*ptr)->command != REDIR)
 	{
-		if ((pid = fork()) == -1)
+		pid = fork();
+		if (pid == -1)
 			return (clean_exit_pipe(ptr, 10, fds));
 		else if (pid == 0)
 		{
@@ -85,7 +87,7 @@ t_node		*execute_in_pipe(t_node **ptr, int npipe, t_lists **list, int *fds)
 		cmd_index = skip_to_cmd(ptr, cmd_index);
 	}
 	close_fds(npipe, fds);
-	while ((pid = wait(NULL)) > 0)
+	while (wait(NULL) > 0)
 		;
 	return (clean_exit_pipe(ptr, 0, fds));
 }

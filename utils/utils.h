@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/14 11:03:46 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	add_to_back_env(t_env **head, t_env *node);
 */
 char	*check_spec_char(const char *str, int c);
 t_node	*free_on_error(char *cmd, t_node *cmd_list);
-void	err_message(char *cmd, char *input, char *message);
+void	err_msg(char *cmd, char *input, char *message);
 
 /*
 ** pipe_utils.c

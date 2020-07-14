@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/26 11:27:21 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 11:00:21 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		check_invalid_id(char *str)
 	{
 		if (!ft_isalpha(str[i]) && str[i] != '_')
 		{
-			err_message("export", str, "not a valid identifier");
+			err_msg("export", str, "not a valid identifier");
 			return (1);
 		}
 		i++;

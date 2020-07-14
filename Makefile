@@ -6,7 +6,7 @@
 #    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/07/12 10:36:56 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/07/14 13:27:27 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS = builtins/cd.c \
 	    parser.c \
 	    pipe.c \
 		redirection.c \
-		minishell.c 
+		minishell.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra -g
 AS = -I. -Wall -Werror -Wextra -g -fsanitize=address -O1 -fno-omit-frame-pointer

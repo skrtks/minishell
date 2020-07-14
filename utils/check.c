@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/07 21:11:33 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/14 11:01:17 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	check_redir(const t_node *ptr)
 {
 	if (ptr->type == REDIR && ptr->next == NULL)
 	{
-		err_message(NULL, NULL,
+		err_msg(NULL, NULL,
 				"syntax error near unexpected token `newline'");
 		g_exitcode = 2;
 		return (1);

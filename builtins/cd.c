@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/06 13:52:18 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/07/12 11:19:50 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int		old_pwd(t_lists **list)
 		g_exitcode = 2;
 		return (-1);
 	}
-	if (!(pwd = ft_strjoin("OLDPWD=", path)))
+	pwd = ft_strjoin("OLDPWD=", path);
+	if (!pwd)
 	{
 		g_exitcode = 12;
 		return (-1);
@@ -59,12 +60,14 @@ static int		new_pwd(t_lists **list)
 	char *path;
 	char *pwd;
 
-	if (!(path = getcwd(NULL, 0)))
+	path = getcwd(NULL, 0);
+	if (!path)
 	{
 		g_exitcode = 2;
 		return (-1);
 	}
-	if (!(pwd = ft_strjoin("PWD=", path)))
+	pwd = ft_strjoin("PWD=", path);
+	if (!pwd)
 	{
 		g_exitcode = 12;
 		return (-1);
@@ -81,7 +84,7 @@ static t_node	*clean_exit(t_node *node, int exit, char **home_dir)
 	if (exit != -1)
 		g_exitcode = exit;
 	if (exit != 0)
-		err_message("cd", node->data, strerror(errno));
+		err_msg("cd", node->data, strerror(errno));
 	if (home_dir)
 		free(*home_dir);
 	while (node && node->type != SYMBOL && node->type != REDIR)
@@ -96,7 +99,8 @@ t_node			*cd(t_node *node, t_lists **list)
 
 	if (old_pwd(list) == -1)
 		return (clean_exit(node, -1, NULL));
-	if (!(home_dir = get_homedir((*list)->env_list)))
+	home_dir = get_homedir((*list)->env_list);
+	if (!home_dir)
 		return (clean_exit(node, 12, &home_dir));
 	path = home_dir;
 	if (node && node->next && node->next->data[0] != '\0' &&

@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 15:05:45 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	invalid_exit(t_node *cmd_lst)
 {
-	err_message("exit", cmd_lst->next->data,
+	err_msg("exit", cmd_lst->next->data,
 				"numeric argument required");
 	g_exitcode = 255;
 }
