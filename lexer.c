@@ -61,19 +61,23 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 	char	*result;
 	char	*extr;
 	char	*tmp;
+	int 	from_bracket;
 
 	tmp = NULL;
+	from_bracket = 0;
 	if (!(result = ft_strdup("")))
 		return (NULL);
 	while ((!ft_strchr(" 	|<>;\0", input[*pos]) || (input[*pos] && \
 	*pos != 0 && ft_strchr(" 	|<>;\'\"", input[*pos]) && \
 	input[*pos - 1] == '\\')))
 	{
+		from_bracket = 0;
 		if ((input[*pos] == '\'' || input[*pos] == '\"') && \
 		input[*pos - 1] != '\\')
 		{
 			if (!(extr = extract_from_brackets(input, pos, env_list)))
 				return (clean_and_free(tmp, result, extr));
+			from_bracket = 1;
 		}
 		else if (!(extr = extract(input, pos, env_list, extr)))
 			return (clean_and_free(tmp, result, extr));
@@ -81,6 +85,11 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 		clean_and_free(result, extr, NULL);
 		result = tmp;
 		tmp = NULL;
+	}
+	if (!result[0] && !from_bracket)
+	{
+		free(result);
+		return (NULL);
 	}
 	return (result);
 }
@@ -124,8 +133,8 @@ t_node			*lexer(char *inpt, t_env *env_list)
 	{
 		while (inpt[i] == ' ')
 			i++;
-		if (inpt[i] && !(cmd = extract_word(inpt, &i, env_list)))
-			return (free_on_error(cmd, head));
+		if (inpt[i])
+			cmd = extract_word(inpt, &i, env_list);
 		if (cmd)
 			if (new_node(&head, cmd))
 				return (free_on_error(cmd, head));
