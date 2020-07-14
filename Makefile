@@ -26,6 +26,7 @@ SRCS = builtins/cd.c \
 		utils/expand_utils.c \
 		utils/export_utils.c \
 		utils/free_utils.c \
+		utils/signals.c \
 	    utils/linkedlist_utils.c \
 		utils/other_utils.c \
 		utils/pipe_utils.c \

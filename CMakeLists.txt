@@ -28,6 +28,7 @@ add_executable(minishell
 		utils/pipe_utils.c
 		utils/utils.h
 		utils/expand_utils.c
+		utils/signals.c
         utils/check_path.c
         utils/execute.c
         lexer.c

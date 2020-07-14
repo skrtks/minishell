@@ -88,4 +88,11 @@ int		skip_to_cmd(t_node **ptr, int cmd_index);
 void	check_type(t_node *ptr, int *type);
 void	close_fds(int n_pipes, const int *fds);
 
+/*
+ ** signals.c
+ */
+void	sig_handler_inp(int _);
+void	sig_handler(int _);
+void	set_signal(void);
+
 #endif
