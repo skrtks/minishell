@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/12 12:02:16 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/12 14:59:22 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 13:22:09 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,36 @@
 #include <string.h>
 #include <errno.h>
 
+static int	linked_list_len(t_node *node, t_env *env)
+{
+	int list_len;
+
+	list_len = 0;
+	if (node)
+		while (node && node->type != SYMBOL && node->type != REDIR)
+		{
+			node = node->next;
+			list_len++;
+		}
+	else if (env)
+		while (env)
+		{
+			env = env->next;
+			list_len++;
+		}
+	return (list_len);
+}
+
 static char	**list_to_array(t_node *node)
 {
-	t_node	*head;
 	char	**argv;
 	int		list_len;
 
-	head = node;
-	list_len = 0;
-	while (node && node->type != SYMBOL && node->type != REDIR)
-	{
-		node = node->next;
-		list_len++;
-	}
-	if (!(argv = malloc(sizeof(char *) * (list_len + 1))))
+	list_len = linked_list_len(node, NULL);
+	argv = malloc(sizeof(char *) * (list_len + 1));
+	if (argv == NULL)
 		return (NULL);
 	argv[list_len] = NULL;
-	node = head;
 	list_len = 0;
 	while (node && node->type != SYMBOL && node->type != REDIR)
 	{
@@ -45,21 +58,14 @@ static char	**list_to_array(t_node *node)
 
 static char	**env_list_to_array(t_env *node)
 {
-	t_env	*head;
 	char	**envp;
 	int		list_len;
 
-	head = node;
-	list_len = 0;
-	while (node)
-	{
-		node = node->next;
-		list_len++;
-	}
-	if (!(envp = malloc(sizeof(char *) * (list_len + 1))))
+	list_len = linked_list_len(NULL, node);
+	envp = malloc(sizeof(char *) * (list_len + 1));
+	if (envp == NULL)
 		return (NULL);
 	envp[list_len] = NULL;
-	node = head;
 	list_len = 0;
 	while (node)
 	{
@@ -77,8 +83,8 @@ static int	do_fork(char *filename, char **argv, char **envp)
 	pid_t	pid;
 	int		status;
 
-	pid = -1;
-	if ((pid = fork()) == -1)
+	pid = fork();
+	if (pid == -1)
 	{
 		err_message(NULL, NULL, strerror(errno));
 		g_exitcode = 10;
@@ -111,8 +117,10 @@ t_node		*execute(t_node *node, t_env *env_list)
 	envp = env_list_to_array(env_list);
 	if (!argv || !envp)
 	{
-		free_array(argv);
-		free_array(envp);
+		if (argv)
+			free_array(argv);
+		if (envp)
+			free_array(envp);
 		g_exitcode = 12;
 		return (NULL);
 	}
