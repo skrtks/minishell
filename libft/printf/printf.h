@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   printf.h                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <marvin@codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 09:30:56 by skorteka      #+#    #+#                 */
-/*   Updated: 2019/12/11 09:31:00 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/14 14:34:25 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct		s_index {
 }					t_index;
 
 int					ft_printf(const char *format, ...);
-int					c_print(va_list args, t_flags flags);
 int					s_print(va_list args, t_flags flags);
 int					i_print(va_list args, t_flags flags);
 int					x_print(va_list args, t_flags flags);

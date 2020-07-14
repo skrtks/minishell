@@ -3,15 +3,15 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: skorteka <skorteka@student.codam.nl>         +#+                      #
+#    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/11 09:32:11 by skorteka      #+#    #+#                  #
-#    Updated: 2020/06/05 15:42:39 by skorteka      ########   odam.nl          #
+#    Updated: 2020/07/14 14:33:37 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = utils_1.c utils_2.c utils_3.c ft_itoa_base.c\
-		p_print.c x_print.c c_print.c u_print.c s_print.c i_print.c printf.c
+		p_print.c x_print.c u_print.c s_print.c i_print.c printf.c
 CC = gcc
 CFLAGS = -I. -Wall -Werror -Wextra
 NAME = libftprintf.a

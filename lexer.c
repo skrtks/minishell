@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/14 14:21:04 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 14:24:48 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static char		*extract(char *input, int *pos, t_env *env_list, char *extr)
 	return (extr);
 }
 
-static char		*extract_word(char *input, int *pos, t_env *env_list)
+static char		*extract_word(char *inp, int *pos, t_env *env_list)
 {
 	char	*result;
 	char	*extr;
@@ -66,18 +66,17 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 	result = ft_strdup("");
 	if (result == NULL)
 		return (NULL);
-	while ((!ft_strchr(" 	|<>;\0", input[*pos]) || (input[*pos] && *pos != 0 \
-	&& ft_strchr(" 	|<>;\'\"", input[*pos]) && input[*pos - 1] == '\\')))
+	while ((!ft_strchr(" 	|<>;\0", inp[*pos]) || (inp[*pos] && *pos != 0 \
+	&& ft_strchr(" 	|<>;\'\"", inp[*pos]) && inp[*pos - 1] == '\\')))
 	{
 		from_bracket = 0;
-		if ((input[*pos] == '\'' || input[*pos] == '\"') && \
-		input[*pos - 1] != '\\')
+		if ((inp[*pos] == '\'' || inp[*pos] == '\"') && inp[*pos - 1] != '\\')
 		{
-			if (!(extr = extract_from_brackets(input, pos, env_list)))
+			if (!(extr = extract_from_brackets(inp, pos, env_list)))
 				return (clean_and_free(result, extr));
 			from_bracket = 1;
 		}
-		else if (!(extr = extract(input, pos, env_list, extr)))
+		else if (!(extr = extract(inp, pos, env_list, extr)))
 			return (clean_and_free(result, extr));
 		tmp = ft_strjoin(result, extr);
 		clean_and_free(result, extr);

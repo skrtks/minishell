@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   printf.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/11 09:31:07 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/05 15:28:04 by skorteka      ########   odam.nl         */
+/*   Updated: 2020/07/14 14:35:09 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static int		convert(const char **format, va_list args, t_flags flags)
 {
 	int output;
 
-	if (*(*format) == 'c' || *(*format) == '%')
-		output = c_print(args, flags);
 	if (*(*format) == 's')
 		output = s_print(args, flags);
 	if (*(*format) == 'i' || *(*format) == 'd')
