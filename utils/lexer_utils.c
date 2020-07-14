@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/13 10:26:09 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 14:12:40 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@ static void	set_info(int command, int type, t_node *node)
 {
 	node->command = command;
 	node->type = type;
+}
+
+char		*extract_result(char *result, int from_bracket)
+{
+	if (!result[0] && !from_bracket)
+	{
+		free(result);
+		return (NULL);
+	}
+	return (result);
 }
 
 static void	continue_populating(char *cmd, t_node *node)

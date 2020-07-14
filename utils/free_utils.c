@@ -6,20 +6,18 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:26:48 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/12 11:08:26 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 14:21:34 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-char	*clean_and_free(char *s1, char *s2, char *s3)
+char	*clean_and_free(char *s1, char *s2)
 {
 	if (s1)
 		free(s1);
 	if (s2)
 		free(s2);
-	if (s3)
-		free(s3);
 	return (NULL);
 }
 

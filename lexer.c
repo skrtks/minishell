@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/14 14:02:24 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 14:21:04 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 	char	*tmp;
 	int		from_bracket;
 
-	tmp = NULL;
-	from_bracket = 0;
 	result = ft_strdup("");
 	if (result == NULL)
 		return (NULL);
@@ -76,22 +74,16 @@ static char		*extract_word(char *input, int *pos, t_env *env_list)
 		input[*pos - 1] != '\\')
 		{
 			if (!(extr = extract_from_brackets(input, pos, env_list)))
-				return (clean_and_free(tmp, result, extr));
+				return (clean_and_free(result, extr));
 			from_bracket = 1;
 		}
 		else if (!(extr = extract(input, pos, env_list, extr)))
-			return (clean_and_free(tmp, result, extr));
+			return (clean_and_free(result, extr));
 		tmp = ft_strjoin(result, extr);
-		clean_and_free(result, extr, NULL);
+		clean_and_free(result, extr);
 		result = tmp;
-		tmp = NULL;
 	}
-	if (!result[0] && !from_bracket)
-	{
-		free(result);
-		return (NULL);
-	}
-	return (result);
+	return (extract_result(result, from_bracket));
 }
 
 int				new_node(t_node **head, char *cmd)

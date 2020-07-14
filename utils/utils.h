@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/14 14:21:24 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_node	*clean_exit_export(t_node *node, int exit, char *str);
 /*
 ** free_util.c
 */
-char	*clean_and_free(char *s1, char *s2, char *s3);
+char	*clean_and_free(char *s1, char *s2);
 char	**free_array(char **array);
 void	free_cmdlist(t_node **head);
 void	free_envlist(t_env **head);
@@ -63,6 +63,7 @@ void	free_envlist(t_env **head);
 /*
 ** lexer_utils.c
 */
+char	*extract_result(char *result, int from_bracket);
 int		populate_node(char *cmd, t_node *node);
 int		set_metachar(t_node **head, char *input, int *pos);
 
