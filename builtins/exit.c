@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/15 09:08:37 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/15 09:42:34 by sam           ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void		exit_minishell(t_node *cmd, t_env **env, t_env **exp, int code)
 		}
 	}
 	free_lists(cmd, *env, *exp);
+	system("leaks minishell");
 	exit(code);
 }
