@@ -27,6 +27,7 @@ static char		*extract_from_brackets(char *input, int *pos, t_env *env_list)
 	if (input[len] != b_type)
 	{
 		err_msg(NULL, NULL, "Quotes not closed.");
+		*pos = -1;
 		return (NULL);
 	}
 	len -= *pos;
@@ -72,7 +73,7 @@ static char		*extract_word(char *inp, int *pos, t_env *env_list)
 		from_bracket = 0;
 		if ((inp[*pos] == '\'' || inp[*pos] == '\"') && inp[*pos - 1] != '\\')
 		{
-			if (!(extr = extract_from_brackets(inp, pos, env_list)))
+			if (!(extr = extract_from_brackets(inp, pos, env_list)) || *pos == -1)
 				return (clean_and_free(result, extr));
 			from_bracket = 1;
 		}
@@ -126,14 +127,14 @@ t_node			*lexer(char *inpt, t_env *env_list)
 			i++;
 		if (inpt[i])
 			cmd = extract_word(inpt, &i, env_list);
+		if (i == -1)
+			return (free_on_error(cmd, head));
 		if (cmd)
 			if (new_node(&head, cmd))
 				return (free_on_error(cmd, head));
 		if (check_spec_char("|<>;", inpt[i]))
-		{
 			if (!set_metachar(&head, inpt, &i))
 				return (free_on_error(cmd, head));
-		}
 		free(cmd);
 		cmd = NULL;
 	}

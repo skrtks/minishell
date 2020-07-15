@@ -16,7 +16,8 @@
 
 t_node	*free_on_error(char *cmd, t_node *cmd_list)
 {
-	free(cmd);
+	if (cmd)
+		free(cmd);
 	free_cmdlist(&cmd_list);
 	return (NULL);
 }

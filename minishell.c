@@ -26,11 +26,16 @@ static void		process_input(t_node **cmd_list, char **input, t_lists **list)
 	signal(SIGSTOP, sig_handler);
 	*cmd_list = lexer(*input, (*list)->env_list);
 	if (*cmd_list == NULL)
+	{
+		free(*input);
+		(*input) = NULL;
+		free_cmdlist(cmd_list);
 		return ;
-	if (!check_cmd_list((*cmd_list)))
-		parse((*cmd_list), list);
-	free((*input));
-	(*input) = NULL;
+	}
+	if (!check_cmd_list(*cmd_list))
+		parse(*cmd_list, list);
+	free(*input);
+	*input = NULL;
 	free_cmdlist(cmd_list);
 }
 
