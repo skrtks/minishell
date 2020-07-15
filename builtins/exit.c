@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   exit.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/15 09:42:34 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/15 10:23:57 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static void	invalid_exit(t_node *cmd_lst)
 {
-	err_msg("exit", cmd_lst->next->data,
-				"numeric argument required");
+	err_msg("exit", cmd_lst->next->data, "numeric argument required");
 	g_exitcode = 255;
 }
 
@@ -54,6 +53,5 @@ void		exit_minishell(t_node *cmd, t_env **env, t_env **exp, int code)
 		}
 	}
 	free_lists(cmd, *env, *exp);
-	system("leaks minishell");
 	exit(code);
 }

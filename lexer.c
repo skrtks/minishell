@@ -3,16 +3,16 @@
 /*                                                        ::::::::            */
 /*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 13:03:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/15 10:04:22 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/15 10:25:18 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/utils.h"
 
-static char		*extract_from_brackets(char *input, int *pos, t_env *env_list)
+static char		*extr_from_brackets(char *input, int *pos, t_env *env_list)
 {
 	char	b_type;
 	char	*extr;
@@ -73,7 +73,7 @@ static char		*extract_word(char *inp, int *pos, t_env *env_list)
 		from_bracket = 0;
 		if ((inp[*pos] == '\'' || inp[*pos] == '\"') && inp[*pos - 1] != '\\')
 		{
-			if (!(extr = extract_from_brackets(inp, pos, env_list)) || *pos == -1)
+			if (!(extr = extr_from_brackets(inp, pos, env_list)) || *pos == -1)
 				return (clean_and_free(result, extr));
 			from_bracket = 1;
 		}
