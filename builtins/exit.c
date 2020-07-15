@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/09 15:21:39 by sam           #+#    #+#                 */
-/*   Updated: 2020/07/14 13:49:03 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/15 09:08:37 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ void		exit_minishell(t_node *cmd, t_env **env, t_env **exp, int code)
 		}
 	}
 	free_lists(cmd, *env, *exp);
-	system("leaks minishell"); // Remove before submitting
 	exit(code);
 }

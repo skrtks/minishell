@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_next_line.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/25 09:40:16 by skorteka      #+#    #+#                 */
-/*   Updated: 2020/06/20 16:17:10 by sam           ########   odam.nl         */
+/*   Updated: 2020/07/15 09:06:55 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

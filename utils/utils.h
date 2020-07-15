@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/17 11:40:54 by merelmourik   #+#    #+#                 */
-/*   Updated: 2020/07/14 14:21:24 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/15 09:08:02 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	free_envlist(t_env **head);
 /*
 ** lexer_utils.c
 */
-char *extract_result(char *result, int from_bracket, char cur_c);
+char	*extract_result(char *result, int from_bracket, char cur_c);
 int		populate_node(char *cmd, t_node *node);
 int		set_metachar(t_node **head, char *input, int *pos);
 

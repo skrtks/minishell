@@ -6,7 +6,7 @@
 /*   By: merelmourik <merelmourik@student.42.fr>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 10:37:24 by samkortekaa   #+#    #+#                 */
-/*   Updated: 2020/07/14 14:12:40 by merelmourik   ########   odam.nl         */
+/*   Updated: 2020/07/15 09:07:42 by merelmourik   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	set_info(int command, int type, t_node *node)
 	node->type = type;
 }
 
-char *extract_result(char *result, int from_bracket, char cur_c)
+char		*extract_result(char *result, int from_bracket, char cur_c)
 {
 	if ((!result[0] && !from_bracket) || (cur_c != '\0' &&
 		ft_strchr("|<>;", cur_c)))
