@@ -6,7 +6,7 @@
 #    By: merelmourik <merelmourik@student.42.fr>      +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/05/27 13:25:35 by samkortekaa   #+#    #+#                  #
-#    Updated: 2020/07/14 13:27:27 by merelmourik   ########   odam.nl          #
+#    Updated: 2020/07/15 10:28:51 by merelmourik   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,5 +70,6 @@ fclean: clean
 	@rm -f libft.a
 	@rm -f *.o
 	@rm -f minishell
+	@rm -rf minishell.dSYM
 
 re: fclean all
