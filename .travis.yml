@@ -1,7 +1,3 @@
 language: c
 compiler:
   - clang
-jobs:
-  include:
-    - stage: make
-        script: make
